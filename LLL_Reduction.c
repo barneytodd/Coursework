@@ -27,7 +27,28 @@ void GramSchmidt(int count, int dim, double A[][]) {
   va_end (ap);
 }
   
-    
+
+void update_matrices(int count, int dim, A, B, M) {
+  int i, j, k;
+  for (i=0; i<count; i++) {
+    for (j=0; j<dim; j++) {
+      B[i][j] = A[i][j];  
+    }
+  }
+  GramSchmidt(count, dim, B);
+  for (i=0; i<count; i++) { 
+    for (j=0; j<count; j++) {
+      double inner_product1 = 0.0;
+      double inner_product2 = 0.0;
+      for (k=0; k<dim; k++) {
+        inner_product1 += A[i][k] * B[j][k];
+        inner_product2 += B[j][k] * B[j][k];
+      }
+      M[i][j] = inner_product1/inner_product2; // calculate components of M
+    }
+  }
+}
+
 void LLL(int count, double delta=3/4, int dim, double A[count][dim], double B[count][dim], ...) {
   va_list ap; //initialise list of variables
   int i, j, k, m; //initialise variables i, j, k
@@ -57,15 +78,9 @@ void LLL(int count, double delta=3/4, int dim, double A[count][dim], double B[co
     for (j=k-1, j>0, j--) {
       if (abs(M[k][j]) > 1/2) {
         for (i=0; i<dim; i++) {
-          A[k][i] -= M[k][j] * A[j][i]
+          A[k][i] -= M[k][j] * A[j][i];
         }
-        for (i=0,; i<dim; i++) {
-          for (m=0; m<count; m++) {
-            B[m][i] = A[m][i];  
-          }    
-        }
-        GramSchmidt(count, dim, B);
-        //need to update M
+        update_matrices(count, dim, A, B, M);
       }
     }
     double inner_product1 = 0.0;
@@ -76,6 +91,17 @@ void LLL(int count, double delta=3/4, int dim, double A[count][dim], double B[co
       }
     if (inner_product1 > ((delta - (M[k][k-1]*M[k][k-1])) * inner_product2) {
       k+=1
+    else {
+        double temp[dim];
+        for (i=0; i<dim; i++) {
+          temp[i] = A[k][i];
+          A[k][i] = A[k-1][i];
+          A[k-1][i] = temp[i]
+        }
+        update_matrices(count, dim, A, B, M);
+    }
+        
+      
     }
   }
 }
