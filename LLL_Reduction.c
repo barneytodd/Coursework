@@ -3,7 +3,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-void GramSchmidt(int count, int dim, double A[][]) {
+void GramSchmidt(int count, int dim, double A[][dim]) {
   int i, j, k; //initialise variables i, j, k
   for (i=0; i<count; i++) { //iterate through the variables (vectors)
     for (j=0; j<i; j++) { //iterate through the previous vectors
@@ -24,11 +24,10 @@ void GramSchmidt(int count, int dim, double A[][]) {
     //  A[i][k]/=norm; //normalise the entries in A
     //}
   } 
-  va_end (ap);
 }
   
 
-void update_matrices(int count, int dim, A, B, M) {
+void update_matrices(int count, int dim, A[][dim], B[][dim], M[][dim]) {
   int i, j, k;
   for (i=0; i<count; i++) {
     for (j=0; j<dim; j++) {
@@ -49,7 +48,7 @@ void update_matrices(int count, int dim, A, B, M) {
   }
 }
 
-void LLL(int count, double delta=3/4, int dim, double A[count][dim], double B[count][dim], ...) {
+void LLL(int count, double delta, int dim, double A[][dim], double B[][dim], ...) {
   va_list ap; //initialise list of variables
   int i, j, k, m; //initialise variables i, j, k
   va_start (ap, count); //initialise va_list
@@ -60,7 +59,7 @@ void LLL(int count, double delta=3/4, int dim, double A[count][dim], double B[co
       B[i][k] = vector[k]; // initialise to be the same as A
       } 
   }
-  GramShmidt(count, dim, B); //GramSchmidt B
+  GramSchmidt(count, dim, B); //GramSchmidt B
   double M[count][dim]; // initialise a new matrix M
   for (i=0; i<count; i++) { 
     for (j=0; j<count; j++) {
@@ -75,8 +74,8 @@ void LLL(int count, double delta=3/4, int dim, double A[count][dim], double B[co
   }
   k = 2;
   while (k<=dim) {
-    for (j=k-1, j>0, j--) {
-      if (abs(M[k][j]) > 1/2) {
+    for (j=k-1; j>0; j--) {
+      if (fabs(M[k][j]) > 1/2) {
         for (i=0; i<dim; i++) {
           A[k][i] -= M[k][j] * A[j][i];
         }
@@ -89,31 +88,31 @@ void LLL(int count, double delta=3/4, int dim, double A[count][dim], double B[co
       inner_product1 += B[k][i]*B[k][i];
       inner_product2 += B[k-1][i]*B[k-1][i];
       }
-    if (inner_product1 > ((delta - (M[k][k-1]*M[k][k-1])) * inner_product2) {
-      k+=1
-    else {
+    if (inner_product1 > ((delta - (M[k][k-1]*M[k][k-1])) * inner_product2)) {
+      k+=1;
+        }
+      else {
         double temp[dim];
         for (i=0; i<dim; i++) {
           temp[i] = A[k][i];
           A[k][i] = A[k-1][i];
-          A[k-1][i] = temp[i]
+          A[k-1][i] = temp[i];
         }
-        update_matrices(count, dim, A, B, M);
-    }
-        
-      
-    }
+        update_matrices(count, dim, A, B, M); 
+      }
   }
+  va_end(ap);
 }
   
   
   
 
 int main() {
-  double A[2][3];
-  GramSchmidt(2, 3, A, (int[]){0, 0, 1}, (int[]){0, 2, 0});
+  double A[3][3];
+  double B[3][3];
+  LLL(3, 3, 0.75, A, B, (int[]){1, 1, 1}, (int[]){-1, 0, 2}, (int[]){3, 5, 6});
   printf("Orthonormalized Vectors (A):\n");
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             printf("%.4f\t", A[i][j]);
         }
