@@ -181,7 +181,7 @@ void LLL(int count, double delta, int dim, double A[][dim], double B[][dim], ...
             }
             printf("\n");
         }
-        k = fmax(k-1, 2); //remove when it works
+        k = fmax(k-1, 0); //remove when it works
       }
   }
   va_end(ap);
