@@ -181,7 +181,7 @@ void LLL(int count, double delta, int dim, double A[][dim], double B[][dim], ...
             }
             printf("\n");
         }
-        //k+=1; //remove when it works
+        k=0; //remove when it works
       }
   }
   va_end(ap);
