@@ -28,7 +28,7 @@ void GramSchmidt(int count, int dim, double A[][dim]) {
 }
   
 
-void update_matrices(int count, int dim, A[][dim], B[][dim], M[][dim]) {
+void update_matrices(int count, int dim, A[][dim], B[][dim], M[][count]) {
   int i, j, k;
   for (i=0; i<count; i++) {
     for (j=0; j<dim; j++) {
