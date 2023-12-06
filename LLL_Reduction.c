@@ -66,17 +66,30 @@ void LLL(int count, double delta, int dim, double A[][dim], double B[][dim], ...
   printf("A, B after initialisation:\n");
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            printf("%.4f\t", A[i][j]);
+            printf("A: %.4f\t", A[i][j]);
         }
         printf("\n");
     }
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            printf("%.4f\t", B[i][j]);
+            printf("B: %.4f\t", B[i][j]);
         }
         printf("\n");
     }
   GramSchmidt(count, dim, B); //GramSchmidt B
+  printf("A, B after GramSchmidt:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("A: %.4f\t", A[i][j]);
+        }
+        printf("\n");
+    }
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("B: %.4f\t", B[i][j]);
+        }
+        printf("\n");
+    }
   double M[count][count]; // initialise a new matrix M
   for (i=0; i<count; i++) { 
     for (j=0; j<count; j++) {
@@ -89,6 +102,13 @@ void LLL(int count, double delta, int dim, double A[][dim], double B[][dim], ...
       M[i][j] = inner_product1/inner_product2; // calculate components of M
     }
   }
+  printf("M after initialisation:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%.4f\t", M[i][j]);
+        }
+        printf("\n");
+    }
   k = 2;
   while (k<=dim) {
     for (j=k-1; j>0; j--) {
@@ -98,6 +118,25 @@ void LLL(int count, double delta, int dim, double A[][dim], double B[][dim], ...
         }
         update_matrices(count, dim, A, B, M);
       }
+    }
+    printf("A, B, M after updating:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("A: %.4f\t", A[i][j]);
+        }
+        printf("\n");
+    }
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("B: %.4f\t", B[i][j]);
+        }
+        printf("\n");
+    }
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("M: %.4f\t", M[i][j]);
+        }
+        printf("\n");
     }
     double inner_product1 = 0.0;
     double inner_product2 = 0.0;
@@ -118,6 +157,25 @@ void LLL(int count, double delta, int dim, double A[][dim], double B[][dim], ...
           A[i][k-1] = temp[i];
         }
         update_matrices(count, dim, A, B, M); 
+        printf("A, B, M after updating again:\n");
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                printf("A: %.4f\t", A[i][j]);
+            }
+            printf("\n");
+        }
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                printf("B: %.4f\t", B[i][j]);
+            }
+            printf("\n");
+        }
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                printf("M: %.4f\t", M[i][j]);
+            }
+            printf("\n");
+        }
       }
   }
   va_end(ap);
