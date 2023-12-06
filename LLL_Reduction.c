@@ -6,16 +6,22 @@
 
 void GramSchmidt(int count, int dim, double A[][count]) {
   int i, j, k; //initialise variables i, j, k
-  double B[dim][count]
+  double B[dim][count];
   for (i=0; i<count; i++) { //iterate through the variables (vectors)
+    for (k=0; k<dim; k++) {
+      B[k][i] = A[k][i];
+    }
     for (j=0; j<i; j++) { //iterate through the previous vectors
       double inner_product = 0.0; //initalise the dot product count
       for (k=0; k<dim; k++) {  //iterate through the entries in the vector to calculate the dot product
         inner_product += A[k][j] * A[k][i]; //calculate the dot product
       } 
       for (k=0; k<dim; k++) {
-        A[k][i] -= inner_product*A[k][j]; //subtract the dot_product times the jth normalised vector 
+        B[k][i] -= inner_product*A[k][j]; //subtract the dot_product times the jth normalised vector 
       }
+    }
+    for (k=0; k<dim; k++) {
+      A[k][i] = B[k][i];
     }
     //double norm = 0.0; //initialise the norm
     //for (j=0; j<dim; j++) {
