@@ -55,7 +55,6 @@ void LLL(int count, double delta, int dim, double A[][dim], double B[][dim], ...
   va_start (ap, B); //initialise va_list
   for (i=0; i<count; i++) { //iterate through the variables (vectors)
     printf("i: %d\n", i);
-    printf("dim: %.4f\n", dim);
     int *vector = va_arg (ap, int*); //store the vector in the variable vector
     for (k=0; k<dim; k++) { 
       printf("k: %d\n", k);
