@@ -58,7 +58,7 @@ void LLL(int count, double delta, int dim, double A[][dim], double B[][dim], ...
     for (k=0; k<dim; k++) { 
       A[i][k] = vector[k]; // initialise row i of A
       B[i][k] = vector[k]; // initialise to be the same as A
-      printf("%.4f\t", vector[k]);
+      printf("%d\t", vector[k]);
       } 
   }
   printf("A, B after initialisation:\n");
