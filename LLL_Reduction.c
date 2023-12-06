@@ -60,6 +60,18 @@ void LLL(int count, double delta, int dim, double A[][dim], double B[][dim], ...
       B[i][k] = vector[k]; // initialise to be the same as A
       } 
   }
+  printf("A, B after initialisation:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%.4f\t", A[i][j]);
+        }
+        printf("\n");
+    }
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("%.4f\t", B[i][j]);
+        }
+        printf("\n");
   GramSchmidt(count, dim, B); //GramSchmidt B
   double M[count][count]; // initialise a new matrix M
   for (i=0; i<count; i++) { 
