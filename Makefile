@@ -1,8 +1,8 @@
 all: LLL_Reduction.o main.c
-      gcc -o runme main.c LLL_Reduction.o
+	gcc -o runme main.c LLL_Reduction.o
 
 LLL_Reduction.o: LLL_Reduction.c LLL_Reduction.h
-      gcc -c LLL_Reduction.c
+	gcc -c LLL_Reduction.c
 
 clean: 
-      rm -rf runme LLL_Reduction.o
+	rm -rf runme LLL_Reduction.o
