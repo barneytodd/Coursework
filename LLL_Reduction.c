@@ -60,13 +60,10 @@ void LLL(int count, double delta, int dim, double A[][dim], double B[][dim], ...
   int i, j, k, m; //initialise variables i, j, k
   va_start (ap, B); //initialise va_list
   for (i=0; i<count; i++) { //iterate through the variables (vectors)
-    printf("i: %d\n", i);
     int *vector = va_arg (ap, int*); //store the vector in the variable vector
     for (k=0; k<dim; k++) { 
-      printf("k: %d\n", k);
       A[k][i] = vector[k]; // initialise row i of A
       B[k][i] = vector[k]; // initialise to be the same as A
-      printf("Vector Entries: %d\t", vector[k]);
       } 
   }
   printf("A, B after initialisation:\n");
