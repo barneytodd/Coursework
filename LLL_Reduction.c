@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include "LLL_Reduction.h"
 
 void GramSchmidt(int count, int dim, double A[][dim]) {
   int i, j, k; //initialise variables i, j, k
