@@ -120,7 +120,7 @@ void LLL(int count, double delta, int dim, double A[][dim], double B[][dim], ...
   while (k<=dim) {
     for (j=k-1; j>0; j--) {
       if (fabs(M[k][j]) > 1/2) {
-        int Mint = round(M[k][j])
+        int Mint = round(M[k][j]);
         for (i=0; i<dim; i++) {
           A[i][k] -= Mint * A[i][j];
         }
