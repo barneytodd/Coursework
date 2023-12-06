@@ -52,7 +52,7 @@ void update_matrices(int count, int dim, double A[][dim], double B[][dim], doubl
 void LLL(int count, double delta, int dim, double A[][dim], double B[][dim], ...) {
   va_list ap; //initialise list of variables
   int i, j, k, m; //initialise variables i, j, k
-  va_start (ap, count); //initialise va_list
+  va_start (ap, B); //initialise va_list
   for (i=0; i<count; i++) { //iterate through the variables (vectors)
     int *vector = va_arg (ap, int*); //store the vector in the variable vector
     for (k=0; k<dim; k++) { 
