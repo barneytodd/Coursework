@@ -150,6 +150,7 @@ void LLL(int count, double delta, int dim, double A[][dim], double B[][dim], ...
     double inner_product2 = 0.0;
     for (i=0; i<dim; i++) {
       inner_product1 += B[i][k]*B[i][k];
+      printf("B[i][k]: %.4f, i: %d, k: %d", B[i][k], i, k);
       inner_product2 += B[i][k-1]*B[i][k-1];
       }
     printf("Inner product 1: %.4f\n", inner_product1);
