@@ -4,8 +4,9 @@
 #include <stdlib.h>
 #include "LLL_Reduction.h"
 
-void GramSchmidt(int count, int dim, double A[][dim]) {
+void GramSchmidt(int count, int dim, double A[][count]) {
   int i, j, k; //initialise variables i, j, k
+  double B[dim][count]
   for (i=0; i<count; i++) { //iterate through the variables (vectors)
     for (j=0; j<i; j++) { //iterate through the previous vectors
       double inner_product = 0.0; //initalise the dot product count
@@ -28,7 +29,7 @@ void GramSchmidt(int count, int dim, double A[][dim]) {
 }
   
 
-void update_matrices(int count, int dim, double A[][dim], double B[][dim], double M[][count]) {
+void update_matrices(int count, int dim, double A[][count], double B[][count], double M[][count]) {
   int i, j, k;
   for (i=0; i<count; i++) {
     for (j=0; j<dim; j++) {
