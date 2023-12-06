@@ -116,7 +116,7 @@ void LLL(int count, double delta, int dim, double A[][dim], double B[][dim], ...
         }
         printf("\n");
     }
-  k = 2;
+  k = 1;
   while (k<=dim) {
     for (j=k-1; j>0; j--) {
       if (fabs(M[k][j]) > 1/2) {
