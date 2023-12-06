@@ -6,3 +6,5 @@ LLL_Reduction.o: LLL_Reduction.c LLL_Reduction.h
 
 clean: 
 	rm -rf runme LLL_Reduction.o
+
+#need a test option
