@@ -61,7 +61,7 @@ void LLL(int count, double delta, int dim, double A[][dim], double B[][dim], ...
       } 
   }
   GramSchmidt(count, dim, B); //GramSchmidt B
-  double M[count][dim]; // initialise a new matrix M
+  double M[count][count]; // initialise a new matrix M
   for (i=0; i<count; i++) { 
     for (j=0; j<count; j++) {
       double inner_product1 = 0.0;
