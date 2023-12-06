@@ -105,6 +105,8 @@ void LLL(int count, double delta, int dim, double A[][dim], double B[][dim], ...
       inner_product1 += B[i][k]*B[i][k];
       inner_product2 += B[i][k-1]*B[i][k-1];
       }
+    printf("Inner product 1: %.4f\n", inner_product1)
+    printf("Compare to: %.4f\n", ((delta - (M[k][k-1]*M[k][k-1])) * inner_product2))
     if (inner_product1 > ((delta - (M[k][k-1]*M[k][k-1])) * inner_product2)) {
       k+=1;
         }
