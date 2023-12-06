@@ -15,10 +15,10 @@ void GramSchmidt(int count, int dim, double A[][count]) {
       double inner_product1 = 0.0; //initalise the dot product count
       double inner_product2 = 0.0;
       for (k=0; k<dim; k++) {  //iterate through the entries in the vector to calculate the dot product
-        inner_product += A[k][j] * C[k][i]; //calculate the dot product
+        inner_product1 += A[k][j] * C[k][i]; //calculate the dot product
       } 
       for (k=0; k<dim; k++) {
-        A[k][i] -= inner_product*A[k][j]; //subtract the dot_product times the jth normalised vector 
+        A[k][i] -= inner_product1*A[k][j]; //subtract the dot_product times the jth normalised vector 
       }
     }
     //double norm = 0.0; //initialise the norm
