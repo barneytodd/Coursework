@@ -1,4 +1,5 @@
 #include "LLL_Reduction.h"
+#include <stdio.h>
 
 int main() {
   double A[3][3];
