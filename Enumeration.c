@@ -21,8 +21,8 @@ double ShortestVector(int dim, double (*A)[dim]) { //A is  amtrix of row vectors
   double i_length;
   double j_length;
   double temp_length;
-  bool sum_bool = True;
-  double shortest_length = VectorNorm(A[0]);
+  bool sum_bool = True; //boolean to determine if anything has changed during the current loop in while
+  double shortest_length = VectorNorm(A[0]); //running track of shortest vector
   while (sum_bool) {
     sum_bool = False;
     for (i=0; i<dim; i++) {
@@ -67,5 +67,6 @@ double ShortestVector(int dim, double (*A)[dim]) { //A is  amtrix of row vectors
       }
     }
   }
+  return shortest_length
 }
   
