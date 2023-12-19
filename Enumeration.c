@@ -18,41 +18,49 @@ double ShortestVector(int dim, double (*A)[dim]) { //A is  amtrix of row vectors
     boolarray_curr[i] = False;
   }
   double temp_vector[dim];
-  double i_length
-  double j_length
-  double temp_length
-  for (i=0; i<dim; i++) {
-    for (j=i; j<dim; j++) {
-      if (i!=j && boolarray_prev[j]) {
-        i_length = VectorNorm(dim, A[i]);
-        j_lenght = VectorNorm(dim, A[j]);
-        for (k=0; k<dim; k++) {
-          temp_vector[k] = A[i][k] + A[j][k];
-          temp_length = VectorNorm(dim, temp_vector); 
-          if (temp_length < i_length) {
-            memcpy(A[i], temp_vector, dim*sizeof(double));
-            boolarray_prev[i] = boolarray_curr[i] = True;
-          }
-          else if (temp_length < j_length) {
-            memcpy(A[j], temp_vector, dim*sizeof(double));
-            boolarray_prev[j] = boolarray_curr[j] = True;
-          }
-          else {
-            temp_vector[k] = A[i][k] - A[j][k];
+  double i_length;
+  double j_length;
+  double temp_length;
+  bool sum_bool = True;
+  while (sum_bool) {
+    for (i=0; i<dim; i++) {
+      for (j=i; j<dim; j++) {
+        if (i!=j && boolarray_prev[j]) {
+          i_length = VectorNorm(dim, A[i]);
+          j_lenght = VectorNorm(dim, A[j]);
+          for (k=0; k<dim; k++) {
+            temp_vector[k] = A[i][k] + A[j][k];
             temp_length = VectorNorm(dim, temp_vector); 
             if (temp_length < i_length) {
-            memcpy(A[i], temp_vector, dim*sizeof(double));
-            boolarray_prev[i] = boolarray_curr[i] = True;
-          }
-          else if (temp_length < j_length) {
-            memcpy(A[j], temp_vector, dim*sizeof(double));
-            boolarray_prev[j] = boolarray_curr[j] = True;
-          }
+              memcpy(A[i], temp_vector, dim*sizeof(double));
+              boolarray_prev[i] = boolarray_curr[i] = True;
+            }
+            else if (temp_length < j_length) {
+              memcpy(A[j], temp_vector, dim*sizeof(double));
+              boolarray_prev[j] = boolarray_curr[j] = True;
+            }
+            else {
+              temp_vector[k] = A[i][k] - A[j][k];
+              temp_length = VectorNorm(dim, temp_vector); 
+              if (temp_length < i_length) {
+              memcpy(A[i], temp_vector, dim*sizeof(double));
+              boolarray_prev[i] = boolarray_curr[i] = True;
+            }
+            else if (temp_length < j_length) {
+              memcpy(A[j], temp_vector, dim*sizeof(double));
+              boolarray_prev[j] = boolarray_curr[j] = True;
+            }
+            }
           }
         }
       }
     }
+    memcpy(boolarray_prev, boolarray_curr, dim*sizeof(bool));
+    for (i=0; i<dim; i++) {
+      if (boolarray_curr) {
+        sum_bool = True;
+      }
+    }
   }
-  memcpy(boolarray_prev, boolarray_curr, dim*sizeof(bool));
 }
   
