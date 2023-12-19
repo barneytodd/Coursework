@@ -22,11 +22,16 @@ double ShortestVector(int dim, double (*A)[dim]) { //A is  amtrix of row vectors
   double j_length;
   double temp_length;
   bool sum_bool = True;
+  double shortest_length = VectorNorm(A[0]);
   while (sum_bool) {
+    sum_bool = False;
     for (i=0; i<dim; i++) {
       for (j=i; j<dim; j++) {
         if (i!=j && boolarray_prev[j]) {
           i_length = VectorNorm(dim, A[i]);
+          if (i_length < shortest_length) {
+            shortest_length = i_length;
+          }
           j_lenght = VectorNorm(dim, A[j]);
           for (k=0; k<dim; k++) {
             temp_vector[k] = A[i][k] + A[j][k];
