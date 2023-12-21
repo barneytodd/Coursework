@@ -9,8 +9,8 @@ all: LLL_Reduction.o main.c
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(FLAGS)
 
-//LLL_Reduction.o: LLL_Reduction.c LLL_Reduction.h
-//	gcc -c LLL_Reduction.c
+#LLL_Reduction.o: LLL_Reduction.c LLL_Reduction.h
+#	gcc -c LLL_Reduction.c
 
 test: 
 
