@@ -1,3 +1,6 @@
+//create current_vec with actual value of current_vec
+//edit DotProduct to accomodate this, and to only include valid vectors from possible_bool_check
+
 #include <string.h>
 
 double InnerProduct(int dim, int *arr1, int *arr2) {
