@@ -14,7 +14,15 @@ bool EndCheck(int dim, int current_vec[dim], double (*A)[dim]) {
   //if all possible next vectors have dot product > 90 degrees, end
   //no repeats of what we've just tried
   //possibly have a dot product lookup_table
-  bool possible_vec_check = 
+  bool possible_vec_check[dim][2];
+  for (i=0, i<dim, i++) {
+    if (current_vec[i] > 0) {
+      possible_vec_check[i][0] = 1;
+    else if (current_vec[i] < 0) {
+      possible_vec_check[i][1] = 1;
+    }
+    }
+  }
 }
 
 double ShortestVector(int dim, double (*A)[dim]) { //A is  amtrix of row vectors stacked
