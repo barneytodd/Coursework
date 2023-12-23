@@ -9,7 +9,7 @@ double InnerProduct(int dim, int *arr1, int *arr2) {
   return sqrt(sum1);
 }
 
-int EndCheck(int dim, int current_vec[dim], int last_vec, double (*A)[dim]) {
+bool DotProductCheck(int dim, int current_vec[dim], bool possible_vec_check[dim][2], double (*A)[dim]) {
   //no minuses of ones already there
   //if all possible next vectors have dot product > 90 degrees, end
   //no repeats of what we've just tried
@@ -17,35 +17,34 @@ int EndCheck(int dim, int current_vec[dim], int last_vec, double (*A)[dim]) {
 
   int i, j;
   double sum1;
-  double norm;
+  double norm = InnerProduct(dim, current_vec, current_vec);;
   //check dot products
-  bool dp_check = False
   for (i=0; i<dim; i++) {
     sum1 = 0;
-    norm = InnerProduct(dim, A[i], A[i]);
+    norm *= InnerProduct(dim, A[i], A[i]);
     for (j=0; j<dim; j++) {
       sum1 += InnerProduct(dim, A[i], current_vec[j]*A[j]);
-      norm *= InnerProduct(dim, A[j], A[j]);
     }
     sum1 /= norm;
     if (sum1 > 0) {
-      dp_check = True;
-      break
+      return True;
     }
   }
-  if (dp_check == False) {
-    return -1
-  }
-  
+  return False;
+}
+
+double ShortestVector(int dim, double (*A)[dim]) { //A is  amtrix of row vectors stacked
+  //create an int array to keep track of current vector
+  //define end points
+  //do an initial branch
+  //enumerate out to in
+  //keep track of shortest vector
+  int current_vec[dim];
+  int last_vec;
+
+  //check possible vecs using rule 1
   bool possible_vec_check[dim][2];
   for (i=0; i<dim; i++) {
-    //don't repeat last step
-    if (i == last_vec) {
-      possible_vec_check[i][0] = False;
-      possible_vec_check[i][1] = False;
-      continue
-    }
-
     //initialise bool array to True
     possible_vec_check[i][0] = True;
     possible_vec_check[i][1] = True;
@@ -56,20 +55,8 @@ int EndCheck(int dim, int current_vec[dim], int last_vec, double (*A)[dim]) {
     }
     else if (current_vec[i] < 0) {
       possible_vec_check[i][1] = False;
-    }
-
-    
+    } 
   }
   
-  
-}
-
-double ShortestVector(int dim, double (*A)[dim]) { //A is  amtrix of row vectors stacked
-  //create an int array to keep track of current vector
-  //define end points
-  //do an initial branch
-  //enumerate out to in
-  //keep track of shortest vector
-  int current_vec[dim];
   
 }
