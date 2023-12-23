@@ -17,11 +17,12 @@ bool DotProductCheck(int dim, int current_vec_constits[dim], double current_vec[
   //no repeats of what we've just tried
   //possibly have a dot product lookup_table
 
-  int i, j;
+  int i, j, k;
   double sum1;
   double norm = InnerProduct(dim, current_vec, current_vec);;
   //check dot products
   for (i=0; i<dim; i++) {
+    //for (k=0, k<2, k++)
     sum1 = 0;
     norm *= InnerProduct(dim, A[i], A[i]);
     for (j=0; j<dim; j++) {
