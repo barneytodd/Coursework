@@ -1,5 +1,4 @@
-//create current_vec with actual value of current_vec
-//edit DotProduct to accomodate this, and to only include valid vectors from possible_bool_check
+//edit DotProduct to  only include valid vectors from possible_bool_check
 
 #include <string.h>
 
@@ -12,7 +11,7 @@ double InnerProduct(int dim, int *arr1, int *arr2) {
   return sqrt(sum1);
 }
 
-bool DotProductCheck(int dim, int current_vec[dim], bool possible_vec_check[dim][2], double (*A)[dim]) {
+bool DotProductCheck(int dim, int current_vec_constits[dim], double current_vec[dim], bool possible_vec_check[dim][2], double (*A)[dim]) {
   //no minuses of ones already there
   //if all possible next vectors have dot product > 90 degrees, end
   //no repeats of what we've just tried
@@ -26,7 +25,9 @@ bool DotProductCheck(int dim, int current_vec[dim], bool possible_vec_check[dim]
     sum1 = 0;
     norm *= InnerProduct(dim, A[i], A[i]);
     for (j=0; j<dim; j++) {
-      sum1 += InnerProduct(dim, A[i], current_vec[j]*A[j]);
+      //if (possible_vec_check[j][0]) {
+      sum1 += InnerProduct(dim, A[i], current_vec_constits[j]*A[j]);
+      //}
     }
     sum1 /= norm;
     if (sum1 > 0) {
@@ -42,7 +43,8 @@ double ShortestVector(int dim, double (*A)[dim]) { //A is  amtrix of row vectors
   //do an initial branch
   //enumerate out to in
   //keep track of shortest vector
-  int current_vec[dim];
+  int current_vec_constits[dim]; //array of the constituant vectors that make up current_vec
+  double current_vec[dim] //actual current vec
   int last_vec;
 
   //check possible vecs using rule 1
@@ -53,10 +55,10 @@ double ShortestVector(int dim, double (*A)[dim]) { //A is  amtrix of row vectors
     possible_vec_check[i][1] = True;
 
     //no minuses of ones alredy there
-    if (current_vec[i] > 0) {
+    if (current_vec_constits[i] > 0) {
       possible_vec_check[i][0] = False;
     }
-    else if (current_vec[i] < 0) {
+    else if (current_vec_constits[i] < 0) {
       possible_vec_check[i][1] = False;
     } 
   }
