@@ -45,24 +45,80 @@ double ShortestVector(int dim, double (*A)[dim]) { //A is  amtrix of row vectors
   //enumerate out to in
   //keep track of shortest vector
   int current_vec_constits[dim]; //array of the constituant vectors that make up current_vec
-  double current_vec[dim] //actual current vec
-  int last_vec;
+  memset(current_vec_constits, 0, dim*sizeof(int)); //initialise to all 0s
+  current_vec_constits[0] = 1; //start with the first vector
+  double current_vec[dim]; //actual current vec
+  memcpy(current_vec, A[0], dim*sizeof(double));
 
   //check possible vecs using rule 1
-  bool possible_vec_check[dim][2];
+  bool possible_vec_check[dim][2]; //e.g. possible_vec_check[0][0] = True means the positive first vector is allowed
   for (i=0; i<dim; i++) {
     //initialise bool array to True
     possible_vec_check[i][0] = True;
     possible_vec_check[i][1] = True;
 
+  possible_vec_check[0][0] = False
+
     //no minuses of ones alredy there
-    if (current_vec_constits[i] > 0) {
-      possible_vec_check[i][0] = False;
-    }
-    else if (current_vec_constits[i] < 0) {
-      possible_vec_check[i][1] = False;
-    } 
+  //  if (current_vec_constits[i] > 0) {
+    //  possible_vec_check[i][0] = False;
+    //}
+    //else if (current_vec_constits[i] < 0) {
+     // possible_vec_check[i][1] = False;
+    //} 
   }
+
+  bool failed_vectors[dim];
+	bool end_branch;
+	int starting_vector = 0;
+	bool end_branch = False;
+		while (!end_branch) {
+			while (DotProductCheck(dim, current_vec_constits, current_vec, possible_vec_check, A)) {
+				for (i=starting_vector; i<dim; i++) {
+					if (possible_vectors[i][1]) && (!failed_vectors[i]) {
+						current_vector += A[i];
+						current_vector_constit[i] += 1;
+						possible_vectors[i][0] = False;
+						break;
+					}
+					if (possible_vectors[i][0]) && (!failed_vectors[i]) {
+						current_vector -= A[i];
+						current_vector_constit[i] -= 1;
+						possible_vectors[i][1] = False;
+						break;
+					}
+					
+				}
+			}
+			for (i=0; i<dim; i++) {
+				failed_vectors[i] = False;
+			}
+			for (i=dim-1; i>=0; i--) {
+				if (i==starting_vector) {
+					end_branch = True;
+					starting_vector += 1;
+					break;
+				}
+				if (current_vector_constits[i] < 0) {
+					current_vector += A[i] //maybe need to iterate;
+					current_vector_constits[i] += 1;
+					failed_vectors[i] = True;
+					break;
+				}
+				else if (current_vector_constits[i] > 0) {
+					current_vector -= A[i] //maybe need to iterate;
+					current_vector_constits[i] -= 1;
+					failed_vectors[i] = True;
+					break;
+				}
+				
+			}
+		
+		}
+		current_vector = A[]
+		for (i=0, i<dim, i++) {
+			
+		}	 
   
   
 }
