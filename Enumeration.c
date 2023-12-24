@@ -5,7 +5,7 @@
 double InnerProduct(int dim, int *arr1, int *arr2) {
   double sum1;
   int i;
-  for (i=0, i<dim, i++) {
+  for (i=0; i<dim; i++) {
     sum1 += arr1[i]*arr2[i];
   }
   return sqrt(sum1);
@@ -17,23 +17,34 @@ bool DotProductCheck(int dim, int current_vec_constits[dim], double current_vec[
   //no repeats of what we've just tried
   //possibly have a dot product lookup_table
 
+  //iterate through the possible vectors
+  //compute dot product with current vector
+  //divide by norm(current vector)*norm(possible vector) to get cos(theta)
+  //if cos(theta) > 0 return true
+  //if cos(theta) < 0 for all possible vectors return False
   int i, j, k;
   double sum1;
-  double norm = InnerProduct(dim, current_vec, current_vec);;
+  double norm 
   //check dot products
-  for (i=0; i<dim; i++) {
-    //for (k=0, k<2, k++)
-    sum1 = 0;
-    norm *= InnerProduct(dim, A[i], A[i]);
-    for (j=0; j<dim; j++) {
-      //if (possible_vec_check[j][0]) {
-      sum1 += InnerProduct(dim, A[i], current_vec_constits[j]*A[j]);
-      //}
-    }
-    sum1 /= norm;
-    if (sum1 > 0) {
-      return True;
-    }
+  for (i=0; i<dim; i++) { //iterate through all vectors
+		for (k=0; k<2; k++) { //check + and -
+	    if (possible_vec_check[i][k]) {
+				sum1 = 0;
+	    	norm = InnerProduct(dim, curren_vector, current_vector) * InnerProduct(dim, A[i], A[i]);
+				for (j=0; j<dim; j++) {
+					if (k==0) {
+						sum1 -= InnerProduct(dim, A[i], current_vec_constits[j]*A[j]);
+					}
+					else {
+						sum1 += InnerProduct(dim, A[i], current_vec_constits[j]*A[j]);
+					}
+	      }
+				sum1 /= norm;
+		    if (sum1 > 0) {
+		      return True;
+		    }
+	    }
+		}
   }
   return False;
 }
