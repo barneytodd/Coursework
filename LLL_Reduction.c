@@ -44,7 +44,7 @@ void update_matrices(int dim, int start, double (*A)[dim], double B[][dim]) {
   printf("updating before GS:\n");
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            printf("A: %.4f\t", A[i][j]);
+            printf("B: %.4f\t", B[i][j]);
         }
         printf("\n");
     }
@@ -52,7 +52,7 @@ void update_matrices(int dim, int start, double (*A)[dim], double B[][dim]) {
   printf("updating after GS:\n");
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            printf("A: %.4f\t", A[i][j]);
+            printf("B: %.4f\t", B[i][j]);
         }
         printf("\n");
     }
