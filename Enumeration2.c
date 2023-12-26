@@ -59,16 +59,16 @@ double ShortestVector(int dim, double (*A)[dim]) { //A is  amtrix of row vectors
   memset(current_vec_constits, 0, dim*sizeof(int)); //initialise to all 0s
   current_vec_constits[0] = 1; //start with the first vector
   double current_vec[dim]; //actual current vec
-  memcpy(current_vec, A[0], dim*sizeof(double));
+  memcpy(current_vec, A[0], dim*sizeof(double)); //start with first vector
 
-  //check possible vecs using rule 1
+  //initialise possible vectors to all True
   bool possible_vec_check[dim][2]; //e.g. possible_vec_check[0][0] = True means the positive first vector is allowed
   for (i=0; i<dim; i++) {
     //initialise bool array to True
     possible_vec_check[i][0] = True;
     possible_vec_check[i][1] = True;
 
-  possible_vec_check[0][0] = False
+  possible_vec_check[0][0] = False; //set the negative first vector to be False by rule 1
 
     //no minuses of ones alredy there
   //  if (current_vec_constits[i] > 0) {
@@ -79,12 +79,13 @@ double ShortestVector(int dim, double (*A)[dim]) { //A is  amtrix of row vectors
     //} 
   }
 
-  bool failed_vectors[dim];
-	bool end_branch;
-	int starting_vector = 0;
-	bool end_branch = False;
-		while (!end_branch) {
-			while (DotProductCheck(dim, current_vec_constits, current_vec, possible_vec_check, A)) {
+  bool failed_vectors[dim]; //vectors we've already tried on current branch
+	int starting_vector = 0; //determines which vector we're starting the branch with, no vectors with smaller index than starting vector are considered in the branch
+	bool end_branch = False; //marker to determine when all possible combinations using the current starting vector have been tried
+
+	while (starting_vector < dim-1) { //iterate through all possible starting vectors, last one doesn't need to be considered
+		while (!end_branch) { //compute new vectors until we get to a branch end
+			while (DotProductCheck(dim, current_vec_constits, current_vec, possible_vec_check, A)) { //build the 
 				for (i=starting_vector; i<dim; i++) {
 					if (possible_vectors[i][1]) && (!failed_vectors[i]) {
 						current_vector += A[i];
@@ -130,6 +131,6 @@ double ShortestVector(int dim, double (*A)[dim]) { //A is  amtrix of row vectors
 		for (i=0, i<dim, i++) {
 			
 		}	 
-  
+	}
   
 }
