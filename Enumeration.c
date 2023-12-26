@@ -40,7 +40,9 @@ double ShortestVector(int dim, double (*A)[dim]) {
 	}
 	int x[dim];
 	double l[dim];
-
+	for (j=0; j<dim; j++) {
+		x[j] = l[j] = 0;
+	}
 	double sum2;
 	double sum3;
 	i=0;
