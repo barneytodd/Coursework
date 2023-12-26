@@ -61,21 +61,21 @@ void update_matrices(int dim, int start, double (*A)[dim], double B[][dim]) {
       B[i][j] = A[i][j];  
     }
   }
-  printf("updating before GS:\n");
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            printf("B: %.4f\t", B[i][j]);
-        }
-        printf("\n");
-    }
+  //printf("updating before GS:\n");
+    //for (int i = 0; i < 3; i++) {
+      //  for (int j = 0; j < 3; j++) {
+        //    printf("B: %.4f\t", B[i][j]);
+        //}
+        //printf("\n");
+    //}
   GramSchmidt(dim, start, B);
-  printf("updating after GS:\n");
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            printf("B: %.4f\t", B[i][j]);
-        }
-        printf("\n");
-    }
+  //printf("updating after GS:\n");
+    //for (int i = 0; i < 3; i++) {
+      //  for (int j = 0; j < 3; j++) {
+        //    printf("B: %.4f\t", B[i][j]);
+        //}
+        //printf("\n");
+    //}
   //for (i=0; i<count; i++) { 
   //  for (j=0; j<count; j++) {
   //    double inner_product1 = 0.0;
@@ -157,6 +157,8 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
   while (k<dim) {
     for (j=k-1; j>=0; j--) {
       mu_kj = InnerProduct(dim, A[k], B[j])/InnerProduct(dim, B[j], B[j]); 
+      printf("k: %d\n", k);
+      printf("j: %d\n", j);
       printf("mu_kj: %.4f\n", mu_kj);
       if (fabs(mu_kj) > 1/2) {
         //int Mint = round(M[k][j]);
