@@ -197,7 +197,7 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
     //mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
     printf("compare1: %.4f\n", InnerProduct(dim, B[k], B[k]));
     printf("compare2: %.4f\n", ((delta - (mu_k_kminus1*mu_k_kminus1)) * InnerProduct(dim, B[k-1], B[k-1])));
-    printf("k: %.4f\n", k);
+    printf("k: %d\n", k);
     if (InnerProduct(dim, B[k], B[k]) > ((delta - (mu_k_kminus1*mu_k_kminus1)) * InnerProduct(dim, B[k-1], B[k-1]))) {
       k+=1;
       mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
