@@ -35,13 +35,13 @@ void GramSchmidt(int dim, int start, double (*A)[dim]) {
   
 
 void update_matrices(int dim, int start, double (*A)[dim], double B[][dim]) {
-  int i, j, k;
-  for (i=0; i<count; i++) {
+  int i, j;
+  for (i=0; i<dim; i++) {
     for (j=0; j<dim; j++) {
       B[j][i] = A[j][i];  
     }
   }
-  GramSchmidt(count, dim, B);
+  GramSchmidt(count, start, dim, B);
   //for (i=0; i<count; i++) { 
   //  for (j=0; j<count; j++) {
   //    double inner_product1 = 0.0;
@@ -64,7 +64,7 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
   double *vector[dim];
   va_start (ap, A); //initialise va_list
   for (i=0; i<dim; i++) { //iterate through the variables (vectors)
-    vector = va_arg (ap, *double); //store the vector in the variable vector
+    vector = va_arg (ap, double*); //store the vector in the variable vector
     for (k=0; k<dim; k++) { 
       A[i][k] = vector[k]; // initialise row i of A
       B[i][k] = vector[k]; // initialise to be the same as A
@@ -165,9 +165,9 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
         }
       else {
         for (i=0; i<dim; i++) {
-          A[k][i] ^= A[k-1][i];
-          A[k-1][i] ^= A[k][i];
-          A[k][i] ^= A[k-1][i];
+          A[k][i] += A[k-1][i];
+          A[k-1][i] = A[k][i] - A[k-1][i];
+          A[k][i] -= A[k-1][i];
         }
         update_matrices(dim, k, A, B); 
         //printf("A, B, M after updating again:\n");
