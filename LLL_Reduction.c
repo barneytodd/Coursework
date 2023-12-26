@@ -13,7 +13,7 @@ double InnerProduct(int dim, double *arr1, double *arr2) {
   return sqrt(sum1);
 }
 
-void GramSchmidt(int dim, int start, double (*A)[dim]) {
+void GramSchmidt(int dim, int start, double B[][dim]) {
   int i, j, k; //initialise variables i, j, k
   double mu_ij;
   double vec1[dim];
@@ -22,13 +22,13 @@ void GramSchmidt(int dim, int start, double (*A)[dim]) {
   }
   for (i=start; i<dim; i++) { //iterate through the variables (vectors)
     for (j=0; j<i; j++) { //iterate through the previous vectors
-      mu_ij = InnerProduct(dim, A[i], A[j])/InnerProduct(dim, A[j], A[j]); 
+      mu_ij = InnerProduct(dim, B[i], B[j])/InnerProduct(dim, B[j], B[j]); 
       for (k=0; k<dim; k++) {
-        vec1[k] += mu_ij * A[j][k]; //subtract the dot_product times the jth normalised vector 
+        vec1[k] += mu_ij * B[j][k]; //subtract the dot_product times the jth normalised vector 
       }
     }
     for (k=0; k<dim; k++) {
-      A[i][k] -= vec1[k];
+      B[i][k] -= vec1[k];
     }
   }
 }
@@ -41,7 +41,7 @@ void update_matrices(int dim, int start, double (*A)[dim], double B[][dim]) {
       B[j][i] = A[j][i];  
     }
   }
-  GramSchmidt(count, start, dim, B);
+  GramSchmidt(dim, start, B);
   //for (i=0; i<count; i++) { 
   //  for (j=0; j<count; j++) {
   //    double inner_product1 = 0.0;
