@@ -4,33 +4,33 @@
 #include <stdlib.h>
 #include "LLL_Reduction.h"
 
+double InnerProduct(int dim, int *arr1, int *arr2) {
+  double sum1;
+  int i;
+  for (i=0; i<dim; i++) {
+    sum1 += arr1[i]*arr2[i];
+  }
+  return sqrt(sum1);
+}
+
 void GramSchmidt(int dim, double (*A)[dim] {
   int i, j, k; //initialise variables i, j, k
-  //double C[dim][count];
-  for (i=0; i<count; i++) { //iterate through the variables (vectors)
-    //for (k=0; k<dim; k++) {
-    //  C[k][i] = A[k][i];
-    //}
+  double mu_ij;
+  double vec1[dim];
+  for (i=0; i<dim; i++) {
+    vec1[i] = 0
+  }
+  for (i=0; i<dim; i++) { //iterate through the variables (vectors)
     for (j=0; j<i; j++) { //iterate through the previous vectors
-      double inner_product1 = 0.0; //initalise the dot product count
-      double inner_product2 = 0.0;
-      for (k=0; k<dim; k++) {  //iterate through the entries in the vector to calculate the dot product
-        inner_product1 += A[k][j] * C[k][i]; //calculate the dot product
-        inner_product2 += A[k][j] * A[k][j];
-      } 
+      mu_ij = InnerProduct(dim, A[i], A[j])/InnerProduct(dim, A[j], A[j]); 
       for (k=0; k<dim; k++) {
-        A[k][i] -= (inner_product1/inner_product2)*A[k][j]; //subtract the dot_product times the jth normalised vector 
+        vec1[k] += mu_ij * A[j][k]; //subtract the dot_product times the jth normalised vector 
       }
     }
-    //double norm = 0.0; //initialise the norm
-    //for (j=0; j<dim; j++) {
-    //  norm += A[j][i] * A[j][i]; //calculate the square sum of entries
-    //}
-    //norm = sqrt(norm); //sqrt to find norm
-    //for (k=0; k<dim; k++) {
-    //  A[k][i]/=norm; //normalise the entries in A
-    //}
-  } 
+    for (k=0; k<dim; k++) {
+      A[i][k] -= vec1[k];
+    }
+  }
 }
   
 
@@ -57,7 +57,7 @@ void update_matrices(int count, int dim, double A[][count], double B[][count], d
 
 
 //change to produce row vectors
-void LLL(int count, double delta, int dim, double A[][dim], double B[][dim], ...) {
+void LLL(double delta, int dim, double (*A)[dim], double B[][dim], ...) {
   va_list ap; //initialise list of variables
   int i, j, k, m; //initialise variables i, j, k
   va_start (ap, B); //initialise va_list
