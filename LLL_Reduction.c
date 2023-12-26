@@ -12,7 +12,7 @@ double InnerProduct(int dim, double *arr1, double *arr2) {
   //      printf("B[j]: %.4f\t", arr2[k]);
   //      printf("\n");
   //}
-  double sum1;
+  double sum1 = 0;
   int i;
   for (i=0; i<dim; i++) {
     printf("arr1[i]: %.4f\n", arr1[i]);
