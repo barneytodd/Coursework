@@ -27,6 +27,12 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
       printf("ip1: %.4f\n", InnerProduct(dim, B[i], B[j]));
       printf("ip2: %.4f\n", InnerProduct(dim, B[j], B[j]));
       for (k=0; k<dim; k++) {
+        printf("B[i]: %.4f\t", B[i][k]);
+        printf("\n");
+        printf("B[j]: %.4f\t", B[j][k]);
+        printf("\n");
+      }
+      for (k=0; k<dim; k++) {
         vec1[k] += mu_ij * B[j][k]; //subtract the dot_product times the jth normalised vector 
       }
     }
