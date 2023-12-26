@@ -38,10 +38,24 @@ void update_matrices(int dim, int start, double (*A)[dim], double B[][dim]) {
   int i, j;
   for (i=0; i<dim; i++) {
     for (j=0; j<dim; j++) {
-      B[j][i] = A[j][i];  
+      B[i][j] = A[i][j];  
     }
   }
+  printf("updating before GS:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("A: %.4f\t", A[i][j]);
+        }
+        printf("\n");
+    }
   GramSchmidt(dim, start, B);
+  printf("updating after GS:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            printf("A: %.4f\t", A[i][j]);
+        }
+        printf("\n");
+    }
   //for (i=0; i<count; i++) { 
   //  for (j=0; j<count; j++) {
   //    double inner_product1 = 0.0;
