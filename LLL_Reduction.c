@@ -10,11 +10,13 @@ double InnerProduct(int dim, double *arr1, double *arr2) {
         printf("\n");
         printf("B[j]: %.4f\t", arr2[k]);
         printf("\n");
+  }
   double sum1;
   int i;
   for (i=0; i<dim; i++) {
     sum1 += arr1[i]*arr2[i];
   }
+  printf("sum1: %.4f\n", sum1);
   return sqrt(sum1);
 }
 
