@@ -21,7 +21,7 @@ double InnerProduct(int dim, double *arr1, double *arr2) {
     sum1 += arr1[i]*arr2[i];
   }
   printf("sum1: %.4f\n", sum1);
-  return sqrt(sum1);
+  return sum1;
 }
 
 void GramSchmidt(int dim, int start, double B[][dim]) {
