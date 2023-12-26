@@ -18,7 +18,7 @@ void GramSchmidt(int dim, int start, double (*A)[dim]) {
   double mu_ij;
   double vec1[dim];
   for (i=0; i<dim; i++) {
-    vec1[i] = 0
+    vec1[i] = 0;
   }
   for (i=start; i<dim; i++) { //iterate through the variables (vectors)
     for (j=0; j<i; j++) { //iterate through the previous vectors
