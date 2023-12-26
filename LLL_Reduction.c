@@ -110,7 +110,7 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
             printf("A: %.4f\t", A[i][j]);
         }
         printf("\n");
-    //}
+    }
     //for (int i = 0; i < 3; i++) {
       //  for (int j = 0; j < 3; j++) {
         //    printf("B: %.4f\t", B[i][j]);
@@ -130,7 +130,7 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
         //    printf("B: %.4f\t", B[i][j]);
         //}
         //printf("\n");
-    }
+    //}
   //double M[count][count]; // initialise a new matrix M
   //for (i=0; i<count; i++) { 
     //for (j=0; j<count; j++) {
@@ -185,6 +185,7 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
                 printf("A: %.4f\t", A[i][j]);
             }
             printf("\n");
+        }
         update_matrices(dim, k, A, B);
       }
     }
