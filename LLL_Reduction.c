@@ -157,6 +157,7 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
   while (k<dim) {
     for (j=k-1; j>=0; j--) {
       mu_kj = InnerProduct(dim, A[k], B[j])/InnerProduct(dim, B[j], B[j]); 
+      printf("mu_kj: %.4f\n", mu_kj);
       if (fabs(mu_kj) > 1/2) {
         //int Mint = round(M[k][j]);
         for (i=0; i<dim; i++) {
