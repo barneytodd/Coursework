@@ -5,6 +5,7 @@
 #include "LLL_Reduction.h"
 
 double InnerProduct(int dim, double *arr1, double *arr2) {
+  int k;
   for (k=0; k<dim; k++) {
         printf("B[i]: %.4f\t", arr1[k]);
         printf("\n");
