@@ -206,7 +206,7 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
           printf("A[k]: %.4f\t", A[k][j]);
           printf("\n");
         }
-        for (j=0, j<dim, j++) {
+        for (j=0; j<dim; j++) {
           printf("A[k-1]: %.4f\t", A[k-1][j]);
           printf("\n");
         }
