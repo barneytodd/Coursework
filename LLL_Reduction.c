@@ -34,7 +34,7 @@ void GramSchmidt(int dim, int start, double (*A)[dim]) {
 }
   
 
-void update_matrices(int dim, int start, double (*A)[dim], double B[][count]) {
+void update_matrices(int dim, int start, double (*A)[dim], double (*B)[dim] {
   int i, j, k;
   for (i=0; i<count; i++) {
     for (j=0; j<dim; j++) {
@@ -57,11 +57,12 @@ void update_matrices(int dim, int start, double (*A)[dim], double B[][count]) {
 
 
 //change to produce row vectors
-void LLL(double delta, int dim, double (*A)[dim], double B[][dim], ...) {
+void LLL(double delta, int dim, double (*A)[dim], ...) {
   va_list ap; //initialise list of variables
   int i, j, k, m; //initialise variables i, j, k
-  double *vector
-  va_start (ap, B); //initialise va_list
+  double B[dim][dim];
+  double *vector[dim];
+  va_start (ap, A); //initialise va_list
   for (i=0; i<dim; i++) { //iterate through the variables (vectors)
     vector = va_arg (ap, *double); //store the vector in the variable vector
     for (k=0; k<dim; k++) { 
