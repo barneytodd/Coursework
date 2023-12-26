@@ -61,10 +61,10 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
   va_list ap; //initialise list of variables
   int i, j, k; //initialise variables i, j, k
   double B[dim][dim];
-  double *vector[dim];
+  double *vector;
   va_start (ap, A); //initialise va_list
   for (i=0; i<dim; i++) { //iterate through the variables (vectors)
-    vector = va_arg (ap, double*); //store the vector in the variable vector
+    vector = va_arg (ap, double *); //store the vector in the variable vector
     for (k=0; k<dim; k++) { 
       A[i][k] = vector[k]; // initialise row i of A
       B[i][k] = vector[k]; // initialise to be the same as A
