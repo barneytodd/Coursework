@@ -6,15 +6,18 @@
 
 double InnerProduct(int dim, double *arr1, double *arr2) {
   int k;
-  for (k=0; k<dim; k++) {
-        printf("B[i]: %.4f\t", arr1[k]);
-        printf("\n");
-        printf("B[j]: %.4f\t", arr2[k]);
-        printf("\n");
-  }
+  //for (k=0; k<dim; k++) {
+  //      printf("B[i]: %.4f\t", arr1[k]);
+  //      printf("\n");
+  //      printf("B[j]: %.4f\t", arr2[k]);
+  //      printf("\n");
+  //}
   double sum1;
   int i;
   for (i=0; i<dim; i++) {
+    printf("arr1[i]: %.4f\n", arr1[i]);
+    printf("arr2[i]: %.4f\n", arr2[i]);
+    printf("product: %.4f\n", arr1[i]*arr2[i]);
     sum1 += arr1[i]*arr2[i];
   }
   printf("sum1: %.4f\n", sum1);
