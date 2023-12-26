@@ -27,6 +27,6 @@ double ShortestVector(int dim, double (*A)[dim]) {
 		for (j=0; j<i; j++) {
 			Mu[i][j] = InnerProduct(dim, A[i], A[j])/GS_norms[j];
 		}
-		A[i] = 
+		A[i] = GramSchmidt[
 	}
 }
