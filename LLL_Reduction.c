@@ -200,35 +200,43 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
       k+=1;
       mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
         }
-      else {
-        for (i=0; i<dim; i++) {
-          A[k][i] += A[k-1][i];
-          A[k-1][i] = A[k][i] - A[k-1][i];
-          A[k][i] -= A[k-1][i];
+    else {
+      for (i=0; i<dim; i++) {
+        for (j=0; j<dim; j++) {
+          printf("A[k]: %.4f\t", A[k][j]);
+          printf("\n");
         }
-        update_matrices(dim, k, A, B); 
-        printf("A, B, M after updating again:\n");
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                printf("A: %.4f\t", A[i][j]);
-            }
-            printf("\n");
+        for (j=0, j<dim, j++) {
+          printf("A[k-1]: %.4f\t", A[k-1][j]);
+          printf("\n");
         }
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                printf("B: %.4f\t", B[i][j]);
-            }
-            printf("\n");
-        }
-        //for (int i = 0; i < 3; i++) {
-          //  for (int j = 0; j < 3; j++) {
-            //    printf("M: %.4f\t", M[i][j]);
-            //}
-            //printf("\n");
-        //}
-        k = fmax(k-1, 1);
-        mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]);           
+        A[k][i] += A[k-1][i];
+        A[k-1][i] = A[k][i] - A[k-1][i];
+        A[k][i] -= A[k-1][i];
       }
+      update_matrices(dim, k, A, B); 
+      printf("A, B, M after updating again:\n");
+      for (int i = 0; i < 3; i++) {
+          for (int j = 0; j < 3; j++) {
+              printf("A: %.4f\t", A[i][j]);
+          }
+          printf("\n");
+      }
+      for (int i = 0; i < 3; i++) {
+          for (int j = 0; j < 3; j++) {
+              printf("B: %.4f\t", B[i][j]);
+          }
+          printf("\n");
+      }
+      //for (int i = 0; i < 3; i++) {
+        //  for (int j = 0; j < 3; j++) {
+          //    printf("M: %.4f\t", M[i][j]);
+          //}
+          //printf("\n");
+      //}
+      k = fmax(k-1, 1);
+      mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]);           
+    }
     m+=1;
     if (m==10) {
       break;
