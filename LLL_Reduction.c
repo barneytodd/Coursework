@@ -34,7 +34,7 @@ void GramSchmidt(int dim, int start, double (*A)[dim]) {
 }
   
 
-void update_matrices(int dim, int start, double (*A)[dim], double B[][dim] {
+void update_matrices(int dim, int start, double (*A)[dim], double B[][dim]) {
   int i, j, k;
   for (i=0; i<count; i++) {
     for (j=0; j<dim; j++) {
