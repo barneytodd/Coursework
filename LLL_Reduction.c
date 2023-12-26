@@ -15,12 +15,12 @@ double InnerProduct(int dim, double *arr1, double *arr2) {
   double sum1 = 0;
   int i;
   for (i=0; i<dim; i++) {
-    printf("arr1[i]: %.4f\n", arr1[i]);
-    printf("arr2[i]: %.4f\n", arr2[i]);
-    printf("product: %.4f\n", arr1[i]*arr2[i]);
+    //printf("arr1[i]: %.4f\n", arr1[i]);
+    //printf("arr2[i]: %.4f\n", arr2[i]);
+    //printf("product: %.4f\n", arr1[i]*arr2[i]);
     sum1 += arr1[i]*arr2[i];
   }
-  printf("sum1: %.4f\n", sum1);
+  //printf("sum1: %.4f\n", sum1);
   return sqrt(sum1);
 }
 
@@ -34,14 +34,14 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
   for (i=start; i<dim; i++) { //iterate through the variables (vectors)
     for (j=0; j<i; j++) { //iterate through the previous vectors
       mu_ij = InnerProduct(dim, B[i], B[j])/InnerProduct(dim, B[j], B[j]);
-      printf("mu_ij: %.4f\n", mu_ij);
-      printf("ip1: %.4f\n", InnerProduct(dim, B[i], B[j]));
-      printf("ip2: %.4f\n", InnerProduct(dim, B[j], B[j]));
+      //printf("mu_ij: %.4f\n", mu_ij);
+      //printf("ip1: %.4f\n", InnerProduct(dim, B[i], B[j]));
+      //printf("ip2: %.4f\n", InnerProduct(dim, B[j], B[j]));
       for (k=0; k<dim; k++) {
-        printf("B[i]: %.4f\t", B[i][k]);
-        printf("\n");
-        printf("B[j]: %.4f\t", B[j][k]);
-        printf("\n");
+        //printf("B[i]: %.4f\t", B[i][k]);
+        //printf("\n");
+        //printf("B[j]: %.4f\t", B[j][k]);
+        //printf("\n");
       }
       for (k=0; k<dim; k++) {
         vec1[k] += mu_ij * B[j][k]; //subtract the dot_product times the jth normalised vector 
