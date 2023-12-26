@@ -22,10 +22,12 @@ double ShortestVector(int dim, double (*A)[dim]) {
 	}
 	double Mu[dim][dim]; //stores the mu_i_j values
 	double GS_norms[dim]; //stores the norm of each GS vector
-	double sum1[dim];
+	double sum1[dim]; //may be able to release this memory after following for loop
 	for (i=1; i<dim; i++) { //change A to GS vectors, calculate Mu_i_j values, and calculate GS_norms
 		GS_norms[i-1] = InnerProduct(dim, A[i-1], A[i-1]);
-		sum1 = {0};
+		for (j=0; j<dim; j++) {
+			sum1[j] = 0;
+		}
 		for (j=0; j<i; j++) {
 			Mu[i][j] = InnerProduct(dim, A[i], A[j])/GS_norms[j];
 			for (k=0; k<dim; k++) {
@@ -33,8 +35,37 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			}
 		}
 		for (k=0; k<dim; k++) {
-			A[i] -= sum1;
+			A[i][k] -= sum1[k];
+		}	
+	}
+	int x[dim];
+	double l[dim];
+
+	double sum2;
+	i=0;
+	while (i<dim) {
+		sum2 = 0;
+		for (j=i+1; j<dim; j++) {
+			sum2 += x[j] * Mu[j][i];
 		}
-		
+		l[i] = (x[i] + sum2) * (x[i] + sum2) * GS[i];
+		sum2 = 0;
+		for (j=0; j<dim; j++) {
+			sum2 += l[j];
+		}
+		if (i==0 && sum2 < shortest_vector) {
+			shortest_vector = sum2;
+			x[0] += 1;
+		}
+		else {
+			sum2 = 0;
+			for (j=i; j<dim; j++) {
+				sum2 += l[j];
+			}
+			if (sum2<shortest_vector) {
+				i -= 1;
+				
+			}
+		}
 	}
 }
