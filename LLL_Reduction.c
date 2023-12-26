@@ -4,13 +4,13 @@
 #include <stdlib.h>
 #include "LLL_Reduction.h"
 
-void GramSchmidt(int count, int dim, double A[][count]) {
+void GramSchmidt(int dim, double (*A)[dim] {
   int i, j, k; //initialise variables i, j, k
-  double C[dim][count];
+  //double C[dim][count];
   for (i=0; i<count; i++) { //iterate through the variables (vectors)
-    for (k=0; k<dim; k++) {
-      C[k][i] = A[k][i];
-    }
+    //for (k=0; k<dim; k++) {
+    //  C[k][i] = A[k][i];
+    //}
     for (j=0; j<i; j++) { //iterate through the previous vectors
       double inner_product1 = 0.0; //initalise the dot product count
       double inner_product2 = 0.0;
