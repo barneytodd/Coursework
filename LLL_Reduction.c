@@ -195,7 +195,7 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
       }
     m+=1;
     if (m==10) {
-      break
+      break;
     }      
   }
   va_end(ap);
