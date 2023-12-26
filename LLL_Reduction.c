@@ -59,7 +59,7 @@ void update_matrices(int dim, int start, double (*A)[dim], double B[][dim]) {
 //change to produce row vectors
 void LLL(double delta, int dim, double (*A)[dim], ...) {
   va_list ap; //initialise list of variables
-  int i, j, k, m; //initialise variables i, j, k
+  int i, j, k; //initialise variables i, j, k
   double B[dim][dim];
   double *vector[dim];
   va_start (ap, A); //initialise va_list
