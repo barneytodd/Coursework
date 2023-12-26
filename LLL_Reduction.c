@@ -117,6 +117,7 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
         //printf("\n");
     //}
   k = 1;
+  int m = 0;
   double mu_kj;
   double mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]);
   while (k<dim) {
@@ -192,6 +193,10 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
         k = fmax(k-1, 1);
         mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]);           
       }
+    m+=1;
+    if (m==10) {
+      break
+    }      
   }
   va_end(ap);
 }
