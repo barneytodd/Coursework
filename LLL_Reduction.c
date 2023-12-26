@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "LLL_Reduction.h"
 
-double InnerProduct(int dim, int *arr1, int *arr2) {
+double InnerProduct(int dim, double *arr1, double *arr2) {
   double sum1;
   int i;
   for (i=0; i<dim; i++) {
