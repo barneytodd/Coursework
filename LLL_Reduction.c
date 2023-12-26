@@ -159,6 +159,20 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
       mu_kj = InnerProduct(dim, A[k], B[j])/InnerProduct(dim, B[j], B[j]); 
       printf("k: %d\n", k);
       printf("j: %d\n", j);
+      printf("A, B:\n");
+      for (int i = 0; i < 3; i++) {
+          for (int j = 0; j < 3; j++) {
+              printf("A: %.4f\t", A[i][j]);
+          }
+          printf("\n");
+      }
+      //printf("A, B after initialisation:\n");
+      for (int i = 0; i < 3; i++) {
+          for (int j = 0; j < 3; j++) {
+              printf("B: %.4f\t", B[i][j]);
+          }
+          printf("\n");
+      }
       printf("mu_kj: %.4f\n", mu_kj);
       if (fabs(mu_kj) > 1/2) {
         //int Mint = round(M[k][j]);
