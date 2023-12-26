@@ -1,4 +1,5 @@
 #include "LLL_Reduction.h"
+#include <math.h>
 
 
 double InnerProduct(int dim, int *arr1, int *arr2) {
@@ -67,7 +68,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			}
 			if (sum3<shortest_vector) {
 				i -= 1;
-				x[i] = - sum2 - x[i+1]*Mu[i+1][i] - sqrt((shortest_vector - sum3)/(GS[i] * GS[i]));
+				x[i] = ceil(- sum2 - x[i+1]*Mu[i+1][i] - sqrt((shortest_vector - sum3)/(GS[i] * GS[i])));
 			}
 			else {
 				i += 1;
