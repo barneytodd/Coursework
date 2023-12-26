@@ -42,30 +42,36 @@ double ShortestVector(int dim, double (*A)[dim]) {
 	double l[dim];
 
 	double sum2;
+	double sum3;
 	i=0;
 	while (i<dim) {
-		sum2 = 0;
+		sum2 = sum3 = 0;
 		for (j=i+1; j<dim; j++) {
 			sum2 += x[j] * Mu[j][i];
 		}
-		l[i] = (x[i] + sum2) * (x[i] + sum2) * GS[i];
-		sum2 = 0;
+		l[i] = (x[i] + sum2) * (x[i] + sum2) * GS[i] * GS[i];
+		//sum2 = 0;
 		for (j=0; j<dim; j++) {
-			sum2 += l[j];
+			sum3 += l[j];
 		}
-		if (i==0 && sum2 < shortest_vector) {
-			shortest_vector = sum2;
+		if (i==0 && sum3 < shortest_vector) {
+			shortest_vector = sum3;
 			x[0] += 1;
 		}
 		else {
-			sum2 = 0;
+			sum3 = 0;
 			for (j=i; j<dim; j++) {
-				sum2 += l[j];
+				sum3 += l[j];
 			}
-			if (sum2<shortest_vector) {
+			if (sum3<shortest_vector) {
 				i -= 1;
-				
+				x[i] = - sum2 - x[i+1]*Mu[i+1][i] - sqrt((shortest_vector - sum3)/(GS[i] * GS[i]));
+			}
+			else {
+				i += 1;
+				x[i] += 1;
 			}
 		}
 	}
+	return shortest_vector;
 }
