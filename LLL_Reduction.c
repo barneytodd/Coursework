@@ -164,9 +164,9 @@ void LLL(double delta, int dim, double (*A)[dim], double B[][dim], ...) {
         }
       else {
         for (i=0; i<dim; i++) {
-          A[i][k] ^= A[i][k-1];
-          A[i][k-1] ^= A[i][k];
-          A[i][k] ^= A[i][k-1];
+          A[k][i] ^= A[k-1][i];
+          A[k-1][i] ^= A[k][i];
+          A[k][i] ^= A[k-1][i];
         }
         update_matrices(dim, k, A, B); 
         //printf("A, B, M after updating again:\n");
