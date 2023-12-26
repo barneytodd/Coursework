@@ -143,12 +143,12 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
         }
         printf("\n");
     }
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            printf("M: %.4f\t", M[i][j]);
-        }
-        printf("\n");
-    }
+    //for (int i = 0; i < 3; i++) {
+      //  for (int j = 0; j < 3; j++) {
+        //    printf("M: %.4f\t", M[i][j]);
+        //}
+        //printf("\n");
+    //}
     //double inner_product1 = 0.0;
     //double inner_product2 = 0.0;
     //for (i=0; i<dim; i++) {
@@ -183,12 +183,12 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
             }
             printf("\n");
         }
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                printf("M: %.4f\t", M[i][j]);
-            }
-            printf("\n");
-        }
+        //for (int i = 0; i < 3; i++) {
+          //  for (int j = 0; j < 3; j++) {
+            //    printf("M: %.4f\t", M[i][j]);
+            //}
+            //printf("\n");
+        //}
         k = fmax(k-1, 1);
         mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]);           
       }
