@@ -8,15 +8,15 @@ double InnerProduct(int dim, int *arr1, int *arr2) {
   for (i=0; i<dim; i++) {
     sum1 += arr1[i]*arr2[i];
   }
-  return sqrt(sum1);
+  return sum1;
 }
 
 double ShortestVector(int dim, double (*A)[dim]) {
 	int i, j, k;
-	double shortest_vector = InnerProduct(dim, A[0], A[0]); //keeps track of current shortest vector
+	double shortest_vector = sqrt(InnerProduct(dim, A[0], A[0])); //keeps track of current shortest vector
 	double current_norm; //stores current norm we're calculating below, may be good to release this memory after following for loop
 	for (i=1; i<dim; i++) {
-		current_norm = InnerProduct(dim, A[i], A[i]); //calculates norm of each vector in A, then compares o shortest vector
+		current_norm = sqrt(InnerProduct(dim, A[i], A[i])); //calculates norm of each vector in A, then compares o shortest vector
 		if (current_norm < shortest_vector) {
 			shortest_vector = current_norm;
 		}
@@ -52,7 +52,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 		for (j=i+1; j<dim; j++) {
 			sum2 += x[j] * Mu[j][i];
 		}
-		l[i] = (x[i] + sum2) * (x[i] + sum2) * GS[i] * GS[i];
+		l[i] = (x[i] + sum2) * (x[i] + sum2) * GS[i];
 		//sum2 = 0;
 		for (j=0; j<dim; j++) {
 			sum3 += l[j];
