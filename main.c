@@ -7,6 +7,9 @@ int main(int argc, char *argv[]) {
   
   printf("You have entered %d arguments:\n", argc);
   for (int i = 0; i < argc; i++) {
+    if (argv[i][0] == '[') {
+      printf("i: %d\n", i);
+    }
       printf("%s\n", argv[i]);
   }
   
