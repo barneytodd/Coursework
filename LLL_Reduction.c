@@ -72,14 +72,16 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
   k = 1;
   int m = 0;
   double mu_kj;
-  double mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]);
+  double mu_k_kminus1; //= InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]);
   while (k<dim) {
     for (j=k-1; j>=0; j--) {
       mu_kj = InnerProduct(dim, A[k], B[j])/InnerProduct(dim, B[j], B[j]); 
+      printf("mukj: %.4f\n", mu_kj);
       if (fabs(mu_kj) > 1/2) {
-        //int Mint = round(M[k][j]);
         for (i=0; i<dim; i++) {
+          printf("A[k][i] before: %.4f\n", A[k][i]);
           A[k][i] -= round(mu_kj) * A[j][i];
+          printf("A[k][i] after: %.4f\n", A[k][i]);
         }
         printf("A after updating:\n");
         for (int i = 0; i < 3; i++) {
