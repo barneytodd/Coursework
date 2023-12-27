@@ -77,6 +77,7 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
     for (j=k-1; j>=0; j--) {
       mu_kj = InnerProduct(dim, A[k], B[j])/InnerProduct(dim, B[j], B[j]); 
       printf("mukj: %.4f\n", mu_kj);
+      printf("fabs: %.4f\n", fabs(mu_kj));
       if (fabs(mu_kj) > 1/2) {
         for (i=0; i<dim; i++) {
           printf("A[k][i] before: %.4f\n", A[k][i]);
