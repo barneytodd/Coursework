@@ -1,4 +1,5 @@
 #include "LLL_Reduction.h"
+#include "Enumeration.h"
 #include <stdio.h>
 
 int main() {
