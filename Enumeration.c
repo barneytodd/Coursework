@@ -1,5 +1,6 @@
 #include "LLL_Reduction.h"
 #include <math.h>
+#include <stdio.h>
 
 
 //double InnerProduct(int dim, int *arr1, int *arr2) {
@@ -80,7 +81,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 		}
 		m+=1;
 		if (m==10) {
-			break
+			break;
 		}
 	}
 	return shortest_vector;
