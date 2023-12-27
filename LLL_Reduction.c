@@ -58,7 +58,7 @@ void LLL(double delta, int dim, double (*A)[dim]) {
     //vector = va_arg (ap, double *); //store the vector in the variable vector
     for (j=0; j<dim; j++) { 
       //A[i][k] = vector[k]; // initialise row i of A
-      B[i][k] = A[i][j]; //vector[k]; // initialise to be the same as A
+      B[i][j] = A[i][j]; //vector[k]; // initialise to be the same as A
       } 
   }
   GramSchmidt(dim, 0, B); //GramSchmidt B
