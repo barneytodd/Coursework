@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
       break;
     }
   }
-  double A[dim][dim];
+  double *A[dim][dim];
   for (i = 0; i < dim; i++) {
     for (j=0; j < dim; j++) {
       k = 1 + dim*i + j;
