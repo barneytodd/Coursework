@@ -21,6 +21,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			shortest_vector = current_norm;
 		}
 	}
+	printf("shortest basis vector: %.4f\n", shortest_vector);
 	double Mu[dim][dim]; //stores the mu_i_j values
 	double GS_norms[dim]; //stores the norm of each GS vector
 	double sum1[dim]; //may be able to release this memory after following for loop
@@ -47,7 +48,9 @@ double ShortestVector(int dim, double (*A)[dim]) {
 	double sum2;
 	double sum3;
 	i=0;
+	int m = 0;
 	while (i<dim) {
+		printf("i: %d\n", i);
 		sum2 = sum3 = 0;
 		for (j=i+1; j<dim; j++) {
 			sum2 += x[j] * Mu[j][i];
@@ -74,6 +77,10 @@ double ShortestVector(int dim, double (*A)[dim]) {
 				i += 1;
 				x[i] += 1;
 			}
+		}
+		m+=1;
+		if (m==10) {
+			break
 		}
 	}
 	return shortest_vector;
