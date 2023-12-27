@@ -53,7 +53,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 	while (i<dim) {
 		printf("i: %d\n", i);
 		for (j=0; j<dim; j++) {
-			printf("x: %.4f\t", x[j]);
+			printf("x: %d\t", x[j]);
 		}
 		printf("\n");
 		sum2 = sum3 = 0;
