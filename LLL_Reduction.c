@@ -74,6 +74,7 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
   double mu_kj;
   double mu_k_kminus1; //= InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]);
   while (k<dim) {
+    printf("k: %d\n", k);
     for (j=k-1; j>=0; j--) {
       mu_kj = InnerProduct(dim, A[k], B[j])/InnerProduct(dim, B[j], B[j]); 
       printf("mukj: %.4f\n", mu_kj);
@@ -100,6 +101,7 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
     mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
     
     if (InnerProduct(dim, B[k], B[k]) > ((delta - (mu_k_kminus1*mu_k_kminus1)) * InnerProduct(dim, B[k-1], B[k-1]))) {
+      printf("yes\n")
       k+=1;
       mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
         }
