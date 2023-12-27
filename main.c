@@ -18,6 +18,7 @@ int main(int argc, char *argv[]) {
       k = 1 + dim*i + j;
       printf("argv[k]: %s", argv[k]);
       if (argv[k][0] == '[') {
+        printf("argv[k][1]: %s", &argv[k][1]);
         A[i][j] = strtod(&argv[k][1], NULL); //Null might need to be changed here
       }
       if (argv[k][-1] == ']') {
@@ -31,10 +32,11 @@ int main(int argc, char *argv[]) {
   printf("A\n");
   for (i = 0; i < dim; i++) {
     for (j=0; j < dim; j++) {
-      printf("%.4f\n", A[i][j]);
+      printf("%.4f\t", A[i][j]);
     }
+    printf("\n");
   }
-  printf("\n");
+  
   
       
   double vec1[3] = {1.0, 1.0, 1.0};
