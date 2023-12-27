@@ -103,6 +103,7 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
     if (InnerProduct(dim, B[k], B[k]) > ((delta - (mu_k_kminus1*mu_k_kminus1)) * InnerProduct(dim, B[k-1], B[k-1]))) {
       printf("yes\n");
       k+=1;
+      printf("k2: %d", k);
       mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
         }
     else {
