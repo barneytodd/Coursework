@@ -88,7 +88,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 				x[i] = ceil(- sum2 - x[i+1]*Mu[i+1][i] - sqrt((shortest_vector - sum3)/GS_norms[i]));
 			}
 		}
-		else if (sum3 >= shortest_vector) {
+		if (sum3 >= shortest_vector) {
 			i += 1;
 			x[i] += 1;
 		}
