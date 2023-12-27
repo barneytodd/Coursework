@@ -78,10 +78,7 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
     printf("k: %d\n", k);
     for (j=k-1; j>=0; j--) {
       mu_kj = InnerProduct(dim, A[k], B[j])/InnerProduct(dim, B[j], B[j]); 
-      printf("mukj: %.4f\n", mu_kj);
-      printf("fabs: %.4f\n", fabs(mu_kj));
       if (fabs(mu_kj) > 0.5) {
-        printf("mukj2: %.4f\n", mu_kj);
         for (i=0; i<dim; i++) {
           printf("A[k][i] before: %.4f\n", A[k][i]);
           A[k][i] -= round(mu_kj) * A[j][i];
@@ -101,7 +98,8 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
     
     
     mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
-    
+    printf("compare1: %.4f\n", InnerProduct(dim, B[k], B[k]));
+    printf("compare2: %.4f\n", ((delta - (mu_k_kminus1*mu_k_kminus1)) * InnerProduct(dim, B[k-1], B[k-1])));
     if (InnerProduct(dim, B[k], B[k]) > ((delta - (mu_k_kminus1*mu_k_kminus1)) * InnerProduct(dim, B[k-1], B[k-1]))) {
       printf("yes\n");
       k+=1;
