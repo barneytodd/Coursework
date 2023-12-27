@@ -61,14 +61,14 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			shortest_vector = sum3;
 			x[0] += 1;
 		}
-		else {
+		else if (i!=0) {
 			sum3 = 0;
 			for (j=i; j<dim; j++) {
 				sum3 += l[j];
 			}
 			if (sum3<shortest_vector) {
 				i -= 1;
-				x[i] = ceil(- sum2 - x[i+1]*Mu[i+1][i] - sqrt((shortest_vector - sum3)/(GS[i] * GS[i])));
+				x[i] = ceil(- sum2 - x[i+1]*Mu[i+1][i] - sqrt((shortest_vector - sum3)/GS_norms[i]));
 			}
 			else {
 				i += 1;
