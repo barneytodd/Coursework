@@ -40,10 +40,10 @@ int main(int argc, char *argv[]) {
   
   
       
-  double vec1[3] = {1.0, 1.0, 1.0};
-  double vec2[3] = {-1.0, 0.0, 2.0};
-  double vec3[3] = {3.0, 5.0, 6.0};
-  LLL(0.75, 3, A, vec1, vec2, vec3);
+  //double vec1[3] = {1.0, 1.0, 1.0};
+  //double vec2[3] = {-1.0, 0.0, 2.0};
+  //double vec3[3] = {3.0, 5.0, 6.0};
+  LLL(0.75, 3, A);
   printf("Orthonormalized Vectors (A):\n");
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
