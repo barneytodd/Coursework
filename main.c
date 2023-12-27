@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
       if (argv[k][0] == '[') {
         printf("argv[k][1]: %.4f\n", strtod(&argv[k][1], NULL));
         A[i][j] = strtod(&argv[k][1], NULL); //Null might need to be changed here
-        continue
+        continue;
       }
       if (argv[k][-1] == ']') {
         A[i][j] = strtod(&argv[k][-1], NULL);
