@@ -53,6 +53,6 @@ int main(int argc, char *argv[]) {
     }
   double shortest_length = ShortestVector(3, A);
   FILE *result = fopen("result.txt", "w");
-  fprintf(result, "shortest length: %.4f\n", shortest_length);
+  fprintf(result, "%.4f\n", shortest_length);
   return 0;
 }
