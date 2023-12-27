@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
         A[i][j] = strtod(&argv[k][-1], NULL);
       }
       else {
-        A[i][j] = strtod(argv[k], Null);
+        A[i][j] = strtod(argv[k], NULL);
       }
     }
   }
