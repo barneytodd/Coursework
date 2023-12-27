@@ -69,6 +69,7 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
         printf("\n");
     }
   GramSchmidt(dim, 0, B); //GramSchmidt B
+  
   k = 1;
   int m = 0;
   double mu_kj;
@@ -80,6 +81,7 @@ void LLL(double delta, int dim, double (*A)[dim], ...) {
       printf("mukj: %.4f\n", mu_kj);
       printf("fabs: %.4f\n", fabs(mu_kj));
       if (fabs(mu_kj) > 1/2) {
+        printf("mukj2: %.4f\n", mu_kj);
         for (i=0; i<dim; i++) {
           printf("A[k][i] before: %.4f\n", A[k][i]);
           A[k][i] -= round(mu_kj) * A[j][i];
