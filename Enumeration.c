@@ -67,8 +67,10 @@ double ShortestVector(int dim, double (*A)[dim]) {
 		for (j=0; j<dim; j++) {
 			sum3 += l[j];
 		}
-		if (i==0 && 0 < sum3 && sum3 < shortest_vector) {
-			shortest_vector = sum3;
+		if (i==0 && sum3 < shortest_vector) {
+			if (sum3 != 0) {
+				shortest_vector = sum3;
+			}
 			x[0] += 1;
 		}
 		else if (i!=0) {
