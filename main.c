@@ -16,6 +16,7 @@ int main(int argc, char *argv[]) {
   for (i = 0; i < dim; i++) {
     for (j=0; j < dim; j++) {
       k = 1 + dim*i + j;
+      printf("argv[k]: %s", argv[k]);
       if (argv[k][0] == '[') {
         A[i][j] = strtod(&argv[k][1], NULL); //Null might need to be changed here
       }
