@@ -1,4 +1,4 @@
-void LLL(double delta, int dim, double (*A)[dim], ...);
+void LLL(double delta, int dim, double (*A)[dim]);
 
 void GramSchmidt(int dim, int start, double B[][dim]);
 
