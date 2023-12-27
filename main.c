@@ -15,7 +15,7 @@ int main() {
         }
         printf("\n");
     }
-  double shortest_length = Enumeration(3, A);
+  double shortest_length = ShortestVector(3, A);
   printf("shortest length: %.4f\n", shortest_length);
   return 0;
 }
