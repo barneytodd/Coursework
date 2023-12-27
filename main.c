@@ -17,10 +17,10 @@ int main(int argc, char *argv[]) {
     for (j=0; j < dim; j++) {
       k = 1 + dim*i + j;
       if (argv[k][0] == '[') {
-        A[i][j] = strtod(&argv[k][1], Null); //Null might need to be changed here
+        A[i][j] = strtod(&argv[k][1], NULL); //Null might need to be changed here
       }
-      if (argv[k][-1] == ']' {
-        A[i][j] = strtod(&argv[k][-1], Null);
+      if (argv[k][-1] == ']') {
+        A[i][j] = strtod(&argv[k][-1], NULL);
       }
       else {
         A[i][j] = strtod(argv[k], Null);
