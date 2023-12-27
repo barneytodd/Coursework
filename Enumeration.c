@@ -52,7 +52,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 		for (j=i+1; j<dim; j++) {
 			sum2 += x[j] * Mu[j][i];
 		}
-		l[i] = (x[i] + sum2) * (x[i] + sum2) * GS[i];
+		l[i] = (x[i] + sum2) * (x[i] + sum2) * GS_norms[i];
 		//sum2 = 0;
 		for (j=0; j<dim; j++) {
 			sum3 += l[j];
