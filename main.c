@@ -3,9 +3,6 @@
 
 int main() {
   double A[3][3];
-  //double v1[3] = 
-  //double v2[3] = 
-  //double v3[3] = 
   double vec1[3] = {1.0, 1.0, 1.0};
   double vec2[3] = {-1.0, 0.0, 2.0};
   double vec3[3] = {3.0, 5.0, 6.0};
@@ -17,5 +14,6 @@ int main() {
         }
         printf("\n");
     }
+  Enumeration(3, A);
   return 0;
 }
