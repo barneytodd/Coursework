@@ -4,7 +4,10 @@
 #include <stdbool.h>
 #include <math.h>
 #include <stdarg.h>
-#include 'LLL_Reduction.h'
+#include "LLL_Reduction.h"
+#include "Enumeration.h"
+#include <stdbool.h>
+
 
 double SumArray(int dim, double arr[dim]) {
     int i;
@@ -53,7 +56,7 @@ void runTests(int dim, ...)
     //    size_t size;
     //} Array;
     
-    int i, j, k;
+    int i, j;
     double A[dim][dim];
     double *arr;
     double limit;
@@ -84,11 +87,11 @@ void runTests(int dim, ...)
     }
     double shortest_length = ShortestVector(3, A);
 
-    bool unit_test = TRUE;
-    for (i=0, i<dim, i++) {
+    bool unit_test = true;
+    for (i=0; i<dim; i++) {
         if (SumArray(dim, A[i]) != 1.0) {
-            unit_test = FALSE;
-            break
+            unit_test = false;
+            break;
         }
     }
 
@@ -97,7 +100,7 @@ void runTests(int dim, ...)
         if(shortest_vector != 1.0) {
             printf("Expected %.4f, got %.4f\n", 1.0, shortest_vector);
         }
-        assert(act == 1.0);
+        assert(shortest_vector == 1.0);
     }
 
     else {
