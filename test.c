@@ -41,7 +41,7 @@ double Determinant(int dim, double (*A)[dim]) {
         }
         sum1 += pow(-1, i) * A[0][i] * Determinant(dim-1, B);
     }
-    return sum1
+    return sum1;
 }
 
 double LimitCalc(int dim, double (*A)[dim]) {
