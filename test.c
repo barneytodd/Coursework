@@ -12,13 +12,34 @@ double SumArray(int dim, double arr[dim]) {
 }
 
 double Determinant(int dim, double (*A)[dim]) {
-    
+    int i, j, k;
+    double sum1;
+    bool skip[2] = {FALSE, FALSE};
+    double B[dim-1, dim-1];
+    if (dim == 1) {
+        return A[0][0]
+    }
+    for (i=0, i<dim, i++) {
+        skip[0] = skip[1] = FALSE;
+        for (j=0; j<dim; j++) {
+            if (j==i) {
+                skip[0] = TRUE;
+            }
+            for (k=0; k<dim; k++) {
+                if (k==i) {
+                    skip[1] = TRUE;
+                }
+                B[j][k] = A[j+skip[0]][k+skip[1]]
+            }
+        }
+        sum1 += pow(-1, i) * A[0][i] * Determinant(dim-1, B);
+    }
 }
 
 double LimitCalc(int dim, double (*A)[dim]) {
     double gamma = tgamma(dim/2 + 1);
-    double det;
-    
+    double det = Determinant(A);
+    return 1.05*(pow(gamma, 1/dim)/sqrt(M_PI))*pow(det, 1/dim);
 }
 
 void runTests(int dim, ...)
@@ -76,10 +97,10 @@ void runTests(int dim, ...)
     }
 
     else {
-        limit = 
-        printf("For numbers: %d Expected: %llu Got: %llu\n", n, expr, act);
-        if(act > expr)
-            printf("Expected %llu, got %llu\n", expr, act);
+        limit = LimitCalc(dim, A);
+        printf("For Dimension: %d Limit: %.4f Got: %.4f\n", dim, limit, act);
+        if(act > limit)
+            printf("Limit %.4f, got %.4f\n", limit, act);
         assert(act <= expr);
     }
 }
