@@ -3,6 +3,8 @@
 #include <assert.h>
 #include <stdbool.h>
 #include <math.h>
+#include <stdarg.h>
+#include 'LLL_Reduction.h'
 
 double SumArray(int dim, double arr[dim]) {
     int i;
