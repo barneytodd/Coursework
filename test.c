@@ -21,7 +21,7 @@ double SumArray(int dim, double arr[dim]) {
 double Determinant(int dim, double (*A)[dim]) {
     int i, j, k;
     double sum1;
-    bool skip[2] = {false, false;
+    bool skip[2] = {false, false};
     double B[dim-1][dim-1];
     if (dim == 1) {
         return A[0][0];
@@ -85,7 +85,7 @@ void runTests(int dim, ...)
         }
         printf("\n");
     }
-    double shortest_length = ShortestVector(3, A);
+    double shortest_vector = ShortestVector(3, A);
 
     bool unit_test = true;
     for (i=0; i<dim; i++) {
