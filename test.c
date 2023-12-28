@@ -112,7 +112,7 @@ void runTests(int dim, ...)
         }
         assert(shortest_vector <= limit);
     }
-    va_end(args)
+    va_end(args);
 }
 
 int main() {
