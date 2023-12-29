@@ -46,8 +46,8 @@ int main(int argc, char *argv[]) {
   //double vec3[3] = {3.0, 5.0, 6.0};
   LLL(0.75, dim, A);
   printf("Orthonormalized Vectors (A):\n");
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
+    for (int i = 0; i < dim; i++) {
+        for (int j = 0; j < dim; j++) {
             printf("%.4f\t", A[i][j]);
         }
         printf("\n");
