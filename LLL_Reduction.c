@@ -17,10 +17,11 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
   int i, j, k; //initialise variables i, j, k
   double mu_ij;
   double vec1[dim];
-  for (i=0; i<dim; i++) {
-    vec1[i] = 0;
-  }
+  
   for (i=start; i<dim; i++) { //iterate through the variables (vectors)
+    for (i=0; i<dim; i++) {
+    vec1[i] = 0;
+    }
     for (j=0; j<i; j++) { //iterate through the previous vectors
       mu_ij = InnerProduct(dim, B[i], B[j])/InnerProduct(dim, B[j], B[j]);
       if (mu_ij > 5000) {
