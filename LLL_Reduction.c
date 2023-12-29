@@ -22,6 +22,7 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
     for (j=0; j<dim; j++) {
       vec1[j] = 0;
     }
+    printf("vec1[0](1) %.4f\n", vec1[0]);
     for (j=0; j<i; j++) { //iterate through the previous vectors
       mu_ij = InnerProduct(dim, B[i], B[j])/InnerProduct(dim, B[j], B[j]);
       if (j==0) {
@@ -34,7 +35,8 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
       }
       
     }
-    printf("vec1[0] %.4f\n", vec1[0]);
+    printf("vec1[0](2) %.4f\n", vec1[0]);
+    printf("%.4f\n", B[i][0]);
     for (k=0; k<dim; k++) {
       B[i][k] -= vec1[k];
     }
