@@ -40,11 +40,11 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
     for (k=0; k<dim; k++) {
       B[i][k] -= vec1[k];
     }
-    printf("B[i]\n");
-    for (k=0;k<dim;k++) {
-      printf("%.4f %d %d\t", B[i][k], i, k);
-    }
-    printf("\n");
+    //printf("B[i]\n");
+    //for (k=0;k<dim;k++) {
+    //  printf("%.4f %d %d\t", B[i][k], i, k);
+    //}
+    //printf("\n");
   }
 }
   
