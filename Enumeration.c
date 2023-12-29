@@ -49,7 +49,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 	double sum2;
 	double sum3;
 	i=0;
-	//int m = 0;
+	int m = 0;
 	while (i<dim) {
 		printf("i: %d\n", i);
 		for (j=0; j<dim; j++) {
@@ -92,10 +92,10 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			i += 1;
 			x[i] += 1;
 		}
-		//m+=1;
-		//if (m==20) {
-		//	break;
-		//}
+		m+=1;
+		if (m==100) {
+			break;
+		}
 	}
 	return shortest_vector;
 }
