@@ -66,13 +66,13 @@ void LLL(double delta, int dim, double (*A)[dim]) {
   }
   GramSchmidt(dim, 0, B); //GramSchmidt B
 
-  printf("B1:\n");
-    for (int i = 0; i < dim; i++) {
-        for (int j = 0; j < dim; j++) {
-            printf("%.4f\t", B[i][j]);
-        }
-        printf("\n");
-    }
+  //printf("B1:\n");
+  //  for (int i = 0; i < dim; i++) {
+  //      for (int j = 0; j < dim; j++) {
+  //          printf("%.4f\t", B[i][j]);
+  //      }
+  //      printf("\n");
+  //  }
 
 
   
@@ -91,21 +91,21 @@ void LLL(double delta, int dim, double (*A)[dim]) {
       }
     }
 
-    printf("After while (A):\n");
-    for (int i = 0; i < dim; i++) {
-        for (int j = 0; j < dim; j++) {
-            printf("%.4f\t", A[i][j]);
-        }
-        printf("\n");
-    }
+    //printf("After while (A):\n");
+    //for (int i = 0; i < dim; i++) {
+    //    for (int j = 0; j < dim; j++) {
+    //        printf("%.4f\t", A[i][j]);
+    //    }
+    //    printf("\n");
+    //}
 
-    printf("After while (B):\n");
-    for (int i = 0; i < dim; i++) {
-        for (int j = 0; j < dim; j++) {
-            printf("%.4f\t", A[i][j]);
-        }
-        printf("\n");
-    }
+    //printf("After while (B):\n");
+    //for (int i = 0; i < dim; i++) {
+    //    for (int j = 0; j < dim; j++) {
+    //        printf("%.4f\t", A[i][j]);
+    //    }
+    //    printf("\n");
+    //}
     
     
     mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
