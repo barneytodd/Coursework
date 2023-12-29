@@ -23,9 +23,9 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
   for (i=start; i<dim; i++) { //iterate through the variables (vectors)
     for (j=0; j<i; j++) { //iterate through the previous vectors
       mu_ij = InnerProduct(dim, B[i], B[j])/InnerProduct(dim, B[j], B[j]);
-      //if (i==start && j==0) {
+      if (mu_ij > 5000) {
         printf("mu_ij: %.4f\n", mu_ij);
-      //}
+      }
       for (k=0; k<dim; k++) {
       }
       for (k=0; k<dim; k++) {
