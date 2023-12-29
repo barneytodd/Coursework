@@ -12,13 +12,14 @@ int main(int argc, char *argv[]) {
       break;
     }
   }
+  printf('dim: %d1', dim);
   double A[dim][dim];
   for (i = 0; i < dim; i++) {
     for (j=0; j < dim; j++) {
       k = 1 + dim*i + j;
-      printf("argv[k]: %s\n", argv[k]);
+      //printf("argv[k]: %s\n", argv[k]);
       if (argv[k][0] == '[') {
-        printf("argv[k][1]: %.4f\n", strtod(&argv[k][1], NULL));
+        //printf("argv[k][1]: %.4f\n", strtod(&argv[k][1], NULL));
         A[i][j] = strtod(&argv[k][1], NULL); //Null might need to be changed here
         continue;
       }
