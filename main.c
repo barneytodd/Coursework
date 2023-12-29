@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
       break;
     }
   }
-  printf('dim: %d1', dim);
+  printf("dim: %d", dim);
   double A[dim][dim];
   for (i = 0; i < dim; i++) {
     for (j=0; j < dim; j++) {
