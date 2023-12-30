@@ -115,12 +115,12 @@ void runTests(int dim, ...)
     va_end(args);
 }
 
-int main() {
+//int main() {
 
     
     //runTests(3, {1.0, 0.0, 0.0}, {0.0, 1.0, 0.0}, {0.0, 0.0, 1.0}); 
     //runTests(7, 216);
     //runTests(20, 114624);
     //runTests(30, 14098308);
-    return 0;
-}
+//    return 0;
+//}
