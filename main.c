@@ -29,7 +29,7 @@ double Determinant(int dim, double (*A)[dim]) {
     bool skip[2] = {false, false};
     double B[dim-1][dim-1];
     //printf("dim: %d\n", dim);
-    if (dim==40) {
+    if (dim>=39) {
     for (i=0; i<dim; i++) {
         printf("i: %d\n", i);
         skip[0] = skip[1] = false;
