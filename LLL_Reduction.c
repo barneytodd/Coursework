@@ -39,24 +39,24 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
     }
     
   }
-  printf("B1:\n");
-    for (int i = 0; i < dim; i++) {
-        for (int j = 0; j < dim; j++) {
-            printf("%.4f\t", B[i][j]);
-        }
-        printf("\n");
-    }
+  //printf("B1:\n");
+    //for (int i = 0; i < dim; i++) {
+      //  for (int j = 0; j < dim; j++) {
+        //    printf("%.4f\t", B[i][j]);
+        //}
+        //printf("\n");
+    //}
 }
   
 
 void update_matrices(int dim, int start, double (*A)[dim], double B[][dim]) {
-  printf("(A):\n");
-    for (int i = 0; i < dim; i++) {
-        for (int j = 0; j < dim; j++) {
-            printf("%.4f\t", A[i][j]);
-        }
-        printf("\n");
-    }
+  //printf("(A):\n");
+   // for (int i = 0; i < dim; i++) {
+    //    for (int j = 0; j < dim; j++) {
+      //      printf("%.4f\t", A[i][j]);
+       // }
+        //printf("\n");
+    //}
   int i, j;
   for (i=0; i<dim; i++) {
     for (j=0; j<dim; j++) {
