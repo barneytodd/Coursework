@@ -30,11 +30,11 @@ double Determinant(int dim, double (*A)[dim]) {
     }
     for (i=0; i<dim; i++) {
         skip[0] = skip[1] = false;
-        for (j=0; j<dim; j++) {
+        for (j=0; j<dim-1; j++) {
             if (j==i) {
                 skip[0] = true;
             }
-            for (k=0; k<dim; k++) {
+            for (k=0; k<dim-1; k++) {
                 if (k==i) {
                     skip[1] = true;
                 }
