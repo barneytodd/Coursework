@@ -25,6 +25,7 @@ double Determinant(int dim, double (*A)[dim]) {
     double sum1;
     bool skip[2] = {false, false};
     double B[dim-1][dim-1];
+    int newdim = dim;
     if (dim == 1) {
         return A[0][0];
     }
@@ -41,7 +42,7 @@ double Determinant(int dim, double (*A)[dim]) {
                 B[j][k] = A[j+skip[0]][k+skip[1]];
             }
         }
-        sum1 += pow(-1, i) * A[0][i] * Determinant(dim-1, B);
+        sum1 += pow(-1, i) * A[0][i] * Determinant(newdim-1, B);
     }
     return sum1;
 }
