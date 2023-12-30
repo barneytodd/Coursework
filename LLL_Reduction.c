@@ -38,8 +38,8 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
           if (j==0 || j==1) {
             printf("xyz %.4f\n", (B[i][0] * B[j][0])/(B[j][0] * B[j][0]));
             printf("xyz %.4f\n", (B[i][0] * B[j][0])/(B[j][0] * B[j][0]) * B[j][0] - B[i][0]);
-            printf("xyz %.4f\n", mu_ij * B[j][k] - B[i][0]);
-            printf("j, vec1[0]+ %d, %.4f\n", j, mu_ij * B[j][k]);
+            printf("xyz %.4Lf\n", mu_ij * B[j][k] - B[i][0]);
+            printf("j, vec1[0]+ %d, %.4Lf\n", j, mu_ij * B[j][k]);
           }
         }
       }
