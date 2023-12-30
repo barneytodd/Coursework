@@ -3,14 +3,14 @@
 #include <stdio.h>
 
 
-double InnerProduct(int dim, double *arr1, double *arr2) {
-  double sum1;
-  int i;
-  for (i=0; i<dim; i++) {
-    sum1 += arr1[i]*arr2[i];
-  }
-  return sum1;
-}
+//double InnerProduct(int dim, double *arr1, double *arr2) {
+//  double sum1;
+//  int i;
+ // for (i=0; i<dim; i++) {
+  //  sum1 += arr1[i]*arr2[i];
+  //}
+  //return sum1;
+//}
 
 double ShortestVector(int dim, double (*A)[dim]) {
 	int i, j, k;
