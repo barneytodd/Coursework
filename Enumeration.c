@@ -3,14 +3,14 @@
 #include <stdio.h>
 
 
-//double InnerProduct(int dim, int *arr1, int *arr2) {
- // double sum1;
-  //int i;
-  //for (i=0; i<dim; i++) {
-   // sum1 += arr1[i]*arr2[i];
-  //}
-  //return sum1;
-//}
+double InnerProduct(int dim, int *arr1, int *arr2) {
+  double sum1;
+  int i;
+  for (i=0; i<dim; i++) {
+    sum1 += arr1[i]*arr2[i];
+  }
+  return sum1;
+}
 
 double ShortestVector(int dim, double (*A)[dim]) {
 	int i, j, k;
@@ -42,6 +42,13 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			A[i][k] -= sum1[k];
 		}	
 	}
+
+	for (i=0;i<dim;i++) {
+		for (j=i+1;j<dim;j++) {
+			printf("innerproduct, i, j: %.4f %d %d\n", InnerProduct(dim, A[i], A[j]);
+		}
+	}
+	
 	GS_norms[dim-1] = InnerProduct(dim, A[dim], A[dim]);
 	int x[dim];
 	double l[dim];
