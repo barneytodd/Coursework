@@ -11,15 +11,6 @@
 #include <stdarg.h>
 
 
-double SumArray(int dim, double arr[dim]) {
-    int i;
-    double sum1;
-    for (i=0; i<dim; i++) {
-        sum1 += arr[i];
-    }
-    return sum1;
-}
-
 double Determinant(int dim, double (*A)[dim]) {
     if (dim == 1) {
         return A[0][0];
@@ -28,10 +19,10 @@ double Determinant(int dim, double (*A)[dim]) {
     double sum1 = 0.0;
     bool skip[2] = {false, false};
     double B[dim-1][dim-1];
-    printf("dim: %d\n", dim);
+    //printf("dim: %d\n", dim);
     //if (dim>=39) {
     for (i=0; i<dim; i++) {
-        printf("i: %d\n", i);
+        //printf("i: %d\n", i);
         skip[0] = skip[1] = false;
         for (j=0; j<dim-1; j++) {
             if (j==i) {
@@ -52,9 +43,9 @@ double Determinant(int dim, double (*A)[dim]) {
 
 double LimitCalc(int dim, double (*A)[dim]) {
     double gamma = tgamma(dim/2 + 1);
-    printf("gamma %.4f\n", gamma);
+    printf("gamma %.4f %.4f\n", gamma, pow(gamma, 1/dim));
     double det = Determinant(dim, A);
-    printf("det: %.4f\n", det);
+    printf("det: %.4f %.4f\n", det, pow(det, 1/dim));
     return 1.05*(pow(gamma, 1/dim)/sqrt(M_PI))*pow(det, 1/dim);
 }
 
