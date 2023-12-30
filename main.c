@@ -4,6 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+#include <assert.h>
+#include <stdbool.h>
+#include <math.h>
+#include <stdarg.h>
+
+
 double SumArray(int dim, double arr[dim]) {
     int i;
     double sum1;
