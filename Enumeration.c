@@ -65,7 +65,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			//printf("x: %d\t", x[j]);
 		//}
 		//printf("\n");
-		sum3 = sum2 = 0;
+		sum2 = 0;
 		for (j=dim-1; j>=i; j--) {
 			if (j<dim-1) {
 				sum2 += x[j+1] * Mu[j+1][j];
@@ -92,6 +92,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			printf("l: %.4f\t", l[j]);
 		}
 		printf("\n");
+		sum3 = 0;
 		for (j=0; j<dim; j++) {
 			sum3 += l[j];
 		}
