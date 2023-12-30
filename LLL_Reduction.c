@@ -44,7 +44,7 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
             //printf("xyz %.4f\n",  * B[j][k] - B[i][0]);
             //printf("j, vec1[0]+ %d, %.4f\n", j, mu_ij * B[j][k]);
           }
-        }
+        
       }
       
     }
