@@ -1,5 +1,6 @@
 #include "LLL_Reduction.h"
 #include "Enumeration.h"
+#include "test.h"
 #include <stdio.h>
 #include <stdlib.h>
 
