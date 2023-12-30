@@ -42,7 +42,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			A[i][k] -= sum1[k];
 		}	
 	}
-	GS_norms[dim] = InnerProduct(dim, A[dim], A[dim]);
+	GS_norms[dim-1] = InnerProduct(dim, A[dim], A[dim]);
 	int x[dim];
 	double l[dim];
 	for (j=0; j<dim; j++) {
