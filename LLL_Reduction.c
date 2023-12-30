@@ -15,7 +15,7 @@ double InnerProduct(int dim, double *arr1, double *arr2) {
 
 void GramSchmidt(int dim, int start, double B[][dim]) {
   int i, j, k; //initialise variables i, j, k
-  long double mu_ij;
+  double mu_ij;
   double vec1[dim];
   
   for (i=start; i<dim; i++) { //iterate through the variables (vectors)
@@ -38,8 +38,8 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
           if (j==0 || j==1) {
             printf("xyz %.4f\n", (B[i][0] * B[j][0])/(B[j][0] * B[j][0]));
             printf("xyz %.4f\n", (B[i][0] * B[j][0])/(B[j][0] * B[j][0]) * B[j][0] - B[i][0]);
-            printf("xyz %.4Lf\n", mu_ij * B[j][k] - B[i][0]);
-            printf("j, vec1[0]+ %d, %.4Lf\n", j, mu_ij * B[j][k]);
+            printf("xyz %.4f\n", mu_ij * B[j][k] - B[i][0]);
+            printf("j, vec1[0]+ %d, %.4f\n", j, mu_ij * B[j][k]);
           }
         }
       }
