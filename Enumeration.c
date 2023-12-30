@@ -84,6 +84,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			}
 			//printf("sum3: %.4f\n", sum3);
 			if (sum3<shortest_vector) {
+				printf("i, sum3, x[i]: %d %.4f %d\n", i, sum3, x[i]);
 				i -= 1;
 				x[i] = ceil(- sum2 - x[i+1]*Mu[i+1][i] - sqrt((shortest_vector - sum3)/GS_norms[i]));
 			}
