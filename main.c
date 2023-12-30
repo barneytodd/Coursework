@@ -21,9 +21,9 @@ double SumArray(int dim, double arr[dim]) {
 }
 
 double Determinant(int dim, double (*A)[dim]) {
-    if (dim == 1) {
+    if (dim == 1) 
         return A[0][0];
-    }
+    
     int i, j, k;
     double sum1;
     bool skip[2] = {false, false};
