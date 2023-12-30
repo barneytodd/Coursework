@@ -31,9 +31,10 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
       //for (k=0; k<dim; k++) {
       //}
       for (k=0; k<dim; k++) {
-        printf("xyz %.4f\n", mu_ij * B[j][k] - B[i][0]);
+        
         vec1[k] += mu_ij * B[j][k]; //subtract the dot_product times the jth normalised vector 
         if (k==0) {
+          printf("xyz %.4f\n", mu_ij * B[j][k] - B[i][0]);
           if (j==0 || j==1) {
             printf("j, vec1[0]+ %d, %.4f\n", j, mu_ij * B[j][k]);
           }
