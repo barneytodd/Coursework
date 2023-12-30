@@ -15,7 +15,7 @@ double InnerProduct(int dim, double *arr1, double *arr2) {
 
 void GramSchmidt(int dim, int start, double B[][dim]) {
   int i, j, k; //initialise variables i, j, k
-  double mu_ij;
+  long double mu_ij;
   double vec1[dim];
   
   for (i=start; i<dim; i++) { //iterate through the variables (vectors)
