@@ -21,7 +21,7 @@ double SumArray(int dim, double arr[dim]) {
 }
 
 double Determinant(int dim, double (*A)[dim]) {
-    if (dim <= 30) {
+    if (dim == 1) {
         return A[0][0];
     }
     int i, j, k;
