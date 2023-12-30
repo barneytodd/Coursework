@@ -2,7 +2,6 @@
 #include "Enumeration.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <float.h>
 
 int main(int argc, char *argv[]) {
   int dim, i, j, k;
@@ -53,7 +52,7 @@ int main(int argc, char *argv[]) {
         }
         printf("\n");
     }
-  printf("Maximum value of double: %e\n", DBL_MAX);
+  //printf("Maximum value of double: %e\n", DBL_MAX);
   //double shortest_length = ShortestVector(3, A);
   //FILE *result = fopen("result.txt", "w");
   //fprintf(result, "%.4f\n", shortest_length);
