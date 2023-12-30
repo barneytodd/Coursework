@@ -43,10 +43,10 @@ double Determinant(int dim, double (*A)[dim]) {
 
 double LimitCalc(int dim, double (*A)[dim]) {
     double gamma = tgamma(dim/2 + 1);
-    printf("gamma %.4f %.4f\n", gamma, pow(gamma, 1/dim));
+    printf("gamma %.4f %.4f\n", gamma, pow(gamma, 1.0/dim));
     double det = Determinant(dim, A);
-    printf("det: %.4f %.4f\n", det, pow(det, 1/dim));
-    return 1.05*(pow(gamma, 1/dim)/sqrt(M_PI))*pow(det, 1/dim);
+    printf("det: %.4f %.4f\n", det, pow(det, 1.0/dim));
+    return 1.05*(pow(gamma, 1.0/dim)/sqrt(M_PI))*pow(det, 1.0/dim);
 }
 
 int main(int argc, char *argv[]) {
