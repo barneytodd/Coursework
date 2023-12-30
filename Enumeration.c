@@ -45,7 +45,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 
 	for (i=0;i<dim;i++) {
 		for (j=i+1;j<dim;j++) {
-			printf("innerproduct, i, j: %.4f %d %d\n", InnerProduct(dim, A[i], A[j]);
+			printf("innerproduct, i, j: %.4f %d %d\n", InnerProduct(dim, A[i], A[j]), i, j);
 		}
 	}
 	
