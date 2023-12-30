@@ -29,7 +29,7 @@ double Determinant(int dim, double (*A)[dim]) {
     bool skip[2] = {false, false};
     double B[dim-1][dim-1];
     //printf("dim: %d\n", dim);
-    if (dim>=39) {
+    //if (dim>=39) {
     for (i=0; i<dim; i++) {
         printf("i: %d\n", i);
         skip[0] = skip[1] = false;
@@ -46,7 +46,7 @@ double Determinant(int dim, double (*A)[dim]) {
         }
         sum1 += pow(-1, i) * A[0][i] * Determinant(dim-1, B);
     }
-    }
+    //}
     return sum1;
 }
 
