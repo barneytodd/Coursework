@@ -91,17 +91,18 @@ void LLL(double delta, int dim, double (*A)[dim]) {
         for (i=0; i<dim; i++) {
           A[k][i] -= round(mu_kj) * A[j][i];
         }
+        printf("(A):\n");
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                printf("%.4f\t", A[i][j]);
+            }
+            printf("\n");
+        }
         update_matrices(dim, k, A, B);
       }
     }
 
-    //printf("After while (A):\n");
-    //for (int i = 0; i < dim; i++) {
-    //    for (int j = 0; j < dim; j++) {
-    //        printf("%.4f\t", A[i][j]);
-    //    }
-    //    printf("\n");
-    //}
+    
 
     //printf("After while (B):\n");
     //for (int i = 0; i < dim; i++) {
