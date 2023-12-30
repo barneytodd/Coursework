@@ -28,6 +28,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 	double sum1[dim]; //may be able to release this memory after following for loop
 	for (i=1; i<dim; i++) { //change A to GS vectors, calculate Mu_i_j values, and calculate GS_norms
 		GS_norms[i-1] = InnerProduct(dim, A[i-1], A[i-1]);
+		printf("GS_norms: %.4f\n", GS_norms[i-1]);
 		for (j=0; j<dim; j++) {
 			sum1[j] = 0;
 		}
@@ -61,7 +62,9 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			for (k=i+1; k<dim; k++) {
 				sum2 += x[k] * Mu[k][j];
 			}
+			printf("x[j] + sum2: %.4f\n", x[j] + sum2);
 			l[j] = (x[j] + sum2) * (x[j] + sum2) * GS_norms[j];
+			printf("l[j]: %.4f\n", l[j]);
 			sum2 = 0;
 		}
 		//for (j=0; j<dim; j++) {
