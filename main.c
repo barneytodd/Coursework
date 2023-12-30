@@ -28,9 +28,10 @@ double Determinant(int dim, double (*A)[dim]) {
     double sum1 = 0.0;
     bool skip[2] = {false, false};
     double B[dim-1][dim-1];
-    printf("dim: %d\n", dim);
+    //printf("dim: %d\n", dim);
     if (dim>30) {
     for (i=0; i<dim; i++) {
+        printf("i: %d\n", i);
         skip[0] = skip[1] = false;
         for (j=0; j<dim-1; j++) {
             if (j==i) {
