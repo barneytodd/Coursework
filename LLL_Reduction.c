@@ -24,12 +24,6 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
     }
     for (j=0; j<i; j++) { //iterate through the previous vectors
       mu_ij = InnerProduct(dim, B[i], B[j])/InnerProduct(dim, B[j], B[j]);
-      //
-      //if (j==0) {
-      //  printf("mu_ij: %.4f %d %d\n", mu_ij, i, j);
-      //}
-      //for (k=0; k<dim; k++) {
-      //}
       for (k=0; k<dim; k++) {
         if (k==0 && mu_ij == (B[i][0] * B[j][0])/(B[j][0] * B[j][0])) {
           printf("B[i][0]: %.4f\n", B[i][0]);
@@ -38,36 +32,20 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
         }
         vec1[k] += mu_ij * B[j][k]; //subtract the dot_product times the jth normalised vector 
       }
-      if (i<4) {
-        printf("vec1 %d %d\n", i, j);
-        for (k=0; k<dim; k++) {
-          printf("%.4f\t", vec1[k]);
-        }
-        printf("\n");
-        printf("B[i]\n");
-        for (k=0;k<dim;k++) {
-          printf("%.4f\t", B[i][k]);
-        }
-        printf("\n");
-      }
-          
-          //if (j==0 || j==1) {
-            //printf("xyz %.4f\n", (B[i][0] * B[j][0])/(B[j][0] * B[j][0]));
-            //printf("xyz %.4f\n",  mu_ij * B[j][0] - B[i][0]);
-            //printf("xyz %.4f\n",  * B[j][k] - B[i][0]);
-            //printf("j, vec1[0]+ %d, %.4f\n", j, mu_ij * B[j][k]);
-          //}
-        
-      
       
     }
-    //printf("vec1[0](2) %.4f\n", vec1[0]);
-    //printf("%.4f\n", B[i][0]);
     for (k=0; k<dim; k++) {
       B[i][k] -= vec1[k];
     }
     
   }
+  printf("B1:\n");
+    for (int i = 0; i < dim; i++) {
+        for (int j = 0; j < dim; j++) {
+            printf("%.4f\t", B[i][j]);
+        }
+        printf("\n");
+    }
 }
   
 
@@ -98,13 +76,7 @@ void LLL(double delta, int dim, double (*A)[dim]) {
   }
   GramSchmidt(dim, 0, B); //GramSchmidt B
 
-  //printf("B1:\n");
-  //  for (int i = 0; i < dim; i++) {
-  //      for (int j = 0; j < dim; j++) {
-  //          printf("%.4f\t", B[i][j]);
-  //      }
-  //      printf("\n");
-  //  }
+  
 
 
   
