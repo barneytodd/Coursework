@@ -68,10 +68,10 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			
 			sum2 = 0;
 		}
-		//for (j=0; j<dim; j++) {
-			//printf("l: %.4f\t", l[j]);
-		//}
-		//printf("\n");
+		for (j=0; j<dim; j++) {
+			printf("l: %.4f\t", l[j]);
+		}
+		printf("\n");
 		for (j=0; j<dim; j++) {
 			sum3 += l[j];
 		}
