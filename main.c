@@ -48,7 +48,9 @@ double Determinant(int dim, double (*A)[dim]) {
 
 double LimitCalc(int dim, double (*A)[dim]) {
     double gamma = tgamma(dim/2 + 1);
+    printf("gamma %.4f\n", gamma);
     double det = Determinant(dim, A);
+    printf("det: %.4f\n", det);
     return 1.05*(pow(gamma, 1/dim)/sqrt(M_PI))*pow(det, 1/dim);
 }
 
