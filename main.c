@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
         printf("\n");
     }
   //printf("Maximum value of double: %e\n", DBL_MAX);
-  double shortest_length = ShortestVector(3, A);
+  double shortest_length = ShortestVector(dim, A);
   FILE *result = fopen("result.txt", "w");
   fprintf(result, "%.4f\n", shortest_length);
   return 0;
