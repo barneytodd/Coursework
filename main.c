@@ -39,8 +39,8 @@ int main(int argc, char *argv[]) {
     }
     printf("\n");
   }
-  
-  
+  limit = LimitCalc(dim, A);
+  printf("Limit: %.4f\n", limit);
       
   //double vec1[3] = {1.0, 1.0, 1.0};
   //double vec2[3] = {-1.0, 0.0, 2.0};
