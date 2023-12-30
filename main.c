@@ -21,15 +21,15 @@ double SumArray(int dim, double arr[dim]) {
 }
 
 double Determinant(int dim, double (*A)[dim]) {
-    if (dim == 1) 
+    if (dim == 1) {
         return A[0][0];
-    
+    }
     int i, j, k;
-    double sum1;
+    double sum1 = 0.0;
     bool skip[2] = {false, false};
     double B[dim-1][dim-1];
     printf("dim: %d\n", dim);
-    if (dim>1) {
+    if (dim>30) {
     for (i=0; i<dim; i++) {
         skip[0] = skip[1] = false;
         for (j=0; j<dim-1; j++) {
