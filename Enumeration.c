@@ -59,7 +59,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 		//}
 		//printf("\n");
 		sum2 = sum3 = 0;
-		for (j=i; j<dim; j++) {
+		for (j=dim-1; j>=i; j--) {
 			for (k=j+1; k<dim; k++) {
 				sum2 += x[k] * Mu[k][j];
 			}
