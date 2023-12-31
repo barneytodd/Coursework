@@ -16,6 +16,10 @@ double ShortestVector(int dim, double (*A)[dim]) {
 	int i, j, k;
 	double shortest_vector = sqrt(InnerProduct(dim, A[0], A[0])); //keeps track of current shortest vector
 	double current_norm; //stores current norm we're calculating below, may be good to release this memory after following for loop
+	int x_log[dim]; //keep a log of which values have been tried before
+	for (i=0;i<dim;i++) { //initialise to 0
+		x_log[i] = 0;
+	}
 	for (i=1; i<dim; i++) {
 		current_norm = sqrt(InnerProduct(dim, A[i], A[i])); //calculates norm of each vector in A, then compares to shortest vector
 		if (current_norm < shortest_vector) {
@@ -144,7 +148,8 @@ double ShortestVector(int dim, double (*A)[dim]) {
 					l[i] = (x[i] + sum2) * (x[i] + sum2) * GS_norms[i]; 
 					
 				} while (l[i] < shortest_vector * shortest_vector - sum3);
-				x[i] += 1;
+				x[i] += 1 + x_log[i];
+				x_log[i]+=1;
 				
 				//printf("i2, sum2, x[i]: %d %.4f %d\n", i, sum2 + x[i+1]*Mu[i+1][i], x[i]);
 			}
