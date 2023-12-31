@@ -17,7 +17,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 	double shortest_vector = sqrt(InnerProduct(dim, A[0], A[0])); //keeps track of current shortest vector
 	double current_norm; //stores current norm we're calculating below, may be good to release this memory after following for loop
 	for (i=1; i<dim; i++) {
-		current_norm = sqrt(InnerProduct(dim, A[i], A[i])); //calculates norm of each vector in A, then compares o shortest vector
+		current_norm = sqrt(InnerProduct(dim, A[i], A[i])); //calculates norm of each vector in A, then compares to shortest vector
 		if (current_norm < shortest_vector) {
 			shortest_vector = current_norm;
 		}
@@ -50,24 +50,24 @@ double ShortestVector(int dim, double (*A)[dim]) {
 	}
 	
 	GS_norms[dim-1] = InnerProduct(dim, A[dim], A[dim]);
-	int x[dim];
-	double l[dim];
+	int x[dim]; //x counts how many of each basis vector we're using
+	double l[dim]; //l counts the total contribution of all the used vectors in the direction of each GS vector, squared
 	for (j=0; j<dim; j++) {
 		x[j] = l[j] = 0;
 	}
-	double sum2;
-	double sum3;
+	double sum2; //sum2 is the sum(j>i) of x[j] * Mu[j][i]
+	double sum3; //sum3 is the sum of l[j]'s, also equal to the squared norm of the current vector
 	i=0;
-	int m = 0;
-	while (i<dim) {
+	//int m = 0;
+	while (i<dim) { //begin the enumeration loop
 		//printf("i: %d\n", i);
 		//for (j=0; j<dim; j++) {
 			//printf("x: %d\t", x[j]);
 		//}
 		//printf("\n");
 		sum2 = 0;
-		for (j=dim-1; j>=i; j--) {
-			if (j<dim-1) {
+		for (j=dim-1; j>=i; j--) { //calculate the l[j] values from i upwards
+			if (j<dim-1) { //dynamically calculate sum2
 				sum2 += x[j+1] * Mu[j+1][j];
 			}
 			//sum2 = 0;
@@ -77,7 +77,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			//printf("x[j] + sum2: %.4f\n", x[j] + sum2);
 			l[j] = (x[j] + sum2) * (x[j] + sum2) * GS_norms[j];
 			if (j==i) {
-				printf("l[j]...: %.4f\n", l[j] - (shortest_vector-sum3));
+				//printf("l[j]...: %.4f\n", l[j] - (shortest_vector-sum3));
 				//printf("GS_norms[i]: %.4f\n", GS_norms[i]);
 				//printf("sum2: %.4f\n", sum2);
 				//printf("sum3: %.4f\n", sum3);
@@ -93,22 +93,17 @@ double ShortestVector(int dim, double (*A)[dim]) {
 		}
 		printf("\n");
 		sum3 = 0;
-		for (j=0; j<dim; j++) {
+		for (j=i; j<dim; j++) {
 			sum3 += l[j];
 		}
-		if (i==0 && sum3 < shortest_vector*shortest_vector) {
-			if (sum3 != 0) {
-				shortest_vector = sqrt(sum3);
+		if (sum3 < shortest_vector*shortest_vector) {
+			if (i==0) {
+				if (sum3 != 0) {
+					shortest_vector = sqrt(sum3);
+				}
+				x[0] += 1;
 			}
-			x[0] += 1;
-		}
-		else if (i!=0) {
-			sum3 = 0;
-			for (j=i; j<dim; j++) {
-				sum3 += l[j];
-			}
-			//printf("sum3: %.4f\n", sum3);
-			if (sum3<shortest_vector) {
+			else {
 				printf("i, sum3, x[i]: %d %.4f %d\n", i, sum3, x[i]);
 				i -= 1;
 				//x[i] = ceil(- sum2 - x[i+1]*Mu[i+1][i] - sqrt((shortest_vector - sum3)/GS_norms[i]));
@@ -116,14 +111,14 @@ double ShortestVector(int dim, double (*A)[dim]) {
 				printf("i2, sum2, x[i]: %d %.4f %d\n", i, sum2 + x[i+1]*Mu[i+1][i], x[i]);
 			}
 		}
-		if (sum3 >= shortest_vector) {
+		else {
 			i += 1;
 			x[i] += 1;
 		}
-		m+=1;
-		if (m==100) {
-			break;
-		}
+		//m+=1;
+		//if (m==100) {
+		//	break;
+		//}
 	}
 	return shortest_vector;
 }
