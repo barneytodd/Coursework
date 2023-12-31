@@ -68,13 +68,13 @@ double ShortestVector(int dim, double (*A)[dim]) {
 		//printf("\n");
 		sum2 = 0;
 		for (j=dim-1; j>=i; j--) { //calculate the l[j] values from i upwards
-			if (j<dim-1) { //dynamically calculate sum2
-				sum2 += x[j+1] * Mu[j+1][j];
-			}
-			//sum2 = 0;
-			//for (k=j+1; k<dim; k++) {
-			//	sum2 += x[k] * Mu[k][j];
+			//if (j<dim-1) { //dynamically calculate sum2
+			//	sum2 += x[j+1] * Mu[j+1][j];
 			//}
+			sum2 = 0;
+			for (k=j+1; k<dim; k++) {
+				sum2 += x[k] * Mu[k][j];
+			}
 			//printf("x[j] + sum2: %.4f\n", x[j] + sum2);
 			l[j] = (x[j] + sum2) * (x[j] + sum2) * GS_norms[j]; //might need to include all j not just j>i
 			if (j==i) {
