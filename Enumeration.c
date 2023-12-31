@@ -111,6 +111,10 @@ double ShortestVector(int dim, double (*A)[dim]) {
 		for (j=i; j<dim; j++) {
 			sum3 += l[j];
 		}
+		for (j=0; j<dim; j++) {
+			printf("%d\t", x[j]);
+		}
+		printf("\n");
 		if (sum3 < shortest_vector*shortest_vector) {
 			if (i==0) {
 				if (sum3 != 0) {
