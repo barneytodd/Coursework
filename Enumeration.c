@@ -107,7 +107,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 					}
 					printf("\n");
 					//printf("x[9]: %
-					//printf("max x[9]: %.4f\n", shortest_vector*shortest_vector/GS_norms[dim-1]);
+					printf("max x[9]: %.4f\n", shortest_vector*shortest_vector/GS_norms[dim-1]);
 				}
 				x[0] += 1;
 			}
