@@ -106,7 +106,8 @@ double ShortestVector(int dim, double (*A)[dim]) {
 						printf("%d\t", x[j]);
 					}
 					printf("\n");
-					printf("max x[9]: %.4f\n", shortest_vector*shortest_vector/GS_norms[dim-1]);
+					//printf("x[9]: %
+					//printf("max x[9]: %.4f\n", shortest_vector*shortest_vector/GS_norms[dim-1]);
 				}
 				x[0] += 1;
 			}
@@ -124,16 +125,16 @@ double ShortestVector(int dim, double (*A)[dim]) {
 		}
 		else {
 
-			//we might want to reset all the x[i]'s to 0 when x[9] gets updated
+			//we might want to reset all the x[i]'s to 0 when x[9] gets updated, also not sure about max x[9]
 
 			
 			i += 1;
 			x[i] += 1;
 		}
-		if (i==dim-1) {
-			printf("x[9]: %d\n", x[dim-1]);
-			
-		}
+		//if (i==dim-1) {
+		//	printf("x[9]: %d\n", x[dim-1]);
+		//	
+		//}
 		//m+=1;
 		//if (m==100) {
 		//	break;
