@@ -59,6 +59,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 	double sum3; //sum3 is the sum of l[j]'s, also equal to the squared norm of the current vector
 	i=0;
 	//int m = 0;
+	
 	while (i<dim) { //begin the enumeration loop
 		//printf("i: %d\n", i);
 		//for (j=0; j<dim; j++) {
@@ -101,10 +102,19 @@ double ShortestVector(int dim, double (*A)[dim]) {
 				if (sum3 != 0) {
 					shortest_vector = sqrt(sum3);
 					printf("shortest_vector: %.4f\n", shortest_vector);
+					for (j=0; j<dim; j++) {
+						printf("%d\t", x[j]);
+					}
+					print("\n");
+					printf("max x[9]: %.4f\n", shortest_vector*shortest_vector/GS[dim1]);
 				}
 				x[0] += 1;
 			}
 			else {
+				//we want to set x[i] to the minimum integer such that l[i] < A-sum3
+
+
+				
 				//printf("i, sum3, x[i]: %d %.4f %d\n", i, sum3, x[i]);
 				i -= 1;
 				//x[i] = ceil(- sum2 - x[i+1]*Mu[i+1][i] - sqrt((shortest_vector - sum3)/GS_norms[i]));
@@ -113,8 +123,16 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			}
 		}
 		else {
+
+			//we might want to reset all the x[i]'s to 0 when x[9] gets updated
+
+			
 			i += 1;
 			x[i] += 1;
+		}
+		if (i==dim-1) {
+			printf("x[9]: %d\n", x[dim-1]);
+			
 		}
 		//m+=1;
 		//if (m==100) {
