@@ -105,8 +105,8 @@ double ShortestVector(int dim, double (*A)[dim]) {
 					for (j=0; j<dim; j++) {
 						printf("%d\t", x[j]);
 					}
-					print("\n");
-					printf("max x[9]: %.4f\n", shortest_vector*shortest_vector/GS[dim1]);
+					printf("\n");
+					printf("max x[9]: %.4f\n", shortest_vector*shortest_vector/GS_norms[dim-1]);
 				}
 				x[0] += 1;
 			}
