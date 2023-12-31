@@ -96,9 +96,9 @@ double ShortestVector(int dim, double (*A)[dim]) {
 		for (j=0; j<dim; j++) {
 			sum3 += l[j];
 		}
-		if (i==0 && sum3 < shortest_vector) {
+		if (i==0 && sum3 < shortest_vector*shortest_vector) {
 			if (sum3 != 0) {
-				shortest_vector = sum3;
+				shortest_vector = sqrt(sum3);
 			}
 			x[0] += 1;
 		}
