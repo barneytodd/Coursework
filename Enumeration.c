@@ -43,11 +43,11 @@ double ShortestVector(int dim, double (*A)[dim]) {
 		}	
 	}
 
-	for (i=0;i<dim;i++) {
-		for (j=i+1;j<dim;j++) {
-			printf("innerproduct, i, j: %.4f %d %d\n", InnerProduct(dim, A[i], A[j]), i, j);
-		}
-	}
+	//for (i=0;i<dim;i++) {
+	//	for (j=i+1;j<dim;j++) {
+	//		printf("innerproduct, i, j: %.4f %d %d\n", InnerProduct(dim, A[i], A[j]), i, j);
+	//	}
+	//}
 	
 	GS_norms[dim-1] = InnerProduct(dim, A[dim], A[dim]);
 	int x[dim]; //x counts how many of each basis vector we're using
@@ -88,10 +88,10 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			}
 			
 		}
-		for (j=0; j<dim; j++) {
-			printf("l: %.4f\t", l[j]);
-		}
-		printf("\n");
+		//for (j=0; j<dim; j++) {
+		//	printf("l: %.4f\t", l[j]);
+		//}
+		//printf("\n");
 		sum3 = 0;
 		for (j=i; j<dim; j++) {
 			sum3 += l[j];
