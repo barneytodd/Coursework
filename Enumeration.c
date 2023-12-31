@@ -89,7 +89,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 				sum2 += x[k] * Mu[k][j];
 			}
 			//printf("x[j] + sum2: %.4f\n", x[j] + sum2);
-			l[j] = (x[j] + sum2) * (x[j] + sum2) * GS_norms[j]; //might need to include all j not just j>i
+			l[j] = (x[j] + sum2) * (x[j] + sum2) * GS_norms[j]; 
 			if (j==i) {
 				//printf("l[j]...: %.4f\n", l[j] - (shortest_vector-sum3));
 				//printf("GS_norms[i]: %.4f\n", GS_norms[i]);
@@ -134,6 +134,18 @@ double ShortestVector(int dim, double (*A)[dim]) {
 				i -= 1;
 				//x[i] = ceil(- sum2 - x[i+1]*Mu[i+1][i] - sqrt((shortest_vector - sum3)/GS_norms[i]));
 				x[i] = round(- sum2 - x[i+1]*Mu[i+1][i]);
+				do {
+					x[i] -= 1;
+					sum2 = 0;
+					for (k=i+1; k<dim; k++) {
+						sum2 += x[k] * Mu[k][i];
+					}
+					//printf("x[j] + sum2: %.4f\n", x[j] + sum2);
+					l[i] = (x[i] + sum2) * (x[i] + sum2) * GS_norms[i]; 
+					
+				} while (l[i] < shortest_vector * shortest_vector - sum3);
+				x[i] += 1;
+				
 				//printf("i2, sum2, x[i]: %d %.4f %d\n", i, sum2 + x[i+1]*Mu[i+1][i], x[i]);
 			}
 		}
