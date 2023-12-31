@@ -76,7 +76,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			//	sum2 += x[k] * Mu[k][j];
 			//}
 			//printf("x[j] + sum2: %.4f\n", x[j] + sum2);
-			l[j] = (x[j] + sum2) * (x[j] + sum2) * GS_norms[j];
+			l[j] = (x[j] + sum2) * (x[j] + sum2) * GS_norms[j]; //might need to include all j not just j>i
 			if (j==i) {
 				//printf("l[j]...: %.4f\n", l[j] - (shortest_vector-sum3));
 				//printf("GS_norms[i]: %.4f\n", GS_norms[i]);
