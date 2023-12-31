@@ -42,6 +42,14 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			A[i][k] -= sum1[k];
 		}	
 	}
+	printf("Mu");
+	for (i=0;i<dim;i++) {
+		for (j=0;j<dim;j++) {
+			printf("%.4f\t", Mu[i][j]);
+		}
+		printf("\n");
+	}
+	
 	printf("A");
 	for (i=0;i<dim;i++) {
 		for (j=0;j<dim;j++) {
