@@ -50,6 +50,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 	//}
 	
 	GS_norms[dim-1] = InnerProduct(dim, A[dim], A[dim]);
+	printf("GS: %.4f\n", GS_norms[9]);
 	int x[dim]; //x counts how many of each basis vector we're using
 	double l[dim]; //l counts the total contribution of all the used vectors in the direction of each GS vector, squared
 	for (j=0; j<dim; j++) {
