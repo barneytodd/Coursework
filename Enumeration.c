@@ -148,9 +148,11 @@ double ShortestVector(int dim, double (*A)[dim]) {
 					l[i] = (x[i] + sum2) * (x[i] + sum2) * GS_norms[i]; 
 					
 				} while (l[i] < shortest_vector * shortest_vector - sum3);
-				x[i] += 1;// + x_log[i];
+				x[i] += 1 + x_log[i];
 				x_log[i]+=1;
-				
+				for (j=0;j<i;j++) {
+					x_log[j] = 0;
+				}
 				//printf("i2, sum2, x[i]: %d %.4f %d\n", i, sum2 + x[i+1]*Mu[i+1][i], x[i]);
 			}
 		}
@@ -161,6 +163,9 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			
 			i += 1;
 			x[i] += 1;
+			for (j=0;j<i;j++) {
+				x_log[j] = 0;
+			}
 		}
 		//if (i==dim-1) {
 		//	printf("x[9]: %d\n", x[dim-1]);
