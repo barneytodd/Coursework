@@ -148,7 +148,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 					l[i] = (x[i] + sum2) * (x[i] + sum2) * GS_norms[i]; 
 					
 				} while (l[i] < shortest_vector * shortest_vector - sum3);
-				x[i] += 1 + x_log[i];
+				x[i] += 1;// + x_log[i];
 				x_log[i]+=1;
 				
 				//printf("i2, sum2, x[i]: %d %.4f %d\n", i, sum2 + x[i+1]*Mu[i+1][i], x[i]);
