@@ -100,6 +100,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			if (i==0) {
 				if (sum3 != 0) {
 					shortest_vector = sqrt(sum3);
+					printf("shortest_vector: %.4f\n", shortest_vector);
 				}
 				x[0] += 1;
 			}
