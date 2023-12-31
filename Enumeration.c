@@ -42,12 +42,13 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			A[i][k] -= sum1[k];
 		}	
 	}
-
-	//for (i=0;i<dim;i++) {
-	//	for (j=i+1;j<dim;j++) {
-	//		printf("innerproduct, i, j: %.4f %d %d\n", InnerProduct(dim, A[i], A[j]), i, j);
-	//	}
-	//}
+	printf("A");
+	for (i=0;i<dim;i++) {
+		for (j=0;j<dim;j++) {
+			printf("%.4f\t", A[i][j]);
+		}
+		printf("\n");
+	}
 	
 	GS_norms[dim-1] = InnerProduct(dim, A[dim], A[dim]);
 	printf("GS: %.4f\n", GS_norms[9]);
