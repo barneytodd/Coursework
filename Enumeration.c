@@ -174,9 +174,9 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			printf("sum3>A \n");
 			i += 1;
 			x[i] += 1;
-			for (j=0;j<i;j++) {
-				x_log[j] = 0;
-			}
+		//	for (j=0;j<i;j++) {
+		//		x_log[j] = 0;
+		//	}
 		}
 		//if (i==dim-1) {
 		//	printf("x[9]: %d\n", x[dim-1]);
