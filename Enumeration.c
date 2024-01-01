@@ -159,6 +159,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 					}
 					printf("x[j] + sum2: %.4f\n", sum2);
 					l[i] = (x[i] + sum2) * (x[i] + sum2) * GS_norms[i]; 
+					printf("GS_norms[i]: %.4f\n", GS_norms[i]);
 					printf("l[i]: %.4f\n", l[i]);
 					printf("x[i]: %d\n", x[i]);
 					
