@@ -104,14 +104,14 @@ double ShortestVector(int dim, double (*A)[dim]) {
 					shortest_vector = sqrt(sum3);
 					printf("shortest_vector: %.4f\n", shortest_vector);
 					for (j=0; j<dim; j++) {
-						printf("%d\n", x[j]);
+						printf("%d\t", x[j]);
 					}
 					printf("\n");
 					
-					printf("max x[9]: %.4f\n", shortest_vector*shortest_vector/GS_norms[dim-1]);
-					for (j=0; j<dim; j++) {
-						printf("l: %.4f\n", l[j]);
-					}
+					printf("max x[9]: %.4f\n", pow(shortest_vector*shortest_vector/GS_norms[dim-1], 0.5));
+					//for (j=0; j<dim; j++) {
+					//	printf("l: %.4f\n", l[j]);
+					//}
 					printf("\n");
 				}
 				x[0] += 1;
