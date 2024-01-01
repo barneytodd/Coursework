@@ -155,7 +155,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 		
 		}
 		
-		printf("\n");
+		//printf("\n");
 	}
 	return shortest_vector;
 }
