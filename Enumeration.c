@@ -78,11 +78,11 @@ double ShortestVector(int dim, double (*A)[dim]) {
 	//int m = 0;
 	
 	while (i<dim) { //begin the enumeration loop
-		//printf("i: %d\n", i);
-		//for (j=0; j<dim; j++) {
-			//printf("x: %d\t", x[j]);
-		//}
-		//printf("\n");
+		printf("i: %d\n", i);
+		for (j=0; j<dim; j++) {
+			printf("x: %d\t", x[j]);
+		}
+		printf("\n");
 		sum2 = 0;
 		for (j=dim-1; j>=i; j--) { //calculate the l[j] values from i upwards
 			//if (j<dim-1) { //dynamically calculate sum2
@@ -111,23 +111,23 @@ double ShortestVector(int dim, double (*A)[dim]) {
 		for (j=i; j<dim; j++) {
 			sum3 += l[j];
 		}
-		for (j=0; j<dim; j++) {
-			printf("%d\t", x[j]);
-		}
-		printf("\n");
+		//for (j=0; j<dim; j++) {
+		//	printf("%d\t", x[j]);
+		//}
+		//printf("\n");
 		if (sum3 < shortest_vector*shortest_vector) {
 			if (i==0) {
 				if (sum3 != 0) {
 					shortest_vector = sqrt(sum3);
 					printf("shortest_vector: %.4f\n", shortest_vector);
 					for (j=0; j<dim; j++) {
-						printf("%d\t", x[j]);
+						printf("%d\n", x[j]);
 					}
 					printf("\n");
 					//printf("x[9]: %
 					printf("max x[9]: %.4f\n", shortest_vector*shortest_vector/GS_norms[dim-1]);
 					for (j=0; j<dim; j++) {
-						printf("l: %.4f\t", l[j]);
+						printf("l: %.4f\n", l[j]);
 					}
 					printf("\n");
 				}
