@@ -146,7 +146,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 				printf("bound for l[i]: %.4f\n", shortest_vector * shortest_vector - sum3);
 				printf("l[i]: %.4f\n", l[i]);
 				printf("x[i]: %d\n", x[i]);
-				while (l[i] < shortest_vector * shortest_vector - sum3) {
+				do {
 					
 					x[i] -= 1;
 					sum2 = 0;
@@ -158,7 +158,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 					printf("l[i]: %.4f\n", l[i]);
 					printf("x[i]: %d\n", x[i]);
 					
-				} 
+				} while (l[i] < shortest_vector * shortest_vector - sum3);
 				x[i] += 1; // + x_log[i];
 				//x_log[i]+=1;
 				//for (j=0;j<i;j++) {
