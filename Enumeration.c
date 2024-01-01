@@ -142,7 +142,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 				i -= 1;
 				//x[i] = ceil(- sum2 - x[i+1]*Mu[i+1][i] - sqrt((shortest_vector - sum3)/GS_norms[i]));
 				sum2 = 0;
-				for (k=i+1, k<dim, k++) {
+				for (k=i+1; k<dim; k++) {
 					sum2 += x[k] * Mu[k][i];
 				}
 				x[i] = round(- sum2 - x[i+1]*Mu[i+1][i]);
