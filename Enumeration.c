@@ -137,7 +137,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 				//we want to set x[i] to the minimum integer such that l[i] < A-sum3
 
 
-				printf("sum3<A");
+				printf("sum3<A \n");
 				//printf("i, sum3, x[i]: %d %.4f %d\n", i, sum3, x[i]);
 				i -= 1;
 				//x[i] = ceil(- sum2 - x[i+1]*Mu[i+1][i] - sqrt((shortest_vector - sum3)/GS_norms[i]));
@@ -166,7 +166,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 
 			//we might want to reset all the x[i]'s to 0 when x[9] gets updated, also not sure about max x[9]
 
-			printf("sum3>A");
+			printf("sum3>A \n");
 			i += 1;
 			x[i] += 1;
 			for (j=0;j<i;j++) {
@@ -181,6 +181,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 		//if (m==100) {
 		//	break;
 		//}
+		printf("\n");
 	}
 	return shortest_vector;
 }
