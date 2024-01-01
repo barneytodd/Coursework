@@ -147,6 +147,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 				}
 				x[i] = round(- sum2 - x[i+1]*Mu[i+1][i]);
 				printf("sum2: %.4f\n", sum2+x[i+1]*Mu[i+1][i]);
+				l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * GS_norms[i]; 
 				printf("bound for l[i]: %.4f\n", shortest_vector * shortest_vector - sum3);
 				printf("l[i]: %.4f\n", l[i]);
 				printf("x[i]: %d\n", x[i]);
