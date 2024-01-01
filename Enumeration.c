@@ -75,11 +75,11 @@ double ShortestVector(int dim, double (*A)[dim]) {
 	
 	
 	while (i<dim) { //begin the enumeration loop
-		printf("i: %d\n", i);
-		for (j=0; j<dim; j++) {
-			printf("x: %d\t", x[j]);
-		}
-		printf("\n");
+		//printf("i: %d\n", i);
+		//for (j=0; j<dim; j++) {
+		//	printf("x: %d\t", x[j]);
+		//}
+		//printf("\n");
 		sum2 = 0;
 		for (j=dim-1; j>=i; j--) { //calculate the l[j] values from i upwards
 			
@@ -128,11 +128,9 @@ double ShortestVector(int dim, double (*A)[dim]) {
 					sum2 += x[k] * Mu[k][i];
 				}
 				x[i] = round(- sum2 - x[i+1]*Mu[i+1][i]);
-				printf("sum2: %.4f\n", sum2+x[i+1]*Mu[i+1][i]);
-				l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * GS_norms[i]; 
-				printf("bound for l[i]: %.4f\n", shortest_vector * shortest_vector - sum3);
-				printf("l[i]: %.4f\n", l[i]);
-				printf("x[i]: %d\n", x[i]);
+				
+				//l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * GS_norms[i]; 
+				
 				do {
 					
 					x[i] -= 1;
@@ -140,14 +138,8 @@ double ShortestVector(int dim, double (*A)[dim]) {
 					for (k=i+1; k<dim; k++) {
 						sum2 += x[k] * Mu[k][i];
 					}
-					printf("sum2: %.4f\n", sum2);
-					printf("x[j] + sum2: %.4f\n", (double)x[i] + sum2);
-					printf("squared: %.4f\n", (x[i]+sum2)*(x[i]+sum2));
-					printf("l[i]1: %.4f\n", (x[i]+sum2)*(x[i]+sum2)*GS_norms[i]);
 					l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * GS_norms[i]; 
-					printf("GS_norms[i]: %.4f\n", GS_norms[i]);
-					printf("l[i]: %.4f\n", l[i]);
-					printf("x[i]: %.4f\n", (double)x[i]);
+					
 					
 				} while (l[i] < shortest_vector * shortest_vector - sum3);
 				x[i] += 1; 
@@ -157,7 +149,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 
 			
 
-			printf("sum3>A \n");
+			
 			i += 1;
 			x[i] += 1;
 		
