@@ -69,7 +69,7 @@ int main(int argc, char *argv[]) {
         for (j=0; j<i; j++) {
             free(A[j]);
         }
-        free(A)
+        free(A);
         exit(1);
     }
   }
@@ -97,7 +97,7 @@ int main(int argc, char *argv[]) {
     }
     printf("\n");
   }
-  double limit = LimitCalc(dim, A);
+  //double limit = LimitCalc(dim, A);
   //printf("Limit: %.4f\n", limit);
       
   //double vec1[3] = {1.0, 1.0, 1.0};
