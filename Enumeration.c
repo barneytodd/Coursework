@@ -70,6 +70,7 @@ double ShortestVector(int dim, double **A) {
 		for (j=0; j<dim; j++) {
 			printf("%d\t", x[j]);
 		}
+		printf("\n");
 		sum2 = 0;
 		for (j=dim-1; j>=i; j--) { //calculate the l[j] values from i upwards
 			
