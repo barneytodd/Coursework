@@ -4,7 +4,7 @@
 
 
 
-double ShortestVector(int dim, double (*A)[dim]) {
+double ShortestVector(int dim, double **A) {
 	int i, j, k;
 	double shortest_vector = sqrt(InnerProduct(dim, A[0], A[0])); //keeps track of current shortest vector
 	double current_norm; //stores current norm we're calculating below, may be good to release this memory after following for loop
