@@ -4,7 +4,7 @@ DEPS = LLL_Reduction.h Enumeration.h
 SOURCE_FILES = LLL_Reduction.c Enumeration.c main.c test.c
 OBJECTS = LLL_Reduction.o Enumeration.o #main.o #test.o
 
-all: $(OBJECTS)
+all: $(OBJECTS) main.o
 	$(CC) -o runme $(OBJECTS) -lm $(CFLAGS)
 
 %.o: %.c $(DEPS)
