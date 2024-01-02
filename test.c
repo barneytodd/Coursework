@@ -38,7 +38,7 @@ double Determinant(int dim, double **A) { //Using LU Decomposition
         }
         determinant *= U[i][i];
     }
-    return determinant
+    return determinant;
 }
 
 double LimitCalc(int dim, double **A) {
@@ -111,7 +111,7 @@ void runTests(int dim, double **A)
 }
 
 int main() {
-    int i;
+    int i, j;
     int dim = 5;
     double **A = (double **)calloc(dim, sizeof(double *));
     if (A==NULL) {
@@ -140,6 +140,6 @@ int main() {
     for (i=0;i<dim;i++) {
         free(A[i]);
     }
-    free(A)
+    free(A);
     return 0;
 }
