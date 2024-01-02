@@ -151,12 +151,12 @@ int main() {
     int max = 10000;
     dim = 10;
     A = realloc(A, dim * sizeof(double));
-
+    srand(time(NULL));
     
     
     for (i=0;i<dim;i++) {
         for (j=0;j<dim;j++) {
-            A[i][j] = ((double)srand(time(NULL)) / RAND_MAX) * (max-min) + min; //initialises A to random doubles sampled from Unif(min, max)
+            A[i][j] = ((double)rand() / RAND_MAX) * (max-min) + min; //initialises A to random doubles sampled from Unif(min, max)
         }
     }
     printf("A2: \n");
