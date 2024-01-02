@@ -43,7 +43,7 @@ double Determinant(int dim, double **A) { //Using LU Decomposition
 }
 
 double LimitCalc(int dim, double **A) {
-    double gamma = tgamma(dim/2 + 1);
+    double gamma = tgamma((float)dim/2 + 1);
     printf("gamma: %.4f\n", gamma);
     double det = Determinant(dim, A);
     return 1.05*(pow(gamma, 1/dim)/sqrt(M_PI))*pow(det, 1/dim);
