@@ -108,6 +108,7 @@ int main() {
     int dim = 40;
     double **A = (double **)calloc(dim, sizeof(double *));
     if (A==NULL) {
+        perror("failed to allocate memory for the input matrix");
         exit(1);
     }
     
@@ -118,6 +119,7 @@ int main() {
                 free(A[j]);
             }
             free(A);
+            perror("failed to allocate memory for the rows of the input matrix")
             exit(1);
         }                
     }
@@ -140,6 +142,7 @@ int main() {
     dim = 100;
     A = realloc(A, dim * sizeof(double *));
     if (A==NULL) {
+        perror("Failed to reallocate memory for the input matrix");
         exit(1);
     }
     for (i=0;i<dim;i++) {
@@ -149,6 +152,7 @@ int main() {
                 free(A[j]);
             }
             free(A);
+            perror("Failed to reallocate memory for the rows of the input matrix");
             exit(1);
         }          
     }
