@@ -11,43 +11,7 @@
 #include <stdarg.h>
 
 
-double Determinant(int dim, double **A) {
-    if (dim == 1) {
-        return A[0][0];
-    }
-    int i, j, k;
-    double sum1 = 0.0;
-    bool skip[2] = {false, false};
-    double B[dim-1][dim-1];
-    //printf("dim: %d\n", dim);
-    //if (dim>=39) {
-    for (i=0; i<dim; i++) {
-        //printf("i: %d\n", i);
-        skip[0] = skip[1] = false;
-        for (j=0; j<dim-1; j++) {
-            if (j==i) {
-                skip[0] = true;
-            }
-            for (k=0; k<dim-1; k++) {
-                if (k==i) {
-                    skip[1] = true;
-                }
-                B[j][k] = A[j+skip[0]][k+skip[1]];
-            }
-        }
-        sum1 += pow(-1, i) * A[0][i] * Determinant(dim-1, B);
-    }
-    //}
-    return sum1;
-}
 
-double LimitCalc(int dim, double **A) {
-    double gamma = tgamma(dim/2 + 1);
-    printf("gamma %.4f %.4f\n", gamma, pow(gamma, 1.0/dim));
-    double det = Determinant(dim, A);
-    printf("det: %.4f %.4f\n", det, pow(det, 1.0/dim));
-    return 1.05*(pow(gamma, 1.0/dim)/sqrt(M_PI))*pow(det, 1.0/dim);
-}
 
 int main(int argc, char *argv[]) {
   int dim, i, j, k;
