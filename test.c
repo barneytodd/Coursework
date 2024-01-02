@@ -132,7 +132,14 @@ int main() {
     for (i=0; i<dim; i++) {
         A[i][i] = 1.0;
     }
-    
+    printf("dim1: %d\n", dim);
+    printf("A1: \n")
+    for (i=0;i<dim;i++) {
+        for (j=0;j<dim;j++) {
+            printf("%.4f\t", A[i][j]);
+        }
+        printf("\n");
+    }
     runTests(dim, A); 
     //runTests(7, 216);
     //runTests(20, 114624);
