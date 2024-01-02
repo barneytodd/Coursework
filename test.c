@@ -36,6 +36,7 @@ double Determinant(int dim, double **A) { //Using LU Decomposition
     for (i=0;i<dim;i++) {
         for (j=i+1;j<dim;j++) {
             factor = U[j][i]/U[i][i];
+            printf("U...: %.4f %.4f %.4f\n", U[j][i], U[i][i], factor);
             for (k=i;k<dim;k++) {
                 U[j][k] -= U[i][k]*factor;
             }
