@@ -50,7 +50,7 @@ double LimitCalc(int dim, double (*A)[dim]) {
     return 1.05*(pow(gamma, 1/dim)/sqrt(M_PI))*pow(det, 1/dim);
 }
 
-void runTests(int dim, double (*A)[dim])
+void runTests(int dim, double (**A))
 {
     //typedef struct {
     //    double *array;
@@ -117,7 +117,7 @@ void runTests(int dim, double (*A)[dim])
 }
 
 int main() {
-    int i, j;
+    int i;
     int dim = 5;
     double **A = (double **)calloc(dim, sizeof(double *));
     if (A==NULL) {
