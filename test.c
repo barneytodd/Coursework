@@ -133,7 +133,7 @@ int main() {
         A[i][i] = 1.0;
     }
     printf("dim1: %d\n", dim);
-    printf("A1: \n")
+    printf("A1: \n");
     for (i=0;i<dim;i++) {
         for (j=0;j<dim;j++) {
             printf("%.4f\t", A[i][j]);
