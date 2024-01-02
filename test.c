@@ -87,13 +87,19 @@ void runTests(int dim, double **A)
     }
     
     LLL(0.75, dim, A);
-    printf("Orthonormalized Vectors (A):\n");
-    for (int i = 0; i < dim; i++) {
-        for (int j = 0; j < dim; j++) {
-            printf("%.4f\t", A[i][j]);
+    printf("A2: \n");
+    printf("[");
+    for (i=0;i<dim;i++) {
+        printf("[");
+        for (j=0;j<dim;j++) {
+            printf("%.4f", A[i][j]);
+            if (j<dim-1) {
+                printf(", ");
+            }
         }
-        printf("\n");
+        printf("], \n");
     }
+    printf("] \n");
     double shortest_vector = ShortestVector(dim, A);
 
     bool unit_test = true;
@@ -168,19 +174,7 @@ int main() {
             A[i][j] = ((double)rand() / RAND_MAX) * (max-min) + min; //initialises A to random doubles sampled from Unif(min, max)
         }
     }
-    printf("A2: \n");
-    printf("[");
-    for (i=0;i<dim;i++) {
-        printf("[");
-        for (j=0;j<dim;j++) {
-            printf("%.4f", A[i][j]);
-            if (j<dim-1) {
-                printf(", ");
-            }
-        }
-        printf("], \n");
-    }
-    printf("] \n");
+    
     runTests(dim, A);
     //runTests(20, 114624);
     //runTests(30, 14098308);
