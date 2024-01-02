@@ -138,7 +138,7 @@ int main() {
 
     int min = -10000;
     int max = 10000;
-    dim = 30;
+    dim = 50;
     A = realloc(A, dim * sizeof(double *));
     if (A==NULL) {
         exit(1);
