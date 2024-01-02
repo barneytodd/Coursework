@@ -36,7 +36,7 @@ double ShortestVector(int dim, double **A) {
 		}	
 	}
 	printf("Mu\n");
-	for (i=0;i<dim-1;i++) {
+	for (i=0;i<dim;i++) {
 		for (j=0;j<i;j++) {
 			printf("%.4f\t", Mu[(i-1)*i/2+j]); //Mu[i][j]
 		}
