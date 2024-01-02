@@ -7,6 +7,7 @@
 #include "LLL_Reduction.h"
 #include "Enumeration.h"
 #include <stdbool.h>
+#include <time.h>
 
 
 double SumArray(int dim, int i, double *arr) {
@@ -155,7 +156,7 @@ int main() {
     
     for (i=0;i<dim;i++) {
         for (j=0;j<dim;j++) {
-            A[i][j] = ((double)rand() / RAND_MAX) * (max-min) + min; //initialises A to random doubles sampled from Unif(min, max)
+            A[i][j] = ((double)srand(time(NULL)) / RAND_MAX) * (max-min) + min; //initialises A to random doubles sampled from Unif(min, max)
         }
     }
     printf("A2: \n");
