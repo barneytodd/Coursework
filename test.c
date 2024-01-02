@@ -137,5 +137,9 @@ int main() {
     //runTests(7, 216);
     //runTests(20, 114624);
     //runTests(30, 14098308);
+    for (i=0;i<dim;i++) {
+        free(A[i]);
+    }
+    free(A)
     return 0;
 }
