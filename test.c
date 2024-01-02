@@ -165,9 +165,12 @@ int main() {
     for (i=0;i<dim;i++) {
         printf("[");
         for (j=0;j<dim;j++) {
-            printf("%.4f, ", A[i][j]);
+            printf("%.4f", A[i][j]);
+            if (j<dim-1) {
+                printf(", ");
+            }
         }
-        printf("] \n");
+        printf("], \n");
     }
     printf("] \n");
     runTests(dim, A);
