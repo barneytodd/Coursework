@@ -59,7 +59,12 @@ int main(int argc, char *argv[]) {
     }
   }
   printf("dim: %d", dim);
-  double **A;
+  double **A = (double **)malloc(dim * sizeof(double *));
+  if (A == NULL) exit(1);
+  for (i=0; i<dim; i++) {
+    A[i] = (double *)malloc(dim * sizeof(double));
+    if (A[i] == NULL) exit(1);
+  }
   for (i = 0; i < dim; i++) {
     for (j=0; j < dim; j++) {
       k = 1 + dim*i + j;
