@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
     }
   }
   printf("dim: %d", dim);
-  double A[dim][dim];
+  double **A;
   for (i = 0; i < dim; i++) {
     for (j=0; j < dim; j++) {
       k = 1 + dim*i + j;
