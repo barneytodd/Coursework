@@ -143,6 +143,18 @@ int main() {
     int max = 10000;
     dim = 10;
     A = realloc(A, dim * sizeof(double));
+
+    printf("A2: \n");
+    printf("[");
+    for (i=0;i<dim;i++) {
+        printf("[");
+        for (j=0;j<dim;j++) {
+            printf("%.4f, ", A[i][j]);
+        }
+        printf("] \n");
+    }
+    printf("] \n");
+    
     for (i=0;i<dim;i++) {
         for (j=0;j<dim;j++) {
             A[i][j] = ((double)rand() / RAND_MAX) * (max-min) + min; //initialises A to random doubles sampled from Unif(min, max)
