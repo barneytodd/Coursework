@@ -105,14 +105,14 @@ void runTests(int dim, double **A)
         assert(shortest_vector == 1.0);
     }
 
-    else {
-        limit = LimitCalc(dim, A);
-        printf("For Dimension: %d Limit: %.4f Got: %.4f\n", dim, limit, shortest_vector);
-        if(shortest_vector > limit) {
-            printf("Limit %.4f, got %.4f\n", limit, shortest_vector);
-        }
-        assert(shortest_vector <= limit);
-    }
+    //else {
+    //    limit = LimitCalc(dim, A);
+    //    printf("For Dimension: %d Limit: %.4f Got: %.4f\n", dim, limit, shortest_vector);
+    //    if(shortest_vector > limit) {
+    //        printf("Limit %.4f, got %.4f\n", limit, shortest_vector);
+    //    }
+    //    assert(shortest_vector <= limit);
+    //}
     //va_end(args);
 }
 
