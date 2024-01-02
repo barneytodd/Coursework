@@ -144,6 +144,13 @@ int main() {
     dim = 10;
     A = realloc(A, dim * sizeof(double));
 
+    
+    
+    for (i=0;i<dim;i++) {
+        for (j=0;j<dim;j++) {
+            A[i][j] = ((double)rand() / RAND_MAX) * (max-min) + min; //initialises A to random doubles sampled from Unif(min, max)
+        }
+    }
     printf("A2: \n");
     printf("[");
     for (i=0;i<dim;i++) {
@@ -154,12 +161,6 @@ int main() {
         printf("] \n");
     }
     printf("] \n");
-    
-    for (i=0;i<dim;i++) {
-        for (j=0;j<dim;j++) {
-            A[i][j] = ((double)rand() / RAND_MAX) * (max-min) + min; //initialises A to random doubles sampled from Unif(min, max)
-        }
-    }
     runTests(dim, A);
     //runTests(20, 114624);
     //runTests(30, 14098308);
