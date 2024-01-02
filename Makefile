@@ -5,7 +5,7 @@ SOURCE_FILES = LLL_Reduction.c Enumeration.c main.c test.c
 OBJECTS = LLL_Reduction.o Enumeration.o #main.o #test.o
 
 all: $(OBJECTS) main.o
-	$(CC) -o runme $(OBJECTS) -lm $(CFLAGS)
+	$(CC) -o runme $(OBJECTS) main.o -lm $(CFLAGS)
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
