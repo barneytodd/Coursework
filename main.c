@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
     A[i] = (double *)malloc(dim * sizeof(double));
     if (A[i] == NULL) {
         for (j=0; j<i; j++) {
-            free(A[i]);
+            free(A[j]);
         }
         free(A)
         exit(1);
