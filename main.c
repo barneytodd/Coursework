@@ -25,6 +25,7 @@ int main(int argc, char *argv[]) {
   printf("dim: %d", dim);
   double **A = (double **)malloc(dim * sizeof(double *));
   if (A == NULL) {
+      perror("Failed to allocate memory for the input matrix");
       exit(1);
   }
   for (i=0; i<dim; i++) {
@@ -34,6 +35,7 @@ int main(int argc, char *argv[]) {
             free(A[j]);
         }
         free(A);
+        perror("Failed to allocate memory for the rows of the input matrix");
         exit(1);
     }
   }
