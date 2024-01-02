@@ -11,7 +11,7 @@
 
 double SumArray(int dim, int i, double *arr) {
     int j;
-    double sum1;
+    double sum1 = 0;
     for (j=0; j<i; j++) {
         sum1 += arr[j];
     }
