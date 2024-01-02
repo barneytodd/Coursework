@@ -138,7 +138,17 @@ int main() {
         printf("\n");
     }
     runTests(dim, A); 
-    //runTests(7, 216);
+
+    int min = -10000;
+    int max = 10000;
+    dim = 10;
+    A = realloc(A, dim * sizeof(double));
+    for (i=0;i<dim;i++) {
+        for (j=0;j<dim;j++) {
+            A[i][j] = ((double)rand() / RAND_MAX) * (max-min) + min; //initialises A to random doubles sampled from Unif(min, max)
+        }
+    }
+    runTests(dim, A);
     //runTests(20, 114624);
     //runTests(30, 14098308);
     for (i=0;i<dim;i++) {
