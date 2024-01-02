@@ -18,7 +18,7 @@ double SumArray(int dim, double arr[dim]) {
     return sum1;
 }
 
-double Determinant(int dim, double (*A)[dim]) {
+double Determinant(int dim, double **A) {
     int i, j, k;
     double sum1;
     bool skip[2] = {false, false};
@@ -44,13 +44,13 @@ double Determinant(int dim, double (*A)[dim]) {
     return sum1;
 }
 
-double LimitCalc(int dim, double (*A)[dim]) {
+double LimitCalc(int dim, double **A) {
     double gamma = tgamma(dim/2 + 1);
     double det = Determinant(dim, A);
     return 1.05*(pow(gamma, 1/dim)/sqrt(M_PI))*pow(det, 1/dim);
 }
 
-void runTests(int dim, double (**A))
+void runTests(int dim, double **A)
 {
     //typedef struct {
     //    double *array;
@@ -113,7 +113,7 @@ void runTests(int dim, double (**A))
         }
         assert(shortest_vector <= limit);
     }
-    va_end(args);
+    //va_end(args);
 }
 
 int main() {
