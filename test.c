@@ -58,7 +58,8 @@ double LimitCalc(int dim, double **A) {
 }
 
 
-//runs a test to check whether the shortest vector returned is a plausible solution or not, deals with two cases, whether the input matrix is an identity or not
+//runs a test to check whether the shortest vector returned is a plausible solution or not
+//Deals with two cases: (a) the input matrix is an identity matrix or (b) it is not
 void runTests(int dim, double **A) { 
     
     int i, j;
@@ -93,11 +94,12 @@ void runTests(int dim, double **A) {
         assert(shortest_vector == 1.0);
     }
         
-        
+
+    //if the input matrix is not an identity matrix, we expect to get a shortest vector length below the estimated upper bound   
     else {
-        printf("For Dimension: %d Limit: %.4f Got: %.4f\n", dim, limit, shortest_vector);
+        printf("For Dimension: %d Upper bound estimate: %.4f Got: %.4f\n", dim, limit, shortest_vector);
         if(shortest_vector > limit) {
-            printf("Limit %.4f, got %.4f\n", limit, shortest_vector);
+            printf("Upper bound estimate %.4f, got %.4f\n", limit, shortest_vector);
         }
         assert(shortest_vector <= limit);
     }
@@ -106,8 +108,9 @@ void runTests(int dim, double **A) {
 //calls runTests, first with an identity matrix, and then with a randomly generated matrix
 int main() {
     int i, j;
-    int dim = 40;
-    
+    int dim = 40; //dimension of first matrix
+
+    //initialise the input matrix A
     double **A = (double **)calloc(dim, sizeof(double *));
     if (A==NULL) {
         perror("failed to allocate memory for the input matrix");
@@ -124,8 +127,9 @@ int main() {
             exit(1);
         }                
     }
-
-    for (i=0; i<dim; i++) { //sets A to be the identity matrix
+    
+    //set A to be the dim x dim identity matrix
+    for (i=0; i<dim; i++) { 
         A[i][i] = 1.0;
     }
     
@@ -138,10 +142,12 @@ int main() {
     }
     runTests(dim, A); 
 
+    //set the bounds for the values of the second matrix, and its dimension
     int min = -10000;
     int max = 10000;
-    dim = 100;
-    
+    dim = 60;
+
+    //resize A
     A = realloc(A, dim * sizeof(double *));
     if (A==NULL) {
         perror("Failed to reallocate memory for the input matrix");
@@ -160,7 +166,7 @@ int main() {
     }
     srand(time(NULL));
     
-    //initialises A to a set of random doubles, sampled from U(min, max)
+    //initialise A to a set of random doubles, sampled from U(min, max)
     for (i=0;i<dim;i++) {
         for (j=0;j<dim;j++) {
             A[i][j] = ((double)rand() / RAND_MAX) * (max-min) + min; 
