@@ -33,14 +33,7 @@ double Determinant(int dim, double **A) { //Using LU Decomposition
             U[i][j] = A[i][j];
         }
     }
-    printf("U\n");
-    for (i=0;i<dim;i++) {
-        for (j=0;j<dim;j++) {
-            printf("%.4f\t", U[i][j]);
-        }
-        printf("\n");
-    }
-    printf("determinant: %.4f\n", determinant);
+    
     for (i=0;i<dim;i++) {
         for (j=i+1;j<dim;j++) {
             factor = U[j][i]/U[i][i];
@@ -51,14 +44,7 @@ double Determinant(int dim, double **A) { //Using LU Decomposition
         }
         determinant *= U[i][i];
     }
-    printf("U\n");
-    for (i=0;i<dim;i++) {
-        for (j=0;j<dim;j++) {
-            printf("%.4f\t", U[i][j]);
-        }
-        printf("\n");
-    }
-    printf("determinant: %.4f\n", determinant);
+    
     return determinant;
 }
 
@@ -87,19 +73,7 @@ void runTests(int dim, double **A)
     }
     
     LLL(0.75, dim, A);
-    printf("A2: \n");
-    printf("[");
-    for (i=0;i<dim;i++) {
-        printf("[");
-        for (j=0;j<dim;j++) {
-            printf("%.4f", A[i][j]);
-            if (j<dim-1) {
-                printf(", ");
-            }
-        }
-        printf("], \n");
-    }
-    printf("] \n");
+    
     double shortest_vector = ShortestVector(dim, A);
 
     bool unit_test = true;
@@ -164,7 +138,7 @@ int main() {
 
     int min = -10000;
     int max = 10000;
-    dim = 10;
+    dim = 50;
     A = realloc(A, dim * sizeof(double));
     srand(time(NULL));
     
