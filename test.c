@@ -56,18 +56,10 @@ void runTests(int dim, double **A)
     
     
     int i, j;
-    //double A[dim][dim];
-    //double *arr;
+    
     double limit;
     
-    //va_list args;
-    //va_start (args, dim);
-    //for (i = 0; i < dim; i++) {
-    //    arr = va_arg(args, double*);
-    //    for (j=0; j < dim; j++) {
-    //        A[i][j] = arr[j];
-    //    }
-    //}
+    
     
     printf("A\n");
     for (i = 0; i < dim; i++) {
@@ -77,15 +69,15 @@ void runTests(int dim, double **A)
         printf("\n");
     }
     
-    LLL(0.75, 3, A);
+    LLL(0.75, dim, A);
     printf("Orthonormalized Vectors (A):\n");
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
+    for (int i = 0; i < dim; i++) {
+        for (int j = 0; j < dim; j++) {
             printf("%.4f\t", A[i][j]);
         }
         printf("\n");
     }
-    double shortest_vector = ShortestVector(3, A);
+    double shortest_vector = ShortestVector(dim, A);
 
     bool unit_test = true;
     for (i=0; i<dim; i++) {
