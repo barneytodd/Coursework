@@ -10,7 +10,8 @@
 #include <time.h>
 
 
-double SumArray(int dim, int i, double *arr) {
+//used to determine whether the input matrix is an identity matrix, returns the sum of the non-diagonal entries of a row
+double SumArray(int dim, int i, double *arr) { 
     int j;
     double sum1 = 0;
     for (j=0; j<i; j++) {
@@ -23,7 +24,8 @@ double SumArray(int dim, int i, double *arr) {
 }
 
 
-double Determinant(int dim, double **A) { //Using LU Decomposition
+//returns the determinant of a matrix, using LU Decomposition
+double Determinant(int dim, double **A) { 
     int i, j, k;
     double U[dim][dim];
     double factor;
@@ -47,21 +49,20 @@ double Determinant(int dim, double **A) { //Using LU Decomposition
     return determinant;
 }
 
-double LimitCalc(int dim, double **A) {
+
+//returns an estimate for an upper bound of the shortest vector length, using the equation 1.05 * (gamma(n/2+1))^(1/dim)/sqrt(pi) * det(input matrix)^(1/dim)
+double LimitCalc(int dim, double **A) { 
     double gamma = tgamma((float)dim/2 + 1);
     double det = fabs(Determinant(dim, A));
     return 1.05*(pow(gamma, 1.0/dim)/sqrt(M_PI))*pow(det, 1.0/dim);
 }
 
-void runTests(int dim, double **A)
-{
-    
+
+//runs a test to check whether the shortest vector returned is a plausible solution or not, deals with two cases, whether the input matrix is an identity or not
+void runTests(int dim, double **A) { 
     
     int i, j;
-    
-    double limit;
-    
-    
+    double limit = LimitCalc(dim, A);
     
     printf("A\n");
     for (i = 0; i < dim; i++) {
@@ -72,18 +73,18 @@ void runTests(int dim, double **A)
     }
     
     LLL(0.75, dim, A);
-    
     double shortest_vector = ShortestVector(dim, A);
 
+    //true if the input matrix is an identity matrix
     bool unit_test = true;
     for (i=0; i<dim; i++) {
-        //printf("A[i][i], SumArray: %.4f %.4f\n", A[i][i], SumArray(dim, i, A[i]));
-        if (A[i][i] != 1.0 || SumArray(dim, i, A[i]) != 0.0) { //needs to be more specific
+        if (A[i][i] != 1.0 || SumArray(dim, i, A[i]) != 0.0) { 
             unit_test = false;
             break;
         }
     }
 
+    //if the input matrix is an identity matrix, we expect to get the shortest vector length to be 1.0
     if (unit_test) {
         printf("For Dimension: %d Expected: %.4f Got: %.4f\n", dim, 1.0, shortest_vector);
         if(shortest_vector != 1.0) {
@@ -91,27 +92,27 @@ void runTests(int dim, double **A)
         }
         assert(shortest_vector == 1.0);
     }
-
+        
+        
     else {
-        limit = LimitCalc(dim, A);
         printf("For Dimension: %d Limit: %.4f Got: %.4f\n", dim, limit, shortest_vector);
         if(shortest_vector > limit) {
             printf("Limit %.4f, got %.4f\n", limit, shortest_vector);
         }
         assert(shortest_vector <= limit);
     }
-    //va_end(args);
 }
 
+//calls runTests, first with an identity matrix, and then with a randomly generated matrix
 int main() {
     int i, j;
     int dim = 40;
+    
     double **A = (double **)calloc(dim, sizeof(double *));
     if (A==NULL) {
         perror("failed to allocate memory for the input matrix");
         exit(1);
     }
-    
     for (i=0; i<dim; i++) {
         A[i] = (double *)calloc(dim, sizeof(double));
         if (A[i]==NULL) {
@@ -124,10 +125,10 @@ int main() {
         }                
     }
 
-    for (i=0; i<dim; i++) {
+    for (i=0; i<dim; i++) { //sets A to be the identity matrix
         A[i][i] = 1.0;
     }
-    printf("dim1: %d\n", dim);
+    
     printf("A1: \n");
     for (i=0;i<dim;i++) {
         for (j=0;j<dim;j++) {
@@ -140,6 +141,7 @@ int main() {
     int min = -10000;
     int max = 10000;
     dim = 100;
+    
     A = realloc(A, dim * sizeof(double *));
     if (A==NULL) {
         perror("Failed to reallocate memory for the input matrix");
@@ -158,16 +160,16 @@ int main() {
     }
     srand(time(NULL));
     
-    
+    //initialises A to a set of random doubles, sampled from U(min, max)
     for (i=0;i<dim;i++) {
         for (j=0;j<dim;j++) {
-            A[i][j] = ((double)rand() / RAND_MAX) * (max-min) + min; //initialises A to random doubles sampled from Unif(min, max)
+            A[i][j] = ((double)rand() / RAND_MAX) * (max-min) + min; 
         }
     }
     
     runTests(dim, A);
-    //runTests(20, 114624);
-    //runTests(30, 14098308);
+
+    
     for (i=0;i<dim;i++) {
         free(A[i]);
     }
