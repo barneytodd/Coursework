@@ -82,6 +82,15 @@ int main(int argc, char *argv[]) {
   }
   free(A);
   FILE *result = fopen("result.txt", "w");
+  if (result == NULL) {
+    perror("Error opening the result file");
+    exit(1);
+  }
   fprintf(result, "%.4f\n", shortest_length);
+  if (fclose(result) != 0) {
+    perror("Error closing the result file");
+    exit(1);
+  }
+  
   return 0;
 }
