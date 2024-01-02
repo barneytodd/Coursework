@@ -60,10 +60,18 @@ int main(int argc, char *argv[]) {
   }
   printf("dim: %d", dim);
   double **A = (double **)malloc(dim * sizeof(double *));
-  if (A == NULL) exit(1);
+  if (A == NULL) {
+      exit(1);
+  }
   for (i=0; i<dim; i++) {
     A[i] = (double *)malloc(dim * sizeof(double));
-    if (A[i] == NULL) exit(1);
+    if (A[i] == NULL) {
+        for (j=0; j<i; j++) {
+            free(A[i]);
+        }
+        free(A)
+        exit(1);
+    }
   }
   for (i = 0; i < dim; i++) {
     for (j=0; j < dim; j++) {
@@ -105,6 +113,10 @@ int main(int argc, char *argv[]) {
     }
   //printf("Maximum value of double: %e\n", DBL_MAX);
   double shortest_length = ShortestVector(dim, A);
+  for (i=0;i<dim;i++) {
+    free(A[i]);
+  }
+  free(A);
   FILE *result = fopen("result.txt", "w");
   fprintf(result, "%.4f\n", shortest_length);
   return 0;
