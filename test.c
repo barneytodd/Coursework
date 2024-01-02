@@ -117,7 +117,7 @@ void runTests(int dim, double **A)
 
 int main() {
     int i, j;
-    int dim = 5;
+    int dim = 40;
     double **A = (double **)calloc(dim, sizeof(double *));
     if (A==NULL) {
         exit(1);
