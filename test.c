@@ -138,7 +138,7 @@ int main() {
 
     int min = -10000;
     int max = 10000;
-    dim = 50;
+    dim = 30;
     A = realloc(A, dim * sizeof(double));
     srand(time(NULL));
     
