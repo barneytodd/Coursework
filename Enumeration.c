@@ -3,14 +3,6 @@
 #include <stdio.h>
 
 
-//double InnerProduct(int dim, double *arr1, double *arr2) {
-//  double sum1;
-//  int i;
- // for (i=0; i<dim; i++) {
-  //  sum1 += arr1[i]*arr2[i];
-  //}
-  //return sum1;
-//}
 
 double ShortestVector(int dim, double (*A)[dim]) {
 	int i, j, k;
@@ -24,7 +16,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 		}
 	}
 	printf("shortest basis vector: %.4f\n", shortest_vector);
-	double Mu[dim][dim]; //stores the mu_i_j values
+	double Mu[(dim-1)*dim/2]; //stores the mu_i_j values
 	double GS_norms[dim]; //stores the norm of each GS vector
 	double sum1[dim]; //may be able to release this memory after following for loop
 	for (i=1; i<dim; i++) { //change A to GS vectors, calculate Mu_i_j values, and calculate GS_norms
@@ -34,9 +26,9 @@ double ShortestVector(int dim, double (*A)[dim]) {
 			sum1[j] = 0;
 		}
 		for (j=0; j<i; j++) {
-			Mu[i][j] = InnerProduct(dim, A[i], A[j])/GS_norms[j];
+			Mu[(i-1)*i/2+j] = InnerProduct(dim, A[i], A[j])/GS_norms[j];
 			for (k=0; k<dim; k++) {
-				sum1[k] += Mu[i][j] * A[j][k];
+				sum1[k] += Mu[(i-1)*i/2+j] * A[j][k]; //equivalent to Mu[i][j]
 			}
 		}
 		for (k=0; k<dim; k++) {
@@ -44,9 +36,9 @@ double ShortestVector(int dim, double (*A)[dim]) {
 		}	
 	}
 	printf("Mu\n");
-	for (i=0;i<dim;i++) {
-		for (j=0;j<dim;j++) {
-			printf("%.4f\t", Mu[i][j]);
+	for (i=0;i<dim-1;i++) {
+		for (j=0;j<i;j++) {
+			printf("%.4f\t", Mu[(i-1)*i/2+j]); //Mu[i][j]
 		}
 		printf("\n");
 	}
@@ -75,17 +67,13 @@ double ShortestVector(int dim, double (*A)[dim]) {
 	
 	
 	while (i<dim) { //begin the enumeration loop
-		//printf("i: %d\n", i);
-		//for (j=0; j<dim; j++) {
-		//	printf("x: %d\t", x[j]);
-		//}
-		//printf("\n");
+		
 		sum2 = 0;
 		for (j=dim-1; j>=i; j--) { //calculate the l[j] values from i upwards
 			
 			sum2 = 0;
 			for (k=j+1; k<dim; k++) {
-				sum2 += x[k] * Mu[k][j];
+				sum2 += x[k] * Mu[(k-1)*k/2+j]; //Mu[k][j]
 			}
 			
 			l[j] = (x[j] + sum2) * (x[j] + sum2) * GS_norms[j]; 
@@ -109,9 +97,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 					printf("\n");
 					
 					printf("max x[9]: %.4f\n", pow(shortest_vector*shortest_vector/GS_norms[dim-1], 0.5));
-					//for (j=0; j<dim; j++) {
-					//	printf("l: %.4f\n", l[j]);
-					//}
+					
 					printf("\n");
 				}
 				x[0] += 1;
@@ -125,9 +111,9 @@ double ShortestVector(int dim, double (*A)[dim]) {
 				
 				sum2 = 0;
 				for (k=i+1; k<dim; k++) {
-					sum2 += x[k] * Mu[k][i];
+					sum2 += x[k] * Mu[(k-1)*k/2+j]; //Mu[k][j]
 				}
-				x[i] = round(- sum2 - x[i+1]*Mu[i+1][i]);
+				x[i] = round(- sum2);
 				
 				//l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * GS_norms[i]; 
 				
@@ -136,7 +122,7 @@ double ShortestVector(int dim, double (*A)[dim]) {
 					x[i] -= 1;
 					sum2 = 0;
 					for (k=i+1; k<dim; k++) {
-						sum2 += x[k] * Mu[k][i];
+						sum2 += x[k] * Mu[(k-1)*k/2+i]; //Mu[k][i]
 					}
 					l[i] = (x[i] + sum2) * (x[i] + sum2) * GS_norms[i]; 
 					
