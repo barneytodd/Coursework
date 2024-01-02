@@ -90,7 +90,7 @@ int main(int argc, char *argv[]) {
   //double vec1[3] = {1.0, 1.0, 1.0};
   //double vec2[3] = {-1.0, 0.0, 2.0};
   //double vec3[3] = {3.0, 5.0, 6.0};
-  //LLL(0.75, dim, A);
+  LLL(0.75, dim, A);
   printf("Orthonormalized Vectors (A):\n");
     for (int i = 0; i < dim; i++) {
         for (int j = 0; j < dim; j++) {
