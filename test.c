@@ -50,7 +50,7 @@ double LimitCalc(int dim, double (*A)[dim]) {
     return 1.05*(pow(gamma, 1/dim)/sqrt(M_PI))*pow(det, 1/dim);
 }
 
-void runTests(int dim, ...)
+void runTests(int dim, double (*A)[dim])
 {
     //typedef struct {
     //    double *array;
@@ -58,18 +58,19 @@ void runTests(int dim, ...)
     //} Array;
     
     int i, j;
-    double A[dim][dim];
-    double *arr;
-    double limit;
+    //double A[dim][dim];
+    //double *arr;
+    //double limit;
     
-    va_list args;
-    va_start (args, dim);
-    for (i = 0; i < dim; i++) {
-        arr = va_arg(args, double*);
-        for (j=0; j < dim; j++) {
-            A[i][j] = arr[j];
-        }
-    }
+    //va_list args;
+    //va_start (args, dim);
+    //for (i = 0; i < dim; i++) {
+    //    arr = va_arg(args, double*);
+    //    for (j=0; j < dim; j++) {
+    //        A[i][j] = arr[j];
+    //    }
+    //}
+    
     printf("A\n");
     for (i = 0; i < dim; i++) {
         for (j=0; j < dim; j++) {
@@ -90,7 +91,7 @@ void runTests(int dim, ...)
 
     bool unit_test = true;
     for (i=0; i<dim; i++) {
-        if (SumArray(dim, A[i]) != 1.0) {
+        if (SumArray(dim, A[i]) != 1.0) { //needs to be more specific
             unit_test = false;
             break;
         }
@@ -115,12 +116,30 @@ void runTests(int dim, ...)
     va_end(args);
 }
 
-//int main() {
-
+int main() {
+    int i, j;
+    int dim = 5;
+    double **A = (double **)calloc(dim, sizeof(double *));
+    if (A==NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
     
-    //runTests(3, {1.0, 0.0, 0.0}, {0.0, 1.0, 0.0}, {0.0, 0.0, 1.0}); 
+    for (i=0; i<dim; i++) {
+        A[i] = (double *)calloc(dim, sizeof(double));
+        if (A[i]==NULL) {
+            printf("Memory allocation failed\n");
+            return 1;
+        }                
+    }
+
+    for (i=0; i<dim; i++) {
+        A[i][i] = 1.0;
+    }
+    
+    runTests(dim, A); 
     //runTests(7, 216);
     //runTests(20, 114624);
     //runTests(30, 14098308);
-//    return 0;
-//}
+    return 0;
+}
