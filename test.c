@@ -43,10 +43,11 @@ double SumArray(int dim, double arr[dim]) {
 //    }
 //    return sum1;
 //}
-double LUDecomposition(int dim, double **A) {
+double Determinant(int dim, double **A) { //Using LU Decomposition
     int i, j, k;
     double U[dim][dim];
     double factor;
+    double determinant = 1.0;
     for (i=0; i<dim; i++) {
         for (j=0;j<dim;j++) {
             U[i][j] = A[i][j];
@@ -59,7 +60,9 @@ double LUDecomposition(int dim, double **A) {
                 U[j][k] -= U[i][k]*factor;
             }
         }
+        determinant *= U[i][i];
     }
+    return determinant
 }
 
 double LimitCalc(int dim, double **A) {
