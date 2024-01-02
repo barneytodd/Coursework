@@ -11,7 +11,7 @@ all: $(OBJECTS) main.o
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 test: test.o $(OBJECTS)
-	$(CC) -o testme $(OBJECTS) -lm $(CFLAGS)
+	$(CC) -o testme $(OBJECTS) test.o -lm $(CFLAGS)
 	./testme
 
 clean: 
