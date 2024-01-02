@@ -50,13 +50,7 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
   
 
 void update_matrices(int dim, int start, double (*A)[dim], double B[][dim]) {
-  //printf("(A):\n");
-   // for (int i = 0; i < dim; i++) {
-    //    for (int j = 0; j < dim; j++) {
-      //      printf("%.4f\t", A[i][j]);
-       // }
-        //printf("\n");
-    //}
+  
   int i, j;
   for (i=0; i<dim; i++) {
     for (j=0; j<dim; j++) {
@@ -67,17 +61,16 @@ void update_matrices(int dim, int start, double (*A)[dim], double B[][dim]) {
 }
 
 
-//change to produce row vectors
+
 void LLL(double delta, int dim, double (*A)[dim]) {
-  //va_list ap; //initialise list of variables
+  
   int i, j, k; //initialise variables i, j, k
   double B[dim][dim];
-  //double *vector;
-  //va_start (ap, A); //initialise va_list
+  
   for (i=0; i<dim; i++) { //iterate through the variables (vectors)
-    //vector = va_arg (ap, double *); //store the vector in the variable vector
+    
     for (j=0; j<dim; j++) { 
-      //A[i][k] = vector[k]; // initialise row i of A
+      
       B[i][j] = A[i][j]; //vector[k]; // initialise to be the same as A
       } 
   }
@@ -105,13 +98,6 @@ void LLL(double delta, int dim, double (*A)[dim]) {
 
     
 
-    //printf("After while (B):\n");
-    //for (int i = 0; i < dim; i++) {
-    //    for (int j = 0; j < dim; j++) {
-    //        printf("%.4f\t", A[i][j]);
-    //    }
-    //    printf("\n");
-    //}
     
     
     mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
@@ -134,7 +120,6 @@ void LLL(double delta, int dim, double (*A)[dim]) {
       break;
     }      
   }
-  //va_end(ap);
 }
   
   
