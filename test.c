@@ -41,6 +41,13 @@ double Determinant(int dim, double **A) { //Using LU Decomposition
         }
         determinant *= U[i][i];
     }
+    printf("U\n");
+    for (i=0;i<dim;i++) {
+        for (j=0;j<dim;j++) {
+            printf("%.4f\t", U[i][j]);
+        }
+        printf("\n");
+    }
     printf("determinant: %.4f\n", determinant);
     return determinant;
 }
