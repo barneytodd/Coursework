@@ -114,7 +114,7 @@ double ShortestVector(int dim, double **A) {
 				
 				sum2 = 0;
 				for (k=i+1; k<dim; k++) {
-					sum2 += x[k] * Mu[(k-1)*k/2+j]; //Mu[k][j]
+					sum2 += x[k] * Mu[(k-1)*k/2+i]; //Mu[k][i]
 				}
 				x[i] = round(- sum2);
 				
