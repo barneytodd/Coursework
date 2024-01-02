@@ -9,11 +9,14 @@
 #include <stdbool.h>
 
 
-double SumArray(int dim, double arr[dim]) {
-    int i;
+double SumArray(int dim, int i, double *arr) {
+    int j;
     double sum1;
-    for (i=0; i<dim; i++) {
-        sum1 += arr[i];
+    for (j=0; j<i; j++) {
+        sum1 += arr[j];
+    }
+    for (j=i+1; j<dim; j++) {
+        sum1 += arr[j];
     }
     return sum1;
 }
@@ -44,7 +47,6 @@ double Determinant(int dim, double **A) { //Using LU Decomposition
 
 double LimitCalc(int dim, double **A) {
     double gamma = tgamma((float)dim/2 + 1);
-    printf("gamma: %.4f\n", gamma);
     double det = Determinant(dim, A);
     return 1.05*(pow(gamma, 1.0/dim)/sqrt(M_PI))*pow(det, 1.0/dim);
 }
@@ -87,7 +89,7 @@ void runTests(int dim, double **A)
 
     bool unit_test = true;
     for (i=0; i<dim; i++) {
-        if (SumArray(dim, A[i]) != 1.0) { //needs to be more specific
+        if (A[i][i] != 1.0 || SumArray(dim, i, A[i]) != 0.0) { //needs to be more specific
             unit_test = false;
             break;
         }
