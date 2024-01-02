@@ -37,7 +37,6 @@ double Determinant(int dim, double **A) { //Using LU Decomposition
     for (i=0;i<dim;i++) {
         for (j=i+1;j<dim;j++) {
             factor = U[j][i]/U[i][i];
-            printf("U...: %.4f %.4f %.4f\n", U[j][i], U[i][i], factor);
             for (k=i;k<dim;k++) {
                 U[j][k] -= U[i][k]*factor;
             }
@@ -138,7 +137,7 @@ int main() {
 
     int min = -10000;
     int max = 10000;
-    dim = 50;
+    dim = 100;
     A = realloc(A, dim * sizeof(double *));
     if (A==NULL) {
         exit(1);
