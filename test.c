@@ -81,7 +81,7 @@ void runTests(int dim, double **A)
 
     bool unit_test = true;
     for (i=0; i<dim; i++) {
-        printf("A[i][i], SumArray: %.4f %.4f\n", A[i][i], SumArray(dim, i, A[i]));
+        p//rintf("A[i][i], SumArray: %.4f %.4f\n", A[i][i], SumArray(dim, i, A[i]));
         if (A[i][i] != 1.0 || SumArray(dim, i, A[i]) != 0.0) { //needs to be more specific
             unit_test = false;
             break;
