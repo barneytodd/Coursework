@@ -139,7 +139,12 @@ int main() {
     int min = -10000;
     int max = 10000;
     dim = 30;
-    A = realloc(A, dim * sizeof(double));
+    A = realloc(A, dim * sizeof(double *));
+    for (i=0;i<dim;i++) {
+        for (j=0;j<dim;j++) {
+            A[i] = (double *)realloc(A[i], dim * sizeof(double));
+        }
+    }
     srand(time(NULL));
     
     
