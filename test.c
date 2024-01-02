@@ -140,10 +140,18 @@ int main() {
     int max = 10000;
     dim = 30;
     A = realloc(A, dim * sizeof(double *));
+    if (A==NULL) {
+        exit(1);
+    }
     for (i=0;i<dim;i++) {
-        for (j=0;j<dim;j++) {
-            A[i] = (double *)realloc(A[i], dim * sizeof(double));
-        }
+        A[i] = (double *)realloc(A[i], dim * sizeof(double));
+        if (A[i]==NULL) {
+            for (j=0;j<i;j++) {
+                free(A[j]);
+            }
+            free(A);
+            exit(1);
+        }          
     }
     srand(time(NULL));
     
