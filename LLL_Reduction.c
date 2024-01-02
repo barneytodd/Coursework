@@ -62,7 +62,7 @@ void update_matrices(int dim, int start, double **A, double B[][dim]) {
 
 
 
-void LLL(double delta, int dim, double (*A)[dim]) {
+void LLL(double delta, int dim, double **A) {
   
   int i, j, k; //initialise variables i, j, k
   double B[dim][dim];
