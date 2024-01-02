@@ -35,13 +35,13 @@ double ShortestVector(int dim, double **A) {
 			A[i][k] -= sum1[k];
 		}	
 	}
-	printf("Mu\n");
-	for (i=0;i<dim;i++) {
-		for (j=0;j<i;j++) {
-			printf("%.4f\t", Mu[(i-1)*i/2+j]); //Mu[i][j]
-		}
-		printf("\n");
-	}
+	//printf("Mu\n");
+	//for (i=0;i<dim;i++) {
+	//	for (j=0;j<i;j++) {
+	//		printf("%.4f\t", Mu[(i-1)*i/2+j]); //Mu[i][j]
+	//	}
+	//	printf("\n");
+	//}
 	
 	printf("A\n");
 	for (i=0;i<dim;i++) {
@@ -52,10 +52,10 @@ double ShortestVector(int dim, double **A) {
 	}
 	
 	GS_norms[dim-1] = InnerProduct(dim, A[dim-1], A[dim-1]);
-	for (i=0; i<dim; i++) {
-		printf("GS: %.4f\t", GS_norms[i]);
-		}
-	printf("\n");
+	//for (i=0; i<dim; i++) {
+	//	printf("GS: %.4f\t", GS_norms[i]);
+	//	}
+	//printf("\n");
 	int x[dim]; //x counts how many of each basis vector we're using
 	double l[dim]; //l counts the total contribution of all the used vectors in the direction of each GS vector, squared
 	for (j=0; j<dim; j++) {
