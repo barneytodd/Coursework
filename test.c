@@ -32,9 +32,9 @@ double Determinant(int dim, double **A) { //Using LU Decomposition
             U[i][j] = A[i][j];
         }
     }
-    for (i=0;i<dim-1;i++) {
+    for (i=0;i<dim;i++) {
         for (j=i+1;j<dim;j++) {
-            factor = A[i][j]/A[i][i];
+            factor = A[j][i]/A[i][i];
             for (k=i;k<dim;k++) {
                 U[j][k] -= U[i][k]*factor;
             }
