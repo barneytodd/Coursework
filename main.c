@@ -11,7 +11,7 @@
 #include <stdarg.h>
 
 
-double Determinant(int dim, double (*A)[dim]) {
+double Determinant(int dim, double **A) {
     if (dim == 1) {
         return A[0][0];
     }
@@ -41,7 +41,7 @@ double Determinant(int dim, double (*A)[dim]) {
     return sum1;
 }
 
-double LimitCalc(int dim, double (*A)[dim]) {
+double LimitCalc(int dim, double **A) {
     double gamma = tgamma(dim/2 + 1);
     printf("gamma %.4f %.4f\n", gamma, pow(gamma, 1.0/dim));
     double det = Determinant(dim, A);
@@ -89,7 +89,7 @@ int main(int argc, char *argv[]) {
     }
     printf("\n");
   }
-  //double limit = LimitCalc(dim, A);
+  double limit = LimitCalc(dim, A);
   //printf("Limit: %.4f\n", limit);
       
   //double vec1[3] = {1.0, 1.0, 1.0};
