@@ -67,10 +67,10 @@ double ShortestVector(int dim, double **A) {
 	
 	
 	while (i<dim) { //begin the enumeration loop
-		for (j=0; j<dim; j++) {
-			printf("%d\t", x[j]);
-		}
-		printf("\n");
+		//for (j=0; j<dim; j++) {
+		//	printf("%d\t", x[j]);
+		//}
+		//printf("\n");
 		sum2 = 0;
 		for (j=dim-1; j>=i; j--) { //calculate the l[j] values from i upwards
 			
