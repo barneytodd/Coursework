@@ -52,7 +52,7 @@ double ShortestVector(int dim, double **A) {
 	double sum3; //sum of l[j]'s, (the sum of all the l[j]'s from 1 to dim is equal to the squared norm of the current combination of basis vectors)
 	i=dim-1; //start with the last vector
 	
-	//enumeration the lattice
+	//enumeration the lattice, with the termination criterion set to be when x[dim-1] * ||GS vectors [dim-1]|| > shortest_vector
 	while (i<dim) { 
 		sum2 = 0;
 		//calculate the l[j] values from i upwards
@@ -85,22 +85,21 @@ double ShortestVector(int dim, double **A) {
 				}
 				x[0] += 1;
 			}
-			//if i != 1, we set the previous x value to the minimum integer such that l[i] < shortest_vector^2 - sum3
+			//if i != 1, subtract 1 from i and then set the x[i] to be the minimum integer such that l[i] < shortest_vector^2 - sum3
+			//if there is no such integer, add the 1 back to i and then add 1 to x[i]
 			else {
-				//we want to set x[i] to the minimum integer such that l[i] < A-sum3
-
-
-				
 				i -= 1;
 				
 				sum2 = 0;
 				for (k=i+1; k<dim; k++) {
 					sum2 += x[k] * Mu[(k-1)*k/2+i]; //Mu[k][i]
 				}
-				x[i] = round(- sum2);
-				
+				x[i] = round(- sum2); //the integer which minimises l[i]
 				l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * GS_norms[i]; 
+				
 				if (l[i] < shortest_vector * shortest_vector - sum3) {
+					//subtract 1 from x[i] until l[i] is no longer < shortest_vector^2 - sum3
+					//then add 1 to x[i] to make x[i] the minimum possible integer such that l[i] < shortest_vector^2
 					do {
 						
 						x[i] -= 1;
@@ -120,6 +119,7 @@ double ShortestVector(int dim, double **A) {
 				}
 			}
 		}
+		//if sum3 > shortest_vector^2, increase i by 1 and then increase x[i] by 1
 		else {
 			i += 1;
 			x[i] += 1;
