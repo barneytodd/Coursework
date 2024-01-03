@@ -13,13 +13,18 @@ int main(int argc, char *argv[]) {
   //check if there are spaces before/after the []
   //check if arguments are valid numbers
   printf("You have entered %d arguments:\n", argc);
-  for (i = 2; i < argc; i++) {
-    if (argv[i][0] == '[') {
-      dim = i-1;
-      break;
+  if (argc>2) {
+    for (i = 2; i < argc; i++) {
+      if (argv[i][0] == '[') {
+        dim = i-1;
+        break;
+      }
     }
+    printf("dim: %d", dim);
   }
-  printf("dim: %d", dim);
+  else {
+    dim = argc-1;
+  }
 
   //there should be dim^2 + 1 arguments
   if (dim != (int)pow(argc-1, 0.5)) {
