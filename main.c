@@ -54,15 +54,15 @@ int main(int argc, char *argv[]) {
       char *endptr;
       k = 1 + dim*i + j;
       if (argv[k][0] == '[' && j = 0) {
-        A[i][j] = strtod(&argv[k][1], endptr); 
+        A[i][j] = strtod(&argv[k][1], &endptr); 
       }
       else if (argv[k][-1] == ']' && j = dim-1) {
-        A[i][j] = strtod(&argv[k][-1], endptr);
+        A[i][j] = strtod(&argv[k][-1], &endptr);
       }
       else {
-        A[i][j] = strtod(argv[k], endptr);
+        A[i][j] = strtod(argv[k], &endptr);
       }
-      printf("endptr: %c\n", endptr);
+      printf("endptr: %s\n", endptr);
     }
   }
   
