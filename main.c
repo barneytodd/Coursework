@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
           exit(1);
         }
         else if (dim==0) {
-          continue
+          continue;
         }
       }
       else if (argv[k][strlen(argv[k])-1] == ']' && j == dim-1) {
