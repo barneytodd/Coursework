@@ -62,7 +62,7 @@ int main(int argc, char *argv[]) {
       if (argv[k][0] == '[' && j == 0) {
         A[i][j] = strtod(&argv[k][1], &endptr); 
       }
-      else if (argv[k][-1] == ']' && j == dim-1) {
+      else if (argv[k][strlen(argv[k])-1] == ']' && j == dim-1) {
         A[i][j] = strtod(argv[k], &endptr);
         printf("end: %s\n", endptr);
         if (strcmp(endptr, "]") == 0) {
