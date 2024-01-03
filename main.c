@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
     dim = argc-1;
   }
   
-  //there should be dim^2 + 1 arguments
+  //check that there are dim^2 + 1 arguments
   if (dim != (int)pow(argc-1, 0.5)) {
     printf("Error: Incorrect input format\nDimension of first vector: (%d) should equal sqrt(num input arguments): (%d)\n", dim, (int)pow(argc-1, 0.5));
     exit(1);
@@ -54,8 +54,14 @@ int main(int argc, char *argv[]) {
     for (j=0; j < dim; j++) {
       char *endptr;
       k = 1 + dim*i + j;
-      if (argv[k][0] == '[' && j == 0) {
+      //check that each vector starts with '[number'
+      if (j == 0) {
+        if (argv[k][0] != '[') {
+          printf("Error: Incorrect input format\nExpected format for start of vector: '[number'\nInput format: '%s'\n", argv[1]);
+          exit(1);
+        }
         A[i][j] = strtod(&argv[k][1], &endptr); 
+        //check the format of 1 dimensional inputs
         if (dim==1 && strcmp(endptr, "]") != 0) {
           printf("Error: Incorrect input format\nDimension = 1\nExpected format: '[number]'\nInput format: '%s'\n", argv[1]);
           exit(1);
@@ -64,6 +70,7 @@ int main(int argc, char *argv[]) {
           continue;
         }
       }
+      //check that the each vector has no more than dim elements and that the last element is in the format 'number]'
       else if (j == dim-1) {
         A[i][j] = strtod(argv[k], &endptr);
         if (strcmp(endptr, "]") == 0) {
@@ -78,6 +85,7 @@ int main(int argc, char *argv[]) {
           exit(1);
         }
       }
+      //check that all the other numbers are formatted correctly
       else {
         A[i][j] = strtod(argv[k], &endptr);
       }
