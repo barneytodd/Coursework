@@ -57,11 +57,11 @@ int main(int argc, char *argv[]) {
       k = 1 + dim*i + j;
       if (argv[k][0] == '[' && j == 0) {
         A[i][j] = strtod(&argv[k][1], &endptr); 
-        if (dim==0 && strcmp(endptr, "]") != 0) {
+        if (dim==1 && strcmp(endptr, "]") != 0) {
           printf("Error: Incorrect input format\nDimension = 1\nExpected format: '[1.0]'\nInput format: '%s'\n", argv[1]);
           exit(1);
         }
-        else if (dim==0) {
+        else if (dim==1) {
           continue;
         }
       }
