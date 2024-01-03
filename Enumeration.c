@@ -7,11 +7,8 @@
 double ShortestVector(int dim, double **A) {
 	for (int i = 0; i < dim; ++i) {
 		if (A[i] == NULL) {
-		    perror("Input matrix does not have enough rows");
+		    perror("Input matrix does not have the correct dimensions");
 		    exit(1);
-		}
-		if ((int)(sizeof(A[i])/sizeof(A[i][0])) != dim) {
-			perror("Input matrix does not have the correct number of columns");
 		}
 	}
 	
