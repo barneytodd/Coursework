@@ -85,11 +85,9 @@ void LLL(double delta, int dim, double **A) {
         for (i=0; i<dim; i++) {
           A[k][i] -= round(mu_kj) * A[j][i];
         }
-        
         update_matrices(dim, k, A, B);
       }
     }
-
     //LLL basis reduction requires (B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k
     mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
     if (InnerProduct(dim, B[k], B[k]) > ((delta - (mu_k_kminus1*mu_k_kminus1)) * InnerProduct(dim, B[k-1], B[k-1]))) {
