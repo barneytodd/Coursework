@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
   else {
     dim = argc-1;
   }
-
+  printf("argv[0]: %s\n", argv[0]);
   //there should be dim^2 + 1 arguments
   if (dim != (int)pow(argc-1, 0.5)) {
     printf("Error: Incorrect input format\nDimension of first vector: (%d) should equal sqrt(num input arguments): (%d)\n", dim, (int)pow(argc-1, 0.5));
