@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
         break;
       }
     }
-    printf("dim: %d", dim);
+    printf("dim: %d\n", dim);
   }
   else {
     dim = argc-1;
@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
           continue;
         }
         else if (strcmp(endptr, "") == 0) {
-          printf("Error: Incorrect input format\nVector %d has too many elements\n", i+1);
+          printf("Error: Incorrect input format\nVector %d has too many elements\nShould have %d elements\n", i+1, dim);
           exit(1);
         }
         else {
