@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
       if (argv[k][0] == '[' && j == 0) {
         A[i][j] = strtod(&argv[k][1], &endptr); 
         if (dim==1 && strcmp(endptr, "]") != 0) {
-          printf("Error: Incorrect input format\nDimension = 1\nExpected format: '[1.0]'\nInput format: '%s'\n", argv[1]);
+          printf("Error: Incorrect input format\nDimension = 1\nExpected format: '[number]'\nInput format: '%s'\n", argv[1]);
           exit(1);
         }
         else if (dim==1) {
@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
           continue;
         }
         else {
-          printf("Error: Incorrect input format\nExpected format at end of vector: '1.0]'\nInput format: '%s'\n", argv[k]);
+          printf("Error: Incorrect input format\nExpected format for end of vector: 'number]'\nInput format: '%s'\n", argv[k]);
           exit(1);
         }
       }
@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
         A[i][j] = strtod(argv[k], &endptr);
       }
       if (strcmp(endptr, "") != 0) {
-        printf("Error: Incorrect input format\nExpected format for all but the last entry of each vector: '1.0' or '[1.0'\nInput format: '%s'\n", argv[k]);
+        printf("Error: Incorrect input format\nExpected format for all but the last entry of each vector: 'number' or '[number'\nInput format: '%s'\n", argv[k]);
         exit(1);
       }
     }
