@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
         }
         else if (strcmp(endptr, "") == 0) {
           printf("Error: Incorrect input format\nVector %d has too many elements\n", i+1);
-          exit(1)
+          exit(1);
         }
         else {
           printf("Error: Incorrect input format\nExpected format for end of vector: 'number]'\nInput format: '%s'\n", argv[k]);
