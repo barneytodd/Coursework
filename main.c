@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 
   //there should be dim^2 + 1 arguments
   if (dim != (int)pow(argc-1, 0.5)) {
-    printf("Error: Incorrect input format\n");
+    printf("Error: Incorrect input format\nDimension of first vector: (%d) should equal sqrt(num input arguments): (%d)\n", dim, (int)pow(argc-1, 0.5));
     exit(1);
   }
 
@@ -45,41 +45,38 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  //load the input vectors into A
+  //load the input vectors into A, and error check for incorrect input formats
   for (i = 0; i < dim; i++) {
-    //if (dim == 1) {
-      //if (argv[0][0] != '[' || argv[0][-1] != ']') {
-        //printf("Error: Incorrect input format\n");
-      //}
-      //else {
-      //  char *temp = &argv + 1
-      //  A[0][0] = strtod(&argv[0][1]
-      //}
-    //}
     for (j=0; j < dim; j++) {
       char *endptr;
       k = 1 + dim*i + j;
       if (argv[k][0] == '[' && j == 0) {
         A[i][j] = strtod(&argv[k][1], &endptr); 
+        if (dim==0 && strcmp(endptr, "]") != 0) {
+          printf("Error: Incorrect input format\nDimension = 1\nExpected format: '[1.0]'\nInput format: '%s'\n", argv[1]);
+          exit(1);
+        }
+        else if (dim==0) {
+          continue
+        }
       }
       else if (argv[k][strlen(argv[k])-1] == ']' && j == dim-1) {
         A[i][j] = strtod(argv[k], &endptr);
-        printf("end: %s\n", endptr);
         if (strcmp(endptr, "]") == 0) {
-          printf("yes\n");
           continue;
         }
         else {
-          printf("Error: Incorrect input format\n");
+          printf("Error: Incorrect input format\nExpected format at end of vector: '1.0]'\nInput format: '%s'\n", argv[k]);
+          exit(1);
         }
       }
       else {
         A[i][j] = strtod(argv[k], &endptr);
       }
       if (strcmp(endptr, "") != 0) {
-        printf("Error: Incorrect input format\n");
+        printf("Error: Incorrect input format\nExpected format for all but the last entry of each vector: '1.0' or '[1.0'\nInput format: '%s'\n", argv[k]);
+        exit(1);
       }
-      printf("endptr: %s\n", endptr);
     }
   }
   
