@@ -71,7 +71,6 @@ void LLL(double delta, int dim, double **A) {
   GramSchmidt(dim, 0, B); 
   
   k = 1;
-  //int m = 0;
   double mu_kj;
   double mu_k_kminus1; 
 
@@ -89,7 +88,7 @@ void LLL(double delta, int dim, double **A) {
       }
     }
 
-    //if 
+    //we want B[k] . B[k] > delta - mu_k_k-1 * (B[k-1] . B[k-1])
     mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
     if (InnerProduct(dim, B[k], B[k]) > ((delta - (mu_k_kminus1*mu_k_kminus1)) * InnerProduct(dim, B[k-1], B[k-1]))) {
       k+=1;
@@ -104,10 +103,6 @@ void LLL(double delta, int dim, double **A) {
       update_matrices(dim, k, A, B); 
       k = fmax(k-1, 1);          
     }
-    //m+=1;
-    //if (m==10) {
-    //  break;
-    //}      
   }
 }
   
