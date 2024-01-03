@@ -22,7 +22,7 @@ double ShortestVector(int dim, double **A) {
 	
 	//GramSchmidt orthogonalise A, and store the mu values and GS norms
 	double sum1[dim]; 
-	for (i=1; i<dim; i++) { //change A to GS vectors, calculate Mu_i_j values, and calculate GS_norms
+	for (i=1; i<dim; i++) { 
 		GS_norms[i-1] = InnerProduct(dim, A[i-1], A[i-1]);
 		
 		for (j=0; j<dim; j++) {
@@ -31,7 +31,7 @@ double ShortestVector(int dim, double **A) {
 		for (j=0; j<i; j++) {
 			Mu[(i-1)*i/2+j] = InnerProduct(dim, A[i], A[j])/GS_norms[j];
 			for (k=0; k<dim; k++) {
-				sum1[k] += Mu[(i-1)*i/2+j] * A[j][k]; //equivalent to Mu[i][j]
+				sum1[k] += Mu[(i-1)*i/2+j] * A[j][k]; //equivalent to Mu[i][j] if Mu was a dim x dim array
 			}
 		}
 		for (k=0; k<dim; k++) {
@@ -49,7 +49,7 @@ double ShortestVector(int dim, double **A) {
 	}
 	
 	double sum2; //stores the sum of x[j] * Mu[j][i] for j>i
-	double sum3; //sum of l[j]'s, also equal to the squared norm of the current combination of basis vectors
+	double sum3; //sum of l[j]'s, (the sum of all the l[j]'s from 1 to dim is equal to the squared norm of the current combination of basis vectors)
 	i=dim-1;
 	
 	//enumeration the lattice
@@ -72,7 +72,7 @@ double ShortestVector(int dim, double **A) {
 		}
 		
 		if (sum3 < shortest_vector*shortest_vector) {
-			//if i=0 and sum3< (current shortest vector length)^2, we have a new shortest vector
+			//if i=0 and sum3 < (current shortest vector length)^2, we have a new shortest vector
 			if (i==0) {
 				if (sum3 != 0) {
 					shortest_vector = sqrt(sum3);
@@ -81,13 +81,11 @@ double ShortestVector(int dim, double **A) {
 						printf("%d\t", x[j]);
 					}
 					printf("\n");
-					
 					printf("max x[9]: %.4f\n", pow(shortest_vector*shortest_vector/GS_norms[dim-1], 0.5));
-					
-					printf("\n");
 				}
 				x[0] += 1;
 			}
+			//if i != 1, we set the previous x value to the minimum integer such that l[i] < shortest_vector^2 - sum3
 			else {
 				//we want to set x[i] to the minimum integer such that l[i] < A-sum3
 
