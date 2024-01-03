@@ -65,14 +65,6 @@ void runTests(int dim, double **A) {
     int i, j;
     double limit = LimitCalc(dim, A);
     
-    printf("A\n");
-    for (i = 0; i < dim; i++) {
-        for (j=0; j < dim; j++) {
-          printf("%.4f\t", A[i][j]);
-        }
-        printf("\n");
-    }
-    
     LLL(0.75, dim, A);
     double shortest_vector = ShortestVector(dim, A);
 
@@ -133,13 +125,7 @@ int main() {
         A[i][i] = 1.0;
     }
     
-    printf("A1: \n");
-    for (i=0;i<dim;i++) {
-        for (j=0;j<dim;j++) {
-            printf("%.4f\t", A[i][j]);
-        }
-        printf("\n");
-    }
+    printf("Input matrix dim: %d, identity matrix\n", dim);
     runTests(dim, A); 
 
     //set the bounds for the values of the second matrix, and its dimension
@@ -172,7 +158,8 @@ int main() {
             A[i][j] = ((double)rand() / RAND_MAX) * (max-min) + min; 
         }
     }
-    
+
+    printf("Input matrix dim: %d, randomly generated matrix with values between %d and %d\n", dim, min, max);
     runTests(dim, A);
 
     
