@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
   //there should be dim^2 + 1 arguments
   if (dim != (int)pow(argc-1, 0.5)) {
     printf("Error: Incorrect input format\n");
-    exit(1)
+    exit(1);
   }
 
   //initialise the input matrix A
@@ -53,10 +53,10 @@ int main(int argc, char *argv[]) {
     for (j=0; j < dim; j++) {
       char *endptr;
       k = 1 + dim*i + j;
-      if (argv[k][0] == '[' && j = 0) {
+      if (argv[k][0] == '[' && j == 0) {
         A[i][j] = strtod(&argv[k][1], &endptr); 
       }
-      else if (argv[k][-1] == ']' && j = dim-1) {
+      else if (argv[k][-1] == ']' && j == dim-1) {
         A[i][j] = strtod(&argv[k][-1], &endptr);
       }
       else {
