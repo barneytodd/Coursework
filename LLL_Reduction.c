@@ -73,7 +73,7 @@ void LLL(double delta, int dim, double **A) {
   k = 1;
   double mu_kj;
   double mu_k_kminus1; 
-
+  bool zero_check = false; //checks if any vectors are reduced to 0, this can happen if the input vectors are linearly dependent and can result in an infinite loop
   //iterate through the LLL Reduction steps until:
   //(B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k, and
   //mu_kj<=0.5 for all k, j<k
@@ -82,8 +82,14 @@ void LLL(double delta, int dim, double **A) {
     for (j=k-1; j>=0; j--) {
       mu_kj = InnerProduct(dim, A[k], B[j])/InnerProduct(dim, B[j], B[j]); 
       if (fabs(mu_kj) > 0.5) {
+        zero_check = true;
         for (i=0; i<dim; i++) {
           A[k][i] -= round(mu_kj) * A[j][i];
+          if (A[k][i] != 0) zero_check = false;
+        }
+        if (zero_check == true) {
+          printf("Error: input vectors are linearly dependent\n");
+          exit(1);
         }
         update_matrices(dim, k, A, B);
       }
