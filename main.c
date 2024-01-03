@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
           continue;
         }
       }
-      else if (argv[k][strlen(argv[k])-1] == ']' && j == dim-1) {
+      else if (j == dim-1) {
         A[i][j] = strtod(argv[k], &endptr);
         if (strcmp(endptr, "]") == 0) {
           continue;
