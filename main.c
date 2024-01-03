@@ -10,6 +10,7 @@
 
 int main(int argc, char *argv[]) {
   int dim, i, j, k;
+  
   printf("You have entered %d arguments:\n", argc);
   for (i = 2; i < argc; i++) {
     if (argv[i][0] == '[' && i!=1) {
@@ -18,6 +19,8 @@ int main(int argc, char *argv[]) {
     }
   }
   printf("dim: %d", dim);
+
+  //initialise the input matrix A
   double **A = (double **)malloc(dim * sizeof(double *));
   if (A == NULL) {
       perror("Failed to allocate memory for the input matrix");
@@ -34,13 +37,13 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
   }
+
+  //load the input vectors into A
   for (i = 0; i < dim; i++) {
     for (j=0; j < dim; j++) {
       k = 1 + dim*i + j;
-      //printf("argv[k]: %s\n", argv[k]);
       if (argv[k][0] == '[') {
-        //printf("argv[k][1]: %.4f\n", strtod(&argv[k][1], NULL));
-        A[i][j] = strtod(&argv[k][1], NULL); //Null might need to be changed here
+        A[i][j] = strtod(&argv[k][1], NULL); 
         continue;
       }
       if (argv[k][-1] == ']') {
@@ -51,6 +54,7 @@ int main(int argc, char *argv[]) {
       }
     }
   }
+  
   printf("A\n");
   for (i = 0; i < dim; i++) {
     for (j=0; j < dim; j++) {
@@ -58,26 +62,28 @@ int main(int argc, char *argv[]) {
     }
     printf("\n");
   }
-  //double limit = LimitCalc(dim, A);
-  //printf("Limit: %.4f\n", limit);
-      
-  //double vec1[3] = {1.0, 1.0, 1.0};
-  //double vec2[3] = {-1.0, 0.0, 2.0};
-  //double vec3[3] = {3.0, 5.0, 6.0};
+
+  //reduce the lattice basis using Lenstra–Lenstra–Lovász lattice reduction
   LLL(0.75, dim, A);
+  
   printf("Orthonormalized Vectors (A):\n");
-    for (int i = 0; i < dim; i++) {
-        for (int j = 0; j < dim; j++) {
-            printf("%.4f\t", A[i][j]);
-        }
-        printf("\n");
-    }
-  //printf("Maximum value of double: %e\n", DBL_MAX);
+  for (int i = 0; i < dim; i++) {
+      for (int j = 0; j < dim; j++) {
+          printf("%.4f\t", A[i][j]);
+      }
+      printf("\n");
+  }
+
+  //compute lattice enumeration to find the shortest vector
   double shortest_length = ShortestVector(dim, A);
+  
+  //free the memory allocated for A
   for (i=0;i<dim;i++) {
     free(A[i]);
   }
   free(A);
+
+  //save the output to result.txt
   FILE *result = fopen("result.txt", "w");
   if (result == NULL) {
     perror("Error opening the result file");
