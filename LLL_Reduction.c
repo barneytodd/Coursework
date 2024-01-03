@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include "LLL_Reduction.h"
+#include <stdbool.h>
 
 //compute the inner product between two vectors
 double InnerProduct(int dim, double *arr1, double *arr2) {
