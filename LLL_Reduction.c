@@ -107,7 +107,7 @@ void LLL(double delta, int dim, double **A) {
     //m+=1;
     //if (m==10) {
     //  break;
-    }      
+    //}      
   }
 }
   
