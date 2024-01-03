@@ -5,20 +5,27 @@
 #include <math.h>
 
 
-
-
-
 int main(int argc, char *argv[]) {
   int dim, i, j, k;
-  
+
+  //check if num rows = num columns
+  //check if each row has the same num columns
+  //check if there are spaces before/after the []
+  //check if arguments are valid numbers
   printf("You have entered %d arguments:\n", argc);
   for (i = 2; i < argc; i++) {
-    if (argv[i][0] == '[' && i!=1) {
+    if (argv[i][0] == '[') {
       dim = i-1;
       break;
     }
   }
   printf("dim: %d", dim);
+
+  //there should be dim^2 + 1 arguments
+  if (dim != (int)pow(argc-1, 0.5)) {
+    printf("Error: Incorrect input format\n");
+    exit(1)
+  }
 
   //initialise the input matrix A
   double **A = (double **)malloc(dim * sizeof(double *));
@@ -40,17 +47,21 @@ int main(int argc, char *argv[]) {
 
   //load the input vectors into A
   for (i = 0; i < dim; i++) {
+    if (dim == 1) {
+      
+    }
     for (j=0; j < dim; j++) {
+      char *endptr;
       k = 1 + dim*i + j;
-      if (argv[k][0] == '[') {
-        A[i][j] = strtod(&argv[k][1], NULL); 
+      if (argv[k][0] == '[' && j = 0) {
+        A[i][j] = strtod(&argv[k][1], endptr); 
         continue;
       }
-      if (argv[k][-1] == ']') {
-        A[i][j] = strtod(&argv[k][-1], NULL);
+      else if (argv[k][-1] == ']' && j = dim-1) {
+        A[i][j] = strtod(&argv[k][-1], endptr);
       }
       else {
-        A[i][j] = strtod(argv[k], NULL);
+        A[i][j] = strtod(argv[k], endptr);
       }
     }
   }
