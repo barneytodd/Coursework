@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  //load the input vectors into A, and error check for incorrect input formats
+  //load the input vectors into A, and check for incorrect input formats
   for (i = 0; i < dim; i++) {
     for (j=0; j < dim; j++) {
       char *endptr;
