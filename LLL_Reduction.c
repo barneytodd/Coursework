@@ -74,7 +74,9 @@ void LLL(double delta, int dim, double **A) {
   double mu_kj;
   double mu_k_kminus1; 
 
-  //
+  //iterate through the LLL Reduction steps until:
+  //(B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k, and
+  //mu_kj<=0.5 for all k, j<k
   while (k<dim) {
     //reduce the kth vector until for all j<k, mu_kj<=0.5
     for (j=k-1; j>=0; j--) {
