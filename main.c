@@ -63,20 +63,20 @@ int main(int argc, char *argv[]) {
         A[i][j] = strtod(&argv[k][1], &endptr); 
       }
       else if (argv[k][-1] == ']' && j == dim-1) {
-        A[i][j] = strtod(&argv[k], &endptr);
-        if (endptr == ']') {
-          continue;
-        }
-        else {
-          printf("Error: Incorrect input format\n");
-        }
+        A[i][j] = strtod(argv[k], &endptr);
+        //if (endptr == ']') {
+        //  continue;
+        //}
+        //else {
+        //  printf("Error: Incorrect input format\n");
+        //}
       }
       else {
         A[i][j] = strtod(argv[k], &endptr);
       }
-      if (endptr != ' ') {
-        printf("Error: Incorrect input format\n");
-      }
+      //if (endptr != ' ') {
+      //  printf("Error: Incorrect input format\n");
+      //}
       printf("endptr: %s\n", endptr);
     }
   }
