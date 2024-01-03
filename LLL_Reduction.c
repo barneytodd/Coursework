@@ -77,7 +77,7 @@ void LLL(double delta, int dim, double **A) {
 
   //
   while (k<dim) {
-    
+    //reduce the kth vector until for all j<k, mu_kj<=0.5
     for (j=k-1; j>=0; j--) {
       mu_kj = InnerProduct(dim, A[k], B[j])/InnerProduct(dim, B[j], B[j]); 
       if (fabs(mu_kj) > 0.5) {
@@ -89,10 +89,10 @@ void LLL(double delta, int dim, double **A) {
       }
     }
 
+    //if 
     mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
     if (InnerProduct(dim, B[k], B[k]) > ((delta - (mu_k_kminus1*mu_k_kminus1)) * InnerProduct(dim, B[k-1], B[k-1]))) {
       k+=1;
-      //mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
         }
     else {
       //swap A[k] and A[k-1]
@@ -103,7 +103,7 @@ void LLL(double delta, int dim, double **A) {
       }
       update_matrices(dim, k, A, B); 
       k = fmax(k-1, 1);
-      mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]);           
+      //mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]);           
     }
     m+=1;
     if (m==10) {
