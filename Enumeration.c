@@ -50,7 +50,7 @@ double ShortestVector(int dim, double **A) {
 	
 	double sum2; //stores the sum of x[j] * Mu[j][i] for j>i
 	double sum3; //sum of l[j]'s, (the sum of all the l[j]'s from 1 to dim is equal to the squared norm of the current combination of basis vectors)
-	i=dim-1;
+	i=dim-1; //start with the last vector
 	
 	//enumeration the lattice
 	while (i<dim) { 
@@ -99,36 +99,34 @@ double ShortestVector(int dim, double **A) {
 				}
 				x[i] = round(- sum2);
 				
-				//l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * GS_norms[i]; 
-				
-				do {
-					
-					x[i] -= 1;
-					sum2 = 0;
-					for (k=i+1; k<dim; k++) {
-						sum2 += x[k] * Mu[(k-1)*k/2+i]; //Mu[k][i]
-					}
-					l[i] = (x[i] + sum2) * (x[i] + sum2) * GS_norms[i]; 
-					
-					
-				} while (l[i] < shortest_vector * shortest_vector - sum3);
-				x[i] += 1; 
+				l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * GS_norms[i]; 
+				if (l[i] < shortest_vector * shortest_vector - sum3) {
+					do {
+						
+						x[i] -= 1;
+						sum2 = 0;
+						for (k=i+1; k<dim; k++) {
+							sum2 += x[k] * Mu[(k-1)*k/2+i]; //Mu[k][i]
+						}
+						l[i] = (x[i] + sum2) * (x[i] + sum2) * GS_norms[i]; 
+						
+						
+					} while (l[i] < shortest_vector * shortest_vector - sum3);
+					x[i] += 1; 
+				}
+				else {
+					i+=1;
+					x[i] += 1;
+				}
 			}
 		}
 		else {
-
-			
-
-			
 			i += 1;
 			x[i] += 1;
 			if (i==dim-1) {
 				printf("x[dim-1]: %d\n", x[dim-1]);
 			}
-		
 		}
-		
-		//printf("\n");
 	}
 	return shortest_vector;
 }
