@@ -17,7 +17,6 @@ double ShortestVector(int dim, double **A) {
 		}
 	}
 	
-	//printf("shortest basis vector: %.4f\n", shortest_vector);
 	double Mu[(dim-1)*dim/2]; //stores the mu_i_j values in a lower triangular matrix
 	double GS_norms[dim]; //stores the norm of each GramSchidt orthogonalised vector
 	
@@ -50,7 +49,7 @@ double ShortestVector(int dim, double **A) {
 	}
 	
 	double sum2; //stores the sum of x[j] * Mu[j][i] for j>i
-	double sum3; //sum of l[j]'s, also equal to the squared norm of the current vector
+	double sum3; //sum of l[j]'s, also equal to the squared norm of the current combination of basis vectors
 	i=dim-1;
 	
 	//enumeration the lattice
@@ -59,21 +58,21 @@ double ShortestVector(int dim, double **A) {
 		//calculate the l[j] values from i upwards
 		for (j=dim-1; j>=i; j--) { 
 			sum2 = 0;
+			//sum the contribution of each vector in the direction of the ith GS vector 
 			for (k=j+1; k<dim; k++) {
 				sum2 += x[k] * Mu[(k-1)*k/2+j]; //Mu[k][j]
 			}
-			
-			l[j] = (x[j] + sum2) * (x[j] + sum2) * GS_norms[j]; 
-			
-			
+			l[j] = (x[j] + sum2) * (x[j] + sum2) * GS_norms[j]; 	
 		}
-		
+
+		//sum the l[j] values for j>=i
 		sum3 = 0;
 		for (j=i; j<dim; j++) {
 			sum3 += l[j];
 		}
 		
 		if (sum3 < shortest_vector*shortest_vector) {
+			//if i=0 and sum3< (current shortest vector length)^2, we have a new shortest vector
 			if (i==0) {
 				if (sum3 != 0) {
 					shortest_vector = sqrt(sum3);
