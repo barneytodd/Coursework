@@ -5,13 +5,12 @@
 #include <math.h>
 #include <string.h>
 
+
+
+
 int main(int argc, char *argv[]) {
   int dim, i, j, k;
 
-  //check if num rows = num columns
-  //check if each row has the same num columns
-  //check if there are spaces before/after the []
-  //check if arguments are valid numbers
   printf("You have entered %d arguments:\n", argc);
   if (argc>2) {
     for (i = 2; i < argc; i++) {
@@ -25,7 +24,7 @@ int main(int argc, char *argv[]) {
   else {
     dim = argc-1;
   }
-  printf("argv[0]: %s\n", argv[0]);
+  
   //there should be dim^2 + 1 arguments
   if (dim != (int)pow(argc-1, 0.5)) {
     printf("Error: Incorrect input format\nDimension of first vector: (%d) should equal sqrt(num input arguments): (%d)\n", dim, (int)pow(argc-1, 0.5));
