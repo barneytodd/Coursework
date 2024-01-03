@@ -77,7 +77,9 @@ int main(int argc, char *argv[]) {
       if (strcmp(endptr, " ") != 0) {
         printf("Error: Incorrect input format\n");
       }
-      printf("endptr: %s\n", endptr);
+      printf("xxx");
+      printf("endptr: %s", endptr);
+      printf("xxx\n");
     }
   }
   
