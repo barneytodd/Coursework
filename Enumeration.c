@@ -7,18 +7,22 @@
 double ShortestVector(int dim, double **A) {
 	int i, j, k;
 	double shortest_vector = sqrt(InnerProduct(dim, A[0], A[0])); //keeps track of current shortest vector
-	double current_norm; //stores current norm we're calculating below
-	
+	double current_norm; //stores the norm of each basis vector
+
+	//find the shortest basis vector and set shortes_vector to be equal to its norm
 	for (i=1; i<dim; i++) {
 		current_norm = sqrt(InnerProduct(dim, A[i], A[i])); //calculates norm of each vector in A, then compares to shortest vector
 		if (current_norm < shortest_vector) {
 			shortest_vector = current_norm;
 		}
 	}
-	printf("shortest basis vector: %.4f\n", shortest_vector);
-	double Mu[(dim-1)*dim/2]; //stores the mu_i_j values
-	double GS_norms[dim]; //stores the norm of each GS vector
-	double sum1[dim]; //may be able to release this memory after following for loop
+	
+	//printf("shortest basis vector: %.4f\n", shortest_vector);
+	double Mu[(dim-1)*dim/2]; //stores the mu_i_j values in a lower triangular matrix
+	double GS_norms[dim]; //stores the norm of each GramSchidt orthogonalised vector
+	
+	//GramSchmidt orthogonalise A, and store the mu values and GS norms
+	double sum1[dim]; 
 	for (i=1; i<dim; i++) { //change A to GS vectors, calculate Mu_i_j values, and calculate GS_norms
 		GS_norms[i-1] = InnerProduct(dim, A[i-1], A[i-1]);
 		
@@ -35,45 +39,25 @@ double ShortestVector(int dim, double **A) {
 			A[i][k] -= sum1[k];
 		}	
 	}
-	//printf("Mu\n");
-	//for (i=0;i<dim;i++) {
-	//	for (j=0;j<i;j++) {
-	//		printf("%.4f\t", Mu[(i-1)*i/2+j]); //Mu[i][j]
-	//	}
-	//	printf("\n");
-	//}
-	
-	printf("A\n");
-	for (i=0;i<dim;i++) {
-		for (j=0;j<dim;j++) {
-			printf("%.4f\t", A[i][j]);
-		}
-		printf("\n");
-	}
-	
 	GS_norms[dim-1] = InnerProduct(dim, A[dim-1], A[dim-1]);
-	//for (i=0; i<dim; i++) {
-	//	printf("GS: %.4f\t", GS_norms[i]);
-	//	}
-	//printf("\n");
-	int x[dim]; //x counts how many of each basis vector we're using
-	double l[dim]; //l counts the total contribution of all the used vectors in the direction of each GS vector, squared
+	
+	int x[dim]; //counts how many of each basis vector we're using
+	double l[dim]; //stores the total contribution of all the used vectors in the direction of each GS vector, squared
+
+	//initialise the x and l values to 0
 	for (j=0; j<dim; j++) {
 		x[j] = l[j] = 0;
 	}
-	double sum2; //sum2 is the sum(j>i) of x[j] * Mu[j][i]
-	double sum3; //sum3 is the sum of l[j]'s, also equal to the squared norm of the current vector
-	i=0;
 	
+	double sum2; //stores the sum of x[j] * Mu[j][i] for j>i
+	double sum3; //sum of l[j]'s, also equal to the squared norm of the current vector
+	i=dim-1;
 	
-	while (i<dim) { //begin the enumeration loop
-		//for (j=0; j<dim; j++) {
-		//	printf("%d\t", x[j]);
-		//}
-		//printf("\n");
+	//enumeration the lattice
+	while (i<dim) { 
 		sum2 = 0;
-		for (j=dim-1; j>=i; j--) { //calculate the l[j] values from i upwards
-			
+		//calculate the l[j] values from i upwards
+		for (j=dim-1; j>=i; j--) { 
 			sum2 = 0;
 			for (k=j+1; k<dim; k++) {
 				sum2 += x[k] * Mu[(k-1)*k/2+j]; //Mu[k][j]
