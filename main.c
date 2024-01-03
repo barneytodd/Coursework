@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
       else {
         A[i][j] = strtod(argv[k], &endptr);
       }
-      if (strcmp(endptr, " ") != 0) {
+      if (strcmp(endptr, "\0") != 0) {
         printf("Error: Incorrect input format\n");
       }
       printf("xxx");
