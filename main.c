@@ -65,6 +65,7 @@ int main(int argc, char *argv[]) {
       else if (argv[k][-1] == ']' && j == dim-1) {
         A[i][j] = strtod(argv[k], &endptr);
         if (strcmp(endptr, "]") == 0) {
+          printf("yes\n");
           continue;
         }
         else {
@@ -77,9 +78,7 @@ int main(int argc, char *argv[]) {
       if (strcmp(endptr, "") != 0) {
         printf("Error: Incorrect input format\n");
       }
-      printf("xxx");
       printf("endptr: %s", endptr);
-      printf("xxx\n");
     }
   }
   
