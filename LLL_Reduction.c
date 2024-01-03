@@ -88,7 +88,7 @@ void LLL(double delta, int dim, double **A) {
       }
     }
 
-    //we want B[k] . B[k] > delta - mu_k_k-1 * (B[k-1] . B[k-1])
+    //LLL basis reduction requires (B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k
     mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
     if (InnerProduct(dim, B[k], B[k]) > ((delta - (mu_k_kminus1*mu_k_kminus1)) * InnerProduct(dim, B[k-1], B[k-1]))) {
       k+=1;
