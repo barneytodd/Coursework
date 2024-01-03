@@ -123,7 +123,7 @@ int main() {
                 free(A[j]);
             }
             free(A);
-            perror("failed to allocate memory for the rows of the input matrix")
+            perror("failed to allocate memory for the rows of the input matrix");
             exit(1);
         }                
     }
