@@ -62,7 +62,7 @@ double LimitCalc(int dim, double **A) {
 //Deals with two cases: (a) the input matrix is an identity matrix or (b) it is not
 void runTests(int dim, double **A) { 
     
-    int i, j;
+    int i;
     double limit = LimitCalc(dim, A);
     
     LLL(0.75, dim, A);
