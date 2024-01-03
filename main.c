@@ -47,15 +47,15 @@ int main(int argc, char *argv[]) {
 
   //load the input vectors into A
   for (i = 0; i < dim; i++) {
-    if (dim == 1) {
-      if (argv[0][0] != '[' || argv[0][-1] != ']') {
-        printf("Error: Incorrect input format\n");
-      }
-      else {
-        char *temp = &argv + 1
-        A[0][0] = strtod(&argv[0][1]
-      }
-    }
+    //if (dim == 1) {
+      //if (argv[0][0] != '[' || argv[0][-1] != ']') {
+        //printf("Error: Incorrect input format\n");
+      //}
+      //else {
+      //  char *temp = &argv + 1
+      //  A[0][0] = strtod(&argv[0][1]
+      //}
+    //}
     for (j=0; j < dim; j++) {
       char *endptr;
       k = 1 + dim*i + j;
