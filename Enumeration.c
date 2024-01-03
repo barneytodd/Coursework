@@ -7,11 +7,11 @@
 double ShortestVector(int dim, double **A) {
 	int i, j, k;
 	double shortest_vector = sqrt(InnerProduct(dim, A[0], A[0])); //keeps track of current shortest vector
-	//double current_norm; //stores current norm we're calculating below
+	double current_norm; //stores current norm we're calculating below
 	
 	for (i=1; i<dim; i++) {
-		//current_norm = ; //calculates norm of each vector in A, then compares to shortest vector
-		if (sqrt(InnerProduct(dim, A[i], A[i])) < shortest_vector) {
+		current_norm = sqrt(InnerProduct(dim, A[i], A[i])); //calculates norm of each vector in A, then compares to shortest vector
+		if (current_norm < shortest_vector) {
 			shortest_vector = current_norm;
 		}
 	}
