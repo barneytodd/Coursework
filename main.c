@@ -70,6 +70,10 @@ int main(int argc, char *argv[]) {
         if (strcmp(endptr, "]") == 0) {
           continue;
         }
+        else if (strcmp(endptr, "") == 0) {
+          printf("Error: Incorrect input format\nVector %d has too many elements\n", i+1);
+          exit(1)
+        }
         else {
           printf("Error: Incorrect input format\nExpected format for end of vector: 'number]'\nInput format: '%s'\n", argv[k]);
           exit(1);
@@ -78,7 +82,11 @@ int main(int argc, char *argv[]) {
       else {
         A[i][j] = strtod(argv[k], &endptr);
       }
-      if (strcmp(endptr, "") != 0) {
+      if (strcmp(endptr, "]") == 0) {
+        printf("Error: Incorrect input format\nExpected square matrix\nVector %d is of length %d, should be length %d\n", i+1, j+1, dim);
+        exit(1);
+      }
+      else if (strcmp(endptr, "") != 0) {
         printf("Error: Incorrect input format\nExpected format for all but the last entry of each vector: 'number' or '[number'\nInput format: '%s'\n", argv[k]);
         exit(1);
       }
