@@ -29,7 +29,7 @@ void *Enumerate(void *args) {
 
   double sum2; //stores the sum of x[j] * Mu[j][i] for j>i
   double sum3;
-  
+  int m = 0;
   while (*thread_args->max_num > thread_args->num) { 
 		sum2 = 0;
 		//calculate the l[j] values from i upwards
@@ -107,6 +107,10 @@ void *Enumerate(void *args) {
 				break;
 			}
 		}
+	  m++;
+	  if (m==100000) {
+		  printf("thread: %d, infinite while loop\n", thread_args->num);
+	  }
   }
   pthread_exit(NULL);
 }
