@@ -191,7 +191,7 @@ double ShortestVector1(int dim, double **A) {
 			exit(1);
 		}
 		printf("Thread: %d\n", i);
-		count++1;
+		count++;
 	}
 	for (i=0; i<count; i++) {
 		pthread_join(threads[i], NULL);
