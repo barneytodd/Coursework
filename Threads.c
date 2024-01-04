@@ -108,7 +108,7 @@ void *Enumerate(void *args) {
 			}
 		}
 	  m++;
-	  if (m==10000) {
+	  if (m==1000000000000000) { //need to improve this
 		  printf("thread: %d, infinite while loop\n", thread_args->num);
 			exit(1);
 	  }
