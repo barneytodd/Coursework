@@ -67,6 +67,7 @@ void runTests(int dim, double **A) {
     double limit = LimitCalc(dim, A);
     
     LLL(0.75, dim, A);
+    printf("LLL completed\n");
     double shortest_vector = ShortestVector1(dim, A);
 
     //true if the input matrix is an identity matrix
