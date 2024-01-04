@@ -113,6 +113,12 @@ void LLL(double delta, int dim, double **A) {
     }
     m++;
     if (m==10000) {
+      for (i=0; i<dim; i++) {
+        for (j=0; j<dim; j++) {
+          printf("%.4f\t", A[i][j]);
+        }
+        printf("\n");
+      }
       printf("While loop failed\n");
       exit(1);
     }
