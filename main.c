@@ -101,24 +101,24 @@ int main(int argc, char **argv) {
     }
   }
   endptr = NULL;
-  //printf("A\n");
-  //for (i = 0; i < dim; i++) {
-  //  for (j=0; j < dim; j++) {
-  //    printf("%.4f\t", A[i][j]);
-  //  }
-  //  printf("\n");
-  //}
+  printf("A\n");
+  for (i = 0; i < dim; i++) {
+    for (j=0; j < dim; j++) {
+      printf("%.4f\t", A[i][j]);
+    }
+    printf("\n");
+  }
 
   //reduce the lattice basis using Lenstra–Lenstra–Lovász lattice reduction
   LLL(0.75, dim, A);
   
-  //printf("Orthonormalized Vectors (A):\n");
-  //for (int i = 0; i < dim; i++) {
-  //    for (int j = 0; j < dim; j++) {
-  //        printf("%.4f\t", A[i][j]);
-  //    }
-  //    printf("\n");
-  //}
+  printf("Orthonormalized Vectors (A):\n");
+  for (int i = 0; i < dim; i++) {
+      for (int j = 0; j < dim; j++) {
+          printf("%.4f\t", A[i][j]);
+      }
+      printf("\n");
+  }
 
   //compute lattice enumeration to find the shortest vector
   double shortest_length = ShortestVector1(dim, A);
