@@ -112,15 +112,18 @@ void LLL(double delta, int dim, double **A) {
       k = fmax(k-1, 1);          
     }
     m++;
-    if (m==100000) {
+    if (m%100000 == 0) {
       for (i=0; i<dim; i++) {
+        printf("[");
         for (j=0; j<dim; j++) {
-          printf("%.4f\t", A[i][j]);
+          printf("%.4f ", A[i][j]);
         }
-        printf("\n");
-      }
+        printf("]\n");
+      } 
+    }
+    if (m == 1000000) {
       printf("While loop failed\n");
-      exit(1);
+        exit(1);
     }
   }
 }
