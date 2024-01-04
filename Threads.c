@@ -177,6 +177,7 @@ double ShortestVector1(int dim, double **A) {
     	}
 	
 	struct ThreadArgs args[max_num+1];
+	int count = 0;
 	for (i=0; i<=max_num; i++) {
 		args[i].num = i;
 		args[i].dim = dim;
@@ -190,7 +191,11 @@ double ShortestVector1(int dim, double **A) {
 			exit(1);
 		}
 		printf("Thread: %d\n", i);
+		count++1;
 	}
-	
+	for (i=0; i<count; i++) {
+		pthread_join(threads[i], NULL);
+	}
+	pthread_mutex_destroy(&lock);
 	return shortest_vector;
 }
