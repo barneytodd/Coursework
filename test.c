@@ -55,7 +55,7 @@ double Determinant(int dim, double **A) {
 double LimitCalc(int dim, double **A) { 
     double gamma = tgamma((float)dim/2 + 1);
     double det = fabs(Determinant(dim, A));
-    return 1.05*(pow(gamma, 1.0/dim)/sqrt(M_PI))*pow(det, 1.0/dim);
+    return 1.05*(pow(gamma, 1.0/dim)/sqrt(M_PI))*det;
 }
 
 
