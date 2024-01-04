@@ -1,8 +1,8 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g
-DEPS = LLL_Reduction.h Enumeration.h
-SOURCE_FILES = LLL_Reduction.c Enumeration.c main.c test.c
-OBJECTS = LLL_Reduction.o Enumeration.o #main.o #test.o
+DEPS = LLL_Reduction.h Enumeration.h Threads.h
+SOURCE_FILES = LLL_Reduction.c Enumeration.c Threads.c main.c test.c
+OBJECTS = LLL_Reduction.o Enumeration.o Threads.o #main.o #test.o
 
 all: $(OBJECTS) main.o
 	$(CC) -o runme $(OBJECTS) main.o -lm $(CFLAGS)
