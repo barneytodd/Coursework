@@ -98,6 +98,21 @@ void LLL(double delta, int dim, double **A) {
     }
     //LLL basis reduction requires (B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k
     mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
+    if (m%100000 ==0 || m%100000 == 1) {
+      printf("B[k]:\n");
+      for (i = 0;i<dim;i++) {
+        printf("%.4f, ", B[k][i]);
+      }
+      printf("\n");
+      printf("Norm: %.4f\n", InnerProduct(dim, B[k], B[k]));
+      printf("B[k-1]:\n");
+      for (i = 0;i<dim;i++) {
+        printf("%.4f, ", B[k-1][i]);
+      }
+      printf("\n");
+      printf("Norm: %.4f\n", InnerProduct(dim, B[k-1], B[k-1]));
+      printf("mu_k-1: %.4f\n", mu_k_kminus1);
+    }
     if (InnerProduct(dim, B[k], B[k]) > ((delta - (mu_k_kminus1*mu_k_kminus1)) * InnerProduct(dim, B[k-1], B[k-1]))) {
       k+=1;
         }
@@ -122,6 +137,7 @@ void LLL(double delta, int dim, double **A) {
         printf("]\n");
       } 
       printf("\n");
+      
     }
     if (m == 1000000) {
       printf("While loop failed\n");
