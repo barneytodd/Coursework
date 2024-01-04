@@ -1,6 +1,7 @@
 #include "LLL_Reduction.h"
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 
 //Enumerate the lattice to find the shortest vector
