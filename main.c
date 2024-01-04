@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
       }
     }
   }
-  
+  endptr = NULL
   //printf("A\n");
   //for (i = 0; i < dim; i++) {
   //  for (j=0; j < dim; j++) {
@@ -125,8 +125,10 @@ int main(int argc, char **argv) {
   //free the memory allocated for A
   for (i=0;i<dim;i++) {
     free(A[i]);
+    A[i] = NULL
   }
   free(A);
+  A = NULL
 
   //save the output to result.txt
   FILE *result = fopen("result.txt", "w");
