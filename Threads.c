@@ -178,7 +178,8 @@ double ShortestVector1(int dim, double **A) {
 	
 	struct ThreadArgs args;
 	for (i=0; i<=max_num; i++) {
-		args.num = i;
+		int current_i = i;
+		args.num = current_i;
 		args.dim = dim;
 		args.GS_norms = GS_norms;
 		args.Mu = Mu;
