@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <pthread.h>
+#include <stdlib.h>
 
 struct ThreadArgs {
   int num;
@@ -29,7 +30,7 @@ void *Enumerate(void *args) {
   double sum2; //stores the sum of x[j] * Mu[j][i] for j>i
   double sum3;
   
-  while (*thread_args->max_num > *thread_args->num) { 
+  while (*thread_args->max_num > thread_args->num) { 
 		sum2 = 0;
 		//calculate the l[j] values from i upwards
 		for (j=thread_args->dim-1; j>=i; j--) { 
@@ -58,8 +59,8 @@ void *Enumerate(void *args) {
 						printf("%d\t", x[j]);
 					}
 					printf("\n");
-					*(thread_args->max_num) = pow((*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))/thread_args->GS_norms[thread_args->dim-1], 0.5));
-					printf("max x[dim-1]: %.4f\n", *(thread_args->max_num));
+					*(thread_args->max_num) = floor((*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))/pow(thread_args->GS_norms[thread_args->dim-1], 0.5));
+					printf("max x[dim-1]: %d\n", *(thread_args->max_num));
 					pthread_mutex_unlock(thread_args->lock);
 				}
 				x[0] += 1;
@@ -166,7 +167,7 @@ double ShortestVector1(int dim, double **A) {
 	//double sum2; //stores the sum of x[j] * Mu[j][i] for j>i
 	//double sum3; //sum of l[j]'s, (the sum of all the l[j]'s from 1 to dim is equal to the squared norm of the current combination of basis vectors)
 	//i=dim-1; //start with the last vector
-	int max_num = floor(shortest_vector/GS_norms[dim-1]);
+	int max_num = floor(shortest_vector/pow(GS_norms[dim-1], 0.5));
 	pthread_t threads[max_num];
 
 	pthread_mutex_t lock;
