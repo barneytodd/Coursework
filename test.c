@@ -6,6 +6,7 @@
 #include <stdarg.h>
 #include "LLL_Reduction.h"
 #include "Enumeration.h"
+#include "Threads.h"
 #include <stdbool.h>
 #include <time.h>
 
@@ -66,7 +67,7 @@ void runTests(int dim, double **A) {
     double limit = LimitCalc(dim, A);
     
     LLL(0.75, dim, A);
-    double shortest_vector = ShortestVector(dim, A);
+    double shortest_vector = ShortestVector1(dim, A);
 
     //true if the input matrix is an identity matrix
     bool unit_test = true;
@@ -100,7 +101,7 @@ void runTests(int dim, double **A) {
 //calls runTests, first with an identity matrix, and then with a randomly generated matrix
 int main() {
     int i, j;
-    int dim = 40; //dimension of first matrix
+    int dim = 100; //dimension of first matrix
 
     //initialise the input matrix A
     double **A = (double **)calloc(dim, sizeof(double *));
@@ -131,7 +132,7 @@ int main() {
     //set the bounds for the values of the second matrix, and its dimension
     int min = -10000;
     int max = 10000;
-    dim = 50;
+    dim = 80;
 
     //resize A
     A = realloc(A, dim * sizeof(double *));
