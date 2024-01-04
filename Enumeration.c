@@ -47,6 +47,14 @@ double ShortestVector(int dim, double **A) {
 			A[i][k] -= sum1[k];
 		}	
 	}
+
+	for (i=1;i<dim;i++) {
+		for (j=0; j<i; j++) {
+			printf("%.4f\t", Mu[(i-1)*i/2+j);
+		}
+		printf("\n");
+	}
+	
 	GS_norms[dim-1] = InnerProduct(dim, A[dim-1], A[dim-1]);
 	
 	int x[dim]; //counts how many of each basis vector we're using
