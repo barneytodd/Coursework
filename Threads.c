@@ -13,7 +13,7 @@ struct ThreadArgs {
 	pthread_mutex_t *lock;
 };
 
-static void *Enumerate(void *args) {
+void *Enumerate(void *args) {
   //need num for x[dim-1], GS_norms, Mu, dim, pointer to shortest_vector, pointer to max x[dim-1], create own x, create own l
   struct ThreadArgs *thread_args = (struct ThreadArgs *)args;
 
