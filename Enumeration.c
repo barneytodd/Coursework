@@ -57,6 +57,19 @@ double ShortestVector(int dim, double **A) {
 	
 	GS_norms[dim-1] = InnerProduct(dim, A[dim-1], A[dim-1]);
 
+	printf("Vectors1 (A):\n");
+	printf("[");
+	for (int i = 0; i < dim; i++) {
+		printf("[");
+		for (int j = 0; j < dim; j++) {
+			printf("%.4f", A[i][j]);
+			if (j!=dim-1) {
+		  		printf(", ");
+			}
+		}
+		printf("], \n");
+	}
+	
 	printf("GS_norms: \n");
 	for (i=0;i<dim;i++) {
 		printf("%.4f\t", GS_norms[i]);
