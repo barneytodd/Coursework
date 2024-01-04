@@ -1,2 +1,7 @@
-static void *Enumerate(void *args)
+
+
+void *Enumerate(void *args);
+
+double ShortestVector(int dim, double **A);
+
 
