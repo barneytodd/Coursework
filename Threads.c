@@ -59,7 +59,7 @@ void *Enumerate(void *args) {
 						printf("%d\t", x[j]);
 					}
 					printf("\n");
-					*(thread_args->max_num) = floor((*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))/pow(thread_args->GS_norms[thread_args->dim-1], 0.5));
+					*(thread_args->max_num) = floor(*(thread_args->shortest_vector)/pow(thread_args->GS_norms[thread_args->dim-1], 0.5));
 					printf("max x[dim-1]: %d\n", *(thread_args->max_num));
 					pthread_mutex_unlock(thread_args->lock);
 				}
