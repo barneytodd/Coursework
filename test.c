@@ -165,7 +165,9 @@ int main() {
     
     for (i=0;i<dim;i++) {
         free(A[i]);
+        A[i] = NULL;
     }
     free(A);
+    A = NULL;
     return 0;
 }
