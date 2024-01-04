@@ -113,11 +113,16 @@ int main(int argc, char **argv) {
   LLL(0.75, dim, A);
   
   printf("Orthonormalized Vectors (A):\n");
+  printf("[");
   for (int i = 0; i < dim; i++) {
+    printf("[");
       for (int j = 0; j < dim; j++) {
-          printf("%.4f\t", A[i][j]);
+        printf("%.4f", A[i][j]);
+        if (j!=dim-1) {
+          printf(", ");
+        }
       }
-      printf("\n");
+      printf("], \n");
   }
 
   //compute lattice enumeration to find the shortest vector
