@@ -98,7 +98,7 @@ void LLL(double delta, int dim, double **A) {
     }
     //LLL basis reduction requires (B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k
     mu_k_kminus1 = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
-    if (m%100000 ==0 || m%100000 == 1) {
+    if (m%100000 ==0 || m%100000 == 1 ||m%100000 == 2) {
       printf("B[k]:\n");
       for (i = 0;i<dim;i++) {
         printf("%.4f, ", B[k][i]);
