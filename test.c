@@ -133,7 +133,7 @@ int main() {
     //set the bounds for the values of the second matrix, and its dimension
     int min = -10000;
     int max = 10000;
-    dim = 10;
+    dim = 60;
 
     //resize A
     A = realloc(A, dim * sizeof(double *));
