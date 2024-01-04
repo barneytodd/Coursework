@@ -112,7 +112,8 @@ void LLL(double delta, int dim, double **A) {
       k = fmax(k-1, 1);          
     }
     m++;
-    if (m%100000 == 0) {
+    if (m%100000 == 0 || m%100000 == 1) {
+      printf("%d k: %d\n", m%100000, k);
       for (i=0; i<dim; i++) {
         printf("[");
         for (j=0; j<dim; j++) {
