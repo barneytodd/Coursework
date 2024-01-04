@@ -1,6 +1,7 @@
 #include "LLL_Reduction.h"
 #include <math.h>
 #include <stdio.h>
+#include <pthread.h>
 
 struct ThreadArgs {
   int num;
@@ -9,6 +10,7 @@ struct ThreadArgs {
   double *Mu;
   double *shortest_vector;
   int *max_num;
+	pthread_mutex_t *lock;
 };
 
 static void *Enumerate(void *args) {
@@ -49,13 +51,16 @@ static void *Enumerate(void *args) {
 			//if i=0 and sum3 < (current shortest vector length)^2, we have a new shortest vector
 			if (i==0) {
 				if (sum3 != 0) {
+					pthread_mutex_lock(thread_args->lock);
 					*(thread_args->shortest_vector) = sqrt(sum3);
 					printf("shortest_vector: %.4f\n", *(thread_args->shortest_vector));
 					for (j=0; j<thread_args->dim; j++) {
 						printf("%d\t", x[j]);
 					}
 					printf("\n");
-					printf("max x[9]: %.4f\n", pow((*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))/thread_args->GS_norms[thread_args->dim-1], 0.5));
+					*(thread_args->max_num) = pow((*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))/thread_args->GS_norms[thread_args->dim-1], 0.5));
+					printf("max x[dim-1]: %.4f\n", *(thread_args->max_num));
+					pthread_mutex_unlock(thread_args->lock);
 				}
 				x[0] += 1;
 			}
@@ -163,14 +168,22 @@ double ShortestVector(int dim, double **A) {
 	//i=dim-1; //start with the last vector
 	int max_num = floor(shortest_vector/GS_norms[dim-1]);
 	pthread_t threads[max_num];
+
+	pthread_mutex_t lock;
+	if (pthread_mutex_init(&lock, NULL) != 0) {
+        	printf("Error: Mutex initialization failed\n");
+        	exit(1);
+    	}
+	
 	struct ThreadArgs args;
 	for (i=0; i<=max_num; i++) {
 		args.num = i;
-	        args.dim = dim;
-	        args.GS_norms = GS_norms;
-	        args.Mu = Mu;
-	        args.shortest_vector = &shortest_vector;
-	        args.max_num = &max_num;
+		args.dim = dim;
+		args.GS_norms = GS_norms;
+		args.Mu = Mu;
+		args.shortest_vector = &shortest_vector;
+		args.max_num = &max_num;
+		args.lock = &lock;
 		if (pthread_create(&threads[i], NULL, &Enumerate, (void *)&args) != 0) {
 			printf("Error creating thread\n");
 			exit(1);
