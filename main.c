@@ -1,5 +1,6 @@
 #include "LLL_Reduction.h"
-#include "Enumeration.h"
+//#include "Enumeration.h"
+#include "Threads.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
