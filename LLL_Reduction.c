@@ -123,7 +123,7 @@ void LLL(double delta, int dim, double **A) {
         A[k-1][i] = A[k][i] - A[k-1][i];
         A[k][i] -= A[k-1][i];
       }
-      update_matrices(dim, k, A, B); 
+      update_matrices(dim, k-1, A, B); 
       k = fmax(k-1, 1);          
     }
     m++;
