@@ -51,9 +51,9 @@ int main(int argc, char **argv) {
   }
 
   //load the input vectors into A, and check for incorrect input formats
+  char *endptr;
   for (i = 0; i < dim; i++) {
     for (j=0; j < dim; j++) {
-      char *endptr;
       k = 1 + dim*i + j;
       //check that each vector starts with '[number'
       if (j == 0) {
