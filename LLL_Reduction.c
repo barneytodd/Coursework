@@ -112,7 +112,7 @@ void LLL(double delta, int dim, double **A) {
       k = fmax(k-1, 1);          
     }
     m++;
-    if (m==10000) {
+    if (m==100000) {
       for (i=0; i<dim; i++) {
         for (j=0; j<dim; j++) {
           printf("%.4f\t", A[i][j]);
