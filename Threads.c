@@ -188,6 +188,7 @@ double ShortestVector(int dim, double **A) {
 			printf("Error creating thread\n");
 			exit(1);
 		}
+		printf("Thread: %d\n", i);
 	}
 	
 	return shortest_vector;
