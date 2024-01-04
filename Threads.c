@@ -15,16 +15,14 @@ static void *Enumerate(void *args) {
   //need num for x[dim-1], GS_norms, Mu, dim, pointer to shortest_vector, pointer to max x[dim-1], create own x, create own l
   struct ThreadArgs *thread_args = (struct ThreadArgs *)args;
 
-	double shortest_vector = *thread_args->shortest_vector;
-	int dim = thread_args->dim;
-  int x[dim], i, j, k;
-  double l[dim];
+  int x[thread_args->dim], i, j, k;
+  double l[thread_args->dim];
 
-  for (i=0; i<dim-1; i++) {
+  for (i=0; i<thread_args->dim-1; i++) {
     x[i] = 0;
   }
-  x[dim-1] = thread_args->num;
-  i = dim-1;
+  x[thread_args->dim-1] = thread_args->num;
+  i = thread_args->dim-1;
 
   double sum2; //stores the sum of x[j] * Mu[j][i] for j>i
   double sum3;
@@ -32,32 +30,32 @@ static void *Enumerate(void *args) {
   while (*thread_args->max_num > *thread_args->num) { 
 		sum2 = 0;
 		//calculate the l[j] values from i upwards
-		for (j=dim-1; j>=i; j--) { 
+		for (j=thread_args->dim-1; j>=i; j--) { 
 			sum2 = 0;
 			//sum the contribution of each vector in the direction of the ith GS vector 
-			for (k=j+1; k<dim; k++) {
-				sum2 += x[k] * Mu[(k-1)*k/2+j]; //Mu[k][j]
+			for (k=j+1; k<thread_args->dim; k++) {
+				sum2 += x[k] * thread_args->Mu[(k-1)*k/2+j]; //Mu[k][j]
 			}
-			l[j] = (x[j] + sum2) * (x[j] + sum2) * GS_norms[j]; 	
+			l[j] = (x[j] + sum2) * (x[j] + sum2) * thread_args->GS_norms[j]; 	
 		}
 
 		//sum the l[j] values for j>=i
 		sum3 = 0;
-		for (j=i; j<dim; j++) {
+		for (j=i; j<thread_args->dim; j++) {
 			sum3 += l[j];
 		}
 		
-		if (sum3 < shortest_vector*shortest_vector) {
+		if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) {
 			//if i=0 and sum3 < (current shortest vector length)^2, we have a new shortest vector
 			if (i==0) {
 				if (sum3 != 0) {
-					shortest_vector = sqrt(sum3);
-					printf("shortest_vector: %.4f\n", shortest_vector);
-					for (j=0; j<dim; j++) {
+					*(thread_args->shortest_vector) = sqrt(sum3);
+					printf("shortest_vector: %.4f\n", *(thread_args->shortest_vector));
+					for (j=0; j<thread_args->dim; j++) {
 						printf("%d\t", x[j]);
 					}
 					printf("\n");
-					printf("max x[9]: %.4f\n", pow(shortest_vector*shortest_vector/GS_norms[dim-1], 0.5));
+					printf("max x[9]: %.4f\n", pow((*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))/thread_args->GS_norms[thread_args->dim-1], 0.5));
 				}
 				x[0] += 1;
 			}
@@ -67,26 +65,26 @@ static void *Enumerate(void *args) {
 				i -= 1;
 				
 				sum2 = 0;
-				for (k=i+1; k<dim; k++) {
-					sum2 += x[k] * Mu[(k-1)*k/2+i]; //Mu[k][i]
+				for (k=i+1; k<thread_args->dim; k++) {
+					sum2 += x[k] * thread_args->Mu[(k-1)*k/2+i]; //Mu[k][i]
 				}
 				x[i] = round(- sum2); //the integer which minimises l[i]
-				l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * GS_norms[i]; 
+				l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * thread_args->GS_norms[i]; 
 				
-				if (l[i] < shortest_vector * shortest_vector - sum3) {
+				if (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3) {
 					//subtract 1 from x[i] until l[i] is no longer < shortest_vector^2 - sum3
 					//then add 1 to x[i] to make x[i] the minimum possible integer such that l[i] < shortest_vector^2
 					do {
 						
 						x[i] -= 1;
 						sum2 = 0;
-						for (k=i+1; k<dim; k++) {
-							sum2 += x[k] * Mu[(k-1)*k/2+i]; //Mu[k][i]
+						for (k=i+1; k<thread_args->dim; k++) {
+							sum2 += x[k] * thread_args->Mu[(k-1)*k/2+i]; //Mu[k][i]
 						}
-						l[i] = (x[i] + sum2) * (x[i] + sum2) * GS_norms[i]; 
+						l[i] = (x[i] + sum2) * (x[i] + sum2) * thread_args->GS_norms[i]; 
 						
 						
-					} while (l[i] < shortest_vector * shortest_vector - sum3);
+					} while (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3);
 					x[i] += 1; 
 				}
 				else {
@@ -99,7 +97,7 @@ static void *Enumerate(void *args) {
 		else {
 			i += 1;
 			x[i] += 1;
-			if (i==dim-1) {
+			if (i==thread_args->dim-1) {
 				break;
 			}
 		}
