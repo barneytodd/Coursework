@@ -44,7 +44,7 @@ double Determinant(int dim, double **A) {
                 U[j][k] -= U[i][k]*factor;
             }
         }
-        determinant *= U[i][i];
+        determinant *= pow(U[i][i], 1.0/dim);
     }
     printf("determinant: %.4f\n", determinant);
     return determinant;
