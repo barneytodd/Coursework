@@ -8,7 +8,7 @@
 
 
 
-int main(int argc, char *argv[]) {
+int main(int argc, char **argv) {
   int dim, i, j, k;
 
   //printf("You have entered %d arguments:\n", argc);
