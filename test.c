@@ -46,7 +46,7 @@ double Determinant(int dim, double **A) {
         }
         determinant *= U[i][i];
     }
-    
+    printf("determinant: %.4f\n", determinant);
     return determinant;
 }
 
