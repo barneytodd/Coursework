@@ -120,6 +120,7 @@ void LLL(double delta, int dim, double **A) {
         }
         printf("]\n");
       } 
+      printf("\n");
     }
     if (m == 1000000) {
       printf("While loop failed\n");
