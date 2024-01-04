@@ -109,6 +109,19 @@ int main(int argc, char **argv) {
     printf("\n");
   }
 
+  printf("Vectors (A):\n");
+  printf("[");
+  for (int i = 0; i < dim; i++) {
+    printf("[");
+      for (int j = 0; j < dim; j++) {
+        printf("%.4f", A[i][j]);
+        if (j!=dim-1) {
+          printf(", ");
+        }
+      }
+      printf("], \n");
+  }
+  
   //reduce the lattice basis using Lenstra–Lenstra–Lovász lattice reduction
   LLL(0.75, dim, A);
   
