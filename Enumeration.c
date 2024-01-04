@@ -90,10 +90,7 @@ double ShortestVector(int dim, double **A) {
 	
 	//enumeration the lattice, with the termination criterion set to be when x[dim-1] * ||GS vectors [dim-1]|| > shortest_vector
 	while (i<dim) { 
-		for (j=0; j<dim; j++) {
-			printf("%d\t", x[j]);
-		}
-		printf("\n");
+		
 		sum2 = 0;
 		//calculate the l[j] values from i upwards
 		for (j=dim-1; j>=i; j--) { 
@@ -106,10 +103,7 @@ double ShortestVector(int dim, double **A) {
 		}
 
 		//sum the l[j] values for j>=i
-		for (j=0; j<dim; j++) {
-			printf("%.4f\t", l[j]);
-		}
-		printf("\n");
+		
 		sum3 = 0;
 		for (j=i; j<dim; j++) {
 			sum3 += l[j];
