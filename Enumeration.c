@@ -50,7 +50,7 @@ double ShortestVector(int dim, double **A) {
 
 	for (i=1;i<dim;i++) {
 		for (j=0; j<i; j++) {
-			printf("%.4f\t", Mu[(i-1)*i/2+j);
+			printf("%.4f\t", Mu[(i-1)*i/2+j]);
 		}
 		printf("\n");
 	}
