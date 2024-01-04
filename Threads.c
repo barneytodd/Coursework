@@ -176,17 +176,16 @@ double ShortestVector1(int dim, double **A) {
         	exit(1);
     	}
 	
-	struct ThreadArgs args;
+	struct ThreadArgs args[max_num+1];
 	for (i=0; i<=max_num; i++) {
-		int current_i = i;
-		args.num = current_i;
-		args.dim = dim;
-		args.GS_norms = GS_norms;
-		args.Mu = Mu;
-		args.shortest_vector = &shortest_vector;
-		args.max_num = &max_num;
-		args.lock = &lock;
-		if (pthread_create(&threads[i], NULL, &Enumerate, (void *)&args) != 0) {
+		args[i].num = i;
+		args[i].dim = dim;
+		args[i].GS_norms = GS_norms;
+		args[i].Mu = Mu;
+		args[i].shortest_vector = &shortest_vector;
+		args[i].max_num = &max_num;
+		args[i].lock = &lock;
+		if (pthread_create(&threads[i], NULL, &Enumerate, (void *)&args[i]) != 0) {
 			printf("Error creating thread\n");
 			exit(1);
 		}
