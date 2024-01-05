@@ -83,6 +83,7 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
         }
         if (fabs(InnerProduct(dim, B[i], B[j])) > 0.01) {
           orth_check = false;
+          printf("Failed: %.4f\n", fabs(InnerProduct(dim, B[i], B[j])));
         }
         for (k=0; k<dim; k++) {
         B[j][k] *= mag2;
