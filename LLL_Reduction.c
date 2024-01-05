@@ -155,6 +155,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
   //(B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k, and
   //mu_kj<=0.5 for all k, j<k
   int m = 0;
+	int array[dim][dim];
   while (k<dim) {
     //reduce the kth vector until for all j<k, mu_kj<=0.5
     for (j=k-1; j>=0; j--) {
@@ -164,6 +165,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
         zero_check = true;
         for (i=0; i<dim; i++) {
           A[k][i] -= round(Mu[(k-1)*k/2+j]) * A[j][i];
+					array[k][i] -= round(Mu[(k-1)*k/2+j]) * array[j][i];
           if (A[k][i] != 0) zero_check = false;
         }
         if (zero_check == true) {
@@ -195,6 +197,10 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
         exit(1);
     }
   }
+	printf("shortest\n");
+	for (i=0; i<dim; i++) {
+		printf("%d ", array[22][i]);
+	}
   printf("m: %d\n", m);
   //for (i=0;i<dim;i++) {
 	//	for (j=0;j<dim;j++) {
