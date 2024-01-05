@@ -124,22 +124,23 @@ int main(int argc, char **argv) {
 
   double Mu[(dim-1)*dim/2]; //stores Mu values for GramSchmidt orthogonalisation
   
-  double **B = (double **)malloc(dim * sizeof(double *)); //stores GS orthogonalised values
-  if (B == NULL) {
-      perror("Failed to allocate memory for the B matrix");
-      exit(1);
-  }
-  for (i=0; i<dim; i++) {
-    B[i] = (double *)malloc(dim * sizeof(double));
-    if (B[i] == NULL) {
-        for (j=0; j<i; j++) {
-            free(B[j]);
-        }
-        free(B);
-        perror("Failed to allocate memory for the rows of the input matrix");
-        exit(1);
-    }
-  }
+  //double **B = (double **)malloc(dim * sizeof(double *)); //stores GS orthogonalised values
+  //if (B == NULL) {
+  //    perror("Failed to allocate memory for the B matrix");
+  //    exit(1);
+  //}
+  //for (i=0; i<dim; i++) {
+  //  B[i] = (double *)malloc(dim * sizeof(double));
+  //  if (B[i] == NULL) {
+  //      for (j=0; j<i; j++) {
+  //          free(B[j]);
+  //      }
+  //      free(B);
+  //      perror("Failed to allocate memory for the rows of the input matrix");
+  //      exit(1);
+  //  }
+  //}
+	double B[dim][dim]; 
 	for (i=0;i<dim;i++) {
 		for (j=0;j<dim;j++) {
 			printf("%.4f\t", B[i][j]);
