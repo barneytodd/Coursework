@@ -158,9 +158,11 @@ double ShortestVector1(int dim, double **A) {
 			Mu[(i-1)*i/2+j] = InnerProduct(dim, A[i], A[j]);///GS_norms[j];
 			for (k=0; k<dim; k++) {
 				sum1[k] += Mu[(i-1)*i/2+j] * A[j][k] * mag1; //equivalent to Mu[i][j] if Mu was a dim x dim array
+				A[j][k] *= sqrt(GS_norms[j]);
 			}
 		}
 		for (k=0; k<dim; k++) {
+			A[i][k] *= mag1;
 			A[i][k] -= sum1[k];
 		}	
 	}
