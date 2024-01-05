@@ -66,11 +66,31 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
       }
     }
     for (i=0; i<dim; i++) {
+      if (!orth_check) {
+        break;
+      }
+      mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
+      for (k=0; k<dim; k++) {
+        B[i][k] /= mag1;
+      }
       for (j=0; j<i; j++) {
-        if (fabs(InnerProduct(dim, B[i], B[j])) > 100) {
+        if (!orth_check) {
+          break;
+        }
+        mag2 = sqrt(InnerProduct(dim, B[j], B[j]));
+        for (k=0; k<dim; k++) {
+          B[j][k] /= mag2;
+        }
+        if (fabs(InnerProduct(dim, B[i], B[j])) > 0.01) {
           orth_check = false;
         }
+        for (k=0; k<dim; k++) {
+        B[j][k] *= mag2;
+        }
       }
+      for (k=0; k<dim; k++) {
+        B[i][k] *= mag1;
+      } 
     }
   }
 }
