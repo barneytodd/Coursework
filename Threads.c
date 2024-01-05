@@ -178,6 +178,7 @@ double ShortestVector1(int dim, double **A) {
 	//i=dim-1; //start with the last vector
 	int max_num = floor(shortest_vector/pow(GS_norms[dim-1], 0.5));
 	pthread_t threads[max_num];
+	printf("%d\n", max_num);
 
 	pthread_mutex_t lock;
 	if (pthread_mutex_init(&lock, NULL) != 0) {
