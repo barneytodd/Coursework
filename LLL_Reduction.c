@@ -27,7 +27,7 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
     }
     //iterate through the previous vectors
     for (j=0; j<i; j++) { 
-      if (j<2) {
+      if (j<2 && i<5) {
         printf("j: %d\t", j);
         printf("IP i, j: %.4f\n", InnerProduct(dim, B[i], B[j]) - B[i][0]*B[j][0]);
       }
