@@ -114,7 +114,7 @@ void LLL(double delta, int dim, double **A) {
   while (k<dim) {
     //reduce the kth vector until for all j<k, mu_kj<=0.5
     for (j=k-1; j>=0; j--) {
-      printf("IP: %.4f\n", InnerProduct(dim, 
+      //printf("IP: %.4f\n", InnerProduct(dim, 
       mu_kj = InnerProduct(dim, A[k], B[j])/InnerProduct(dim, B[j], B[j]); 
       if (fabs(mu_kj) > 0.5) {
         zero_check = true;
