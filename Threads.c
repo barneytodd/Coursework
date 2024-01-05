@@ -169,6 +169,14 @@ double ShortestVector1(int dim, double **A, double **B, double *Mu) {
 	//	}	
 	//}
 	//GS_norms[dim-1] = InnerProduct(dim, A[dim-1], A[dim-1]);
+
+	for (i=0;i<dim;i++) {
+		for (j=0;j<dim;j++) {
+			printf("%.4f\t", B[i][j]);
+		}
+		printf("\n");
+	}
+	
 	printf("before\n");
 	for (i=0;i<dim;i++) {
 		GS_norms[i] = InnerProduct(dim, B[i], B[i]);
