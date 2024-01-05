@@ -184,14 +184,14 @@ int main(int argc, char **argv) {
   //free the memory allocated for A
   for (i=0;i<dim;i++) {
     free(A[i]);
-    free(B[i]);
+    //free(B[i]);
     A[i] = NULL;
-    B[i] = NULL;
+    //B[i] = NULL;
   }
   free(A);
-  free (B);
+  //free (B);
   A = NULL;
-  B=NULL;
+  //B=NULL;
 
   //save the output to result.txt
   FILE *result = fopen("result.txt", "w");
