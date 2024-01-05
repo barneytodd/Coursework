@@ -172,7 +172,9 @@ double ShortestVector1(int dim, double **A) {
 	}
 	printf("IPS\n");
 	for (i=0;i<dim;i++) {
-		printf("%.4f\n", InnerProduct(dim, A[i], A[j]));
+		for (j=0;j<i;j++) {
+			printf("%.4f\t", InnerProduct(dim, A[i], A[j]));
+		}
 	}
 	
 	printf("\n");
