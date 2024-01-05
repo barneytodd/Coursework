@@ -14,7 +14,7 @@ double InnerProduct(int dim, double *arr1, double *arr2) {
   return sum1;
 }
 
-bool CheckOrth(int dim, int start, double *B[dim], bool *orth_check) {
+bool CheckOrth(int dim, int start, double *B[], bool *orth_check) {
   int i, j, k;
   double mag1;
   double mag2;
@@ -49,7 +49,7 @@ bool CheckOrth(int dim, int start, double *B[dim], bool *orth_check) {
 }
 
 //compute GramSchmidt orthogonalisation without normalisation
-void GramSchmidt(int dim, int start, double *B[dim], double *Mu) {
+void GramSchmidt(int dim, int start, double *B[], double *Mu) {
   int i, j, k; 
   //double mu_ij;
   double vec1[dim]; //store values to subtract from initial vectors
@@ -103,7 +103,7 @@ void GramSchmidt(int dim, int start, double *B[dim], double *Mu) {
 }
   
 //when A gets updated, recompute B to be the GramSchmidt orthogonalised version of the updated A
-void update_matrices(int dim, int start, double **A, double *B[dim], double *Mu) {
+void update_matrices(int dim, int start, double **A, double *B[], double *Mu) {
   int i, j;
 
   //set B to equal A
@@ -125,7 +125,7 @@ void update_matrices(int dim, int start, double **A, double *B[dim], double *Mu)
 
 
 /// Lenstra–Lenstra–Lovász reduce the input matrix A
-void LLL(double delta, int dim, double **A, double *B[dim], double *Mu) {
+void LLL(double delta, int dim, double **A, double *B[], double *Mu) {
   
   int i, j, k; //initialise variables i, j, k
   //double B[dim][dim];
