@@ -26,7 +26,7 @@ double SumArray(int dim, int i, double *arr) {
 
 
 //returns the determinant of a matrix, using LU Decomposition
-double Determinant(int dim, double **A, bool *check) { 
+double Determinant(int dim, double **A, bool check) { 
     int i, j, k;
     double U[dim][dim];
     double factor;
@@ -69,7 +69,7 @@ double Determinant(int dim, double **A, bool *check) {
 double LimitCalc(int dim, double **A) { 
     bool det_check = false; //checks whether determinant has alredy been raised to the power of 1/dim
     double gamma = tgamma((float)dim/2 + 1);
-    double det = Determinant(dim, A, &det_check);
+    double det = Determinant(dim, A, det_check);
     if (!det_check) {
         det = pow(fabs(det), 1.0/dim);
     }
