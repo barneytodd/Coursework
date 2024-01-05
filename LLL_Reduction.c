@@ -15,7 +15,10 @@ double InnerProduct(int dim, double *arr1, double *arr2) {
 }
 
 bool CheckOrth(int dim, int start, double **B, bool *orth_check) {
-   for (i=0; i<dim; i++) {
+  int i, j, k;
+  double mag1;
+  double mag2;
+  for (i=0; i<dim; i++) {
       if (!orth_check) {
         break;
       }
