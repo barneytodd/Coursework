@@ -14,6 +14,37 @@ double InnerProduct(int dim, double *arr1, double *arr2) {
   return sum1;
 }
 
+bool CheckOrth(int dim, int start, double **B, bool *orth_check) {
+   for (i=0; i<dim; i++) {
+      if (!orth_check) {
+        break;
+      }
+      mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
+      for (k=0; k<dim; k++) {
+        B[i][k] /= mag1;
+      }
+      for (j=0; j<i; j++) {
+        if (!orth_check) {
+          break;
+        }
+        mag2 = sqrt(InnerProduct(dim, B[j], B[j]));
+        for (k=0; k<dim; k++) {
+          B[j][k] /= mag2;
+        }
+        if (fabs(InnerProduct(dim, B[i], B[j])) > 0.01) {
+          orth_check = false;
+          printf("Failed: %.4f\n", fabs(InnerProduct(dim, B[i], B[j])));
+        }
+        for (k=0; k<dim; k++) {
+        B[j][k] *= mag2;
+        }
+      }
+      for (k=0; k<dim; k++) {
+        B[i][k] *= mag1;
+      } 
+    }
+}
+
 //compute GramSchmidt orthogonalisation without normalisation
 void GramSchmidt(int dim, int start, double **B, double *Mu) {
   int i, j, k; 
@@ -64,34 +95,6 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
         B[i][k]*=mag1; //reset B[i] to unnormalised version
         B[i][k] -= vec1[k];
       }
-    }
-    for (i=0; i<dim; i++) {
-      if (!orth_check) {
-        break;
-      }
-      mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
-      for (k=0; k<dim; k++) {
-        B[i][k] /= mag1;
-      }
-      for (j=0; j<i; j++) {
-        if (!orth_check) {
-          break;
-        }
-        mag2 = sqrt(InnerProduct(dim, B[j], B[j]));
-        for (k=0; k<dim; k++) {
-          B[j][k] /= mag2;
-        }
-        if (fabs(InnerProduct(dim, B[i], B[j])) > 0.01) {
-          orth_check = false;
-          printf("Failed: %.4f\n", fabs(InnerProduct(dim, B[i], B[j])));
-        }
-        for (k=0; k<dim; k++) {
-        B[j][k] *= mag2;
-        }
-      }
-      for (k=0; k<dim; k++) {
-        B[i][k] *= mag1;
-      } 
     }
   }
 }
