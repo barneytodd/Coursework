@@ -204,6 +204,7 @@ void LLL(double delta, int dim, double **A, double B[dim][dim], double *Mu) {
 		printf("\n");
 	}
 	printf("Address of B after LLL function: %p\n", (void *)B);
+	printf("dim: %d\n", dim);
 }
   
   
