@@ -15,6 +15,6 @@ struct ThreadArgs {
 
 void *Enumerate(void *args);
 
-double ShortestVector1(int dim, double **A, double **B, double *Mu);
+double ShortestVector1(int dim, double **A, double B[dim][dim], double *Mu);
 
 #endif 
