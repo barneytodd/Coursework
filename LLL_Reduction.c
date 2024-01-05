@@ -80,9 +80,9 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
             //printf("%.4f\n", B[j][k]);
           //}
         //}
-        Mu[(i-1)*i+j] = InnerProduct(dim, B[i], B[j]);///InnerProduct(dim, B[j], B[j]);
-        for (k=0; k<dim; k++) {
-          vec1[k] += Mu[(i-1)*i+j] * B[j][k];// * mag1; //add the dot_product times the jth normalised vector 
+        //Mu[(i-1)*i+j] = InnerProduct(dim, B[i], B[j]);///InnerProduct(dim, B[j], B[j]);
+        //for (k=0; k<dim; k++) {
+          //vec1[k] += Mu[(i-1)*i+j] * B[j][k];// * mag1; //add the dot_product times the jth normalised vector 
           
           //B[j][k]*=mag2;
         }
@@ -100,7 +100,7 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
       //}
     }
   //}
-}
+//}
   
 //when A gets updated, recompute B to be the GramSchmidt orthogonalised version of the updated A
 void update_matrices(int dim, int start, double **A, double **B, double *Mu) {
