@@ -17,7 +17,7 @@ double InnerProduct(int dim, double *arr1, double *arr2) {
 //compute GramSchmidt orthogonalisation without normalisation
 void GramSchmidt(int dim, int start, double B[][dim]) {
   int i, j, k; 
-  double mu_ij;
+  //double mu_ij;
   double vec1[dim]; //store values to subtract from initial vectors
   
   //iterate through the initial vectors
@@ -27,9 +27,9 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
     }
     //iterate through the previous vectors
     for (j=0; j<i; j++) { 
-      mu_ij = InnerProduct(dim, B[i], B[j])/InnerProduct(dim, B[j], B[j]);
+      //mu_ij = InnerProduct(dim, B[i], B[j])/InnerProduct(dim, B[j], B[j]);
       for (k=0; k<dim; k++) {
-        vec1[k] += mu_ij * B[j][k]; //add the dot_product times the jth normalised vector 
+        vec1[k] += InnerProduct(dim, B[i], B[j]) * B[j][k] / InnerProduct(dim, B[j], B[j]); //add the dot_product times the jth normalised vector 
       }
       if (j==0 && i<5) {
         printf("i: %d\n", i);
