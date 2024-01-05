@@ -143,16 +143,21 @@ double ShortestVector1(int dim, double **A) {
 	
 	//GramSchmidt orthogonalise A, and store the mu values and GS norms
 	double sum1[dim]; 
+	double mag1;
 	for (i=1; i<dim; i++) { 
 		GS_norms[i-1] = InnerProduct(dim, A[i-1], A[i-1]);
-		
+		mag1 = sqrt(InnerProduct(dim, A[i], A[i]));
 		for (j=0; j<dim; j++) {
 			sum1[j] = 0;
+			A[i] /= mag1;
 		}
 		for (j=0; j<i; j++) {
-			Mu[(i-1)*i/2+j] = InnerProduct(dim, A[i], A[j])/GS_norms[j];
 			for (k=0; k<dim; k++) {
-				sum1[k] += Mu[(i-1)*i/2+j] * A[j][k]; //equivalent to Mu[i][j] if Mu was a dim x dim array
+				A[j][k] /= sqrt(GS_norms[j]);
+			}
+			Mu[(i-1)*i/2+j] = InnerProduct(dim, A[i], A[j]);///GS_norms[j];
+			for (k=0; k<dim; k++) {
+				sum1[k] += Mu[(i-1)*i/2+j] * A[j][k] * mag1; //equivalent to Mu[i][j] if Mu was a dim x dim array
 			}
 		}
 		for (k=0; k<dim; k++) {
