@@ -149,7 +149,7 @@ double ShortestVector1(int dim, double **A) {
 		mag1 = sqrt(InnerProduct(dim, A[i], A[i]));
 		for (j=0; j<dim; j++) {
 			sum1[j] = 0;
-			A[i] /= mag1;
+			*A[i] /= mag1;
 		}
 		for (j=0; j<i; j++) {
 			for (k=0; k<dim; k++) {
