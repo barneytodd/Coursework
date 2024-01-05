@@ -113,7 +113,7 @@ void update_matrices(int dim, int start, double **A, double **B, double *Mu) {
     }
   }
   
-  GramSchmidt(dim, start, B, Mu);
+  //GramSchmidt(dim, start, B, Mu);
   printf("Yes\n");
   //for (i=0; i<dim; i++) {
   //  for (j=0; j<i; j++) {
@@ -129,7 +129,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
   
   int i, j, k; //initialise variables i, j, k
   //double B[dim][dim];
-  
+  B[0][0] += 1;
   //set be to be equal to A
   //for (i=0; i<dim; i++) { 
   //  for (j=0; j<dim; j++) { 
