@@ -156,6 +156,9 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
   //mu_kj<=0.5 for all k, j<k
   int m = 0;
 	int array[dim][dim];
+	for (i=0;i<dim;i++) {
+		array[i][i] = 1;
+	}
   while (k<dim) {
     //reduce the kth vector until for all j<k, mu_kj<=0.5
     for (j=k-1; j>=0; j--) {
