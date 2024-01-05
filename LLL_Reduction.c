@@ -87,12 +87,12 @@ void update_matrices(int dim, int start, double **A, double B[][dim]) {
   }
   
   GramSchmidt(dim, start, B);
-  for (i=0; i<dim; i++) {
-    for (j=0; j<i; j++) {
-      printf("%.4f\t", InnerProduct(dim, B[i], B[j]));
-    }
-  }
-  printf("\n\n");
+  //for (i=0; i<dim; i++) {
+  //  for (j=0; j<i; j++) {
+  //    printf("%.4f\t", InnerProduct(dim, B[i], B[j]));
+  //  }
+  //}
+  //printf("\n\n");
 }
 
 
