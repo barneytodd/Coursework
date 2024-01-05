@@ -161,7 +161,7 @@ double ShortestVector1(int dim, double **A) {
 	}
 	GS_norms[dim-1] = InnerProduct(dim, A[dim-1], A[dim-1]);
 	for (i=0;i<dim;i++) {
-		printf("%.4f\t", GS_norms[i]);
+		printf("%.4f\t", pow(GS_norms[i], 0.5));
 	}
 	printf("\n");
 	printf("shortest basis vector: %.4f\n", shortest_vector); 
