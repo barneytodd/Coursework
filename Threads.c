@@ -117,7 +117,7 @@ void *Enumerate(void *args) {
 }
 
 //Enumerate the lattice to find the shortest vector
-double ShortestVector1(int dim, double **A) {
+double ShortestVector1(int dim, double **A, double **B, double *Mu) {
 	for (int i = 0; i < dim; ++i) {
 		if (A[i] == NULL) {
 		    perror("Input matrix does not have the correct dimensions");
@@ -138,46 +138,40 @@ double ShortestVector1(int dim, double **A) {
 		}
 	}
 	
-	double Mu[(dim-1)*dim/2]; //stores the mu_i_j values in a lower triangular matrix
+	
 	double GS_norms[dim]; //stores the norm of each GramSchidt orthogonalised vector
 	
 	//GramSchmidt orthogonalise A, and store the mu values and GS norms
-	double sum1[dim]; 
-	double mag1;
-	for (i=1; i<dim; i++) { 
-		GS_norms[i-1] = InnerProduct(dim, A[i-1], A[i-1]);
-		mag1 = sqrt(InnerProduct(dim, A[i], A[i]));
-		for (j=0; j<dim; j++) {
-			sum1[j] = 0;
-			*A[i] /= mag1;
-		}
-		for (j=0; j<i; j++) {
-			for (k=0; k<dim; k++) {
-				A[j][k] /= sqrt(GS_norms[j]);
-			}
-			Mu[(i-1)*i/2+j] = InnerProduct(dim, A[i], A[j]);///GS_norms[j];
-			for (k=0; k<dim; k++) {
-				sum1[k] += Mu[(i-1)*i/2+j] * A[j][k] * mag1; //equivalent to Mu[i][j] if Mu was a dim x dim array
-				A[j][k] *= sqrt(GS_norms[j]);
-			}
-		}
-		for (k=0; k<dim; k++) {
-			A[i][k] *= mag1;
-			A[i][k] -= sum1[k];
-		}	
-	}
-	GS_norms[dim-1] = InnerProduct(dim, A[dim-1], A[dim-1]);
+	//double sum1[dim]; 
+	//double mag1;
+	//for (i=1; i<dim; i++) { 
+	//	GS_norms[i-1] = InnerProduct(dim, A[i-1], A[i-1]);
+	//	mag1 = sqrt(InnerProduct(dim, A[i], A[i]));
+	//	for (j=0; j<dim; j++) {
+	//		sum1[j] = 0;
+	//		*A[i] /= mag1;
+	//	}
+	//	for (j=0; j<i; j++) {
+	//		for (k=0; k<dim; k++) {
+	//			A[j][k] /= sqrt(GS_norms[j]);
+	//		}
+	//		Mu[(i-1)*i/2+j] = InnerProduct(dim, A[i], A[j]);///GS_norms[j];
+	//		for (k=0; k<dim; k++) {
+	//			sum1[k] += Mu[(i-1)*i/2+j] * A[j][k] * mag1; //equivalent to Mu[i][j] if Mu was a dim x dim array
+	//			A[j][k] *= sqrt(GS_norms[j]);
+	//		}
+	//	}
+	//	for (k=0; k<dim; k++) {
+	//		A[i][k] *= mag1;
+	//		A[i][k] -= sum1[k];
+	//	}	
+	//}
+	//GS_norms[dim-1] = InnerProduct(dim, A[dim-1], A[dim-1]);
 	for (i=0;i<dim;i++) {
-		printf("%.4f\t", pow(GS_norms[i], 0.5));
-	}
-	printf("IPS\n");
-	for (i=0;i<dim;i++) {
-		for (j=0;j<i;j++) {
-			printf("%.4f\t", InnerProduct(dim, A[i], A[j]));
-		}
+		GS_norms[i] = InnerProduct(dim, B[i], B[i]);
 	}
 	
-	printf("\n");
+	
 	printf("shortest basis vector: %.4f\n", shortest_vector); 
 	//int x[dim]; //counts how many of each basis vector we're using
 	//double l[dim]; //stores the total contribution of all the used vectors in the direction of each GS vector, squared
