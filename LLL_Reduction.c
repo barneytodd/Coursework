@@ -155,7 +155,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
   //(B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k, and
   //mu_kj<=0.5 for all k, j<k
   int m = 0;
-	int array[dim][dim];
+	long int array[dim][dim];
 	for (i=0;i<dim;i++) {
 		for (j=0; j<dim; j++) {
 			if (i==j) {
