@@ -62,14 +62,21 @@ void LLL(double delta, int dim, double **A) {
   double B[dim][dim];
   
   //set be to be equal to A
-  for (i=0; i<dim; i++) { 
-    for (j=0; j<dim; j++) { 
-      B[i][j] = A[i][j]; 
-      } 
-  }
+  //for (i=0; i<dim; i++) { 
+  //  for (j=0; j<dim; j++) { 
+  //    B[i][j] = A[i][j]; 
+  //    } 
+  //}
 
   //GramSchmidt orthogonslise B
-  GramSchmidt(dim, 0, B); 
+  //GramSchmidt(dim, 0, B); 
+  update_matrices(dim, 0, A, B);
+  for (i=0; i<dim; i++) {
+    for (j=0; j<dim; j++) {
+      printf("%.4f\t", B[i][j]);
+    }
+    printf("\n");
+  }
   
   k = 1;
   double mu_kj;
