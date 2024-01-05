@@ -213,10 +213,10 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
         exit(1);
     }
   }
-	//printf("shortest\n");
-	//for (i=0; i<dim; i++) {
-	//	printf("%f, ", array[37][i]);
-	//}
+	printf("shortest\n");
+	for (i=0; i<dim; i++) {
+		printf("%f, ", array[37][i]);
+	}
   printf("m: %d\n", m);
   //for (i=0;i<dim;i++) {
 	//	for (j=0;j<dim;j++) {
