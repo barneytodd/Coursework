@@ -115,12 +115,12 @@ void update_matrices(int dim, int start, double **A, double **B, double *Mu) {
   
   GramSchmidt(dim, start, B, Mu);
   printf("Yes\n");
-  //for (i=0; i<dim; i++) {
-  //  for (j=0; j<i; j++) {
-  //    printf("%.4f\t", InnerProduct(dim, B[i], B[j]));
-  //  }
-  //}
-  //printf("\n\n");
+  for (i=0; i<dim; i++) {
+    for (j=0; j<i; j++) {
+      printf("%.4f\t", InnerProduct(dim, B[i], B[j]));
+    }
+  }
+  printf("\n\n");
 }
 
 
@@ -139,13 +139,13 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
   //GramSchmidt orthogonslise B
   //GramSchmidt(dim, 0, B); 
   update_matrices(dim, 0, A, B, Mu);
-  printf("B: \n");
-  for (i=0; i<dim; i++) {
-    for (j=0; j<dim; j++) {
-      printf("%.4f\t", B[i][j]);
-    }
-    printf("\n");
-  }
+  //printf("B: \n");
+  //for (i=0; i<dim; i++) {
+    //for (j=0; j<dim; j++) {
+    //  printf("%.4f\t", B[i][j]);
+    //}
+    //printf("\n");
+  //}
   
   k = 1;
   //double mu_kj;
@@ -189,21 +189,21 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
       k = fmax(k-1, 1);          
     }
     m++;
-    printf("%d\n", m);
+    //printf("%d\n", m);
     if (m % 100000 == 0) { //need to improve this
       printf("While loop failed\n");
         exit(1);
     }
   }
   printf("m: %d\n", m);
-  for (i=0;i<dim;i++) {
-		for (j=0;j<dim;j++) {
-			printf("%.4f\t", B[i][j]);
-		}
-		printf("\n");
-	}
-	printf("Address of B after LLL function: %p\n", (void *)B);
-	printf("dim: %d\n", dim);
+  //for (i=0;i<dim;i++) {
+	//	for (j=0;j<dim;j++) {
+	//		printf("%.4f\t", B[i][j]);
+	//	}
+	//	printf("\n");
+	//}
+	//printf("Address of B after LLL function: %p\n", (void *)B);
+	//printf("dim: %d\n", dim);
 }
   
   
