@@ -23,11 +23,11 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
   double mag2;
   //iterate through the initial vectors
   for (i=fmax(start, 1); i<dim; i++) { 
-    //mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
-    //for (j=0; j<dim; j++) {
-    //  vec1[j] = 0;
-    //  B[i][j] /= mag1; //normalising vectors before computing inner proucts h
-    //}
+    mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
+    for (j=0; j<dim; j++) {
+      vec1[j] = 0;
+      B[i][j] /= mag1; //normalising vectors before computing inner proucts h
+    }
     //iterate through the previous vectors
     for (j=0; j<i; j++) { 
       mag2 = sqrt(InnerProduct(dim, B[j], B[j]));
@@ -45,7 +45,7 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
       }
       mu_ij = InnerProduct(dim, B[i], B[j])/InnerProduct(dim, B[j], B[j]);
       for (k=0; k<dim; k++) {
-        vec1[k] += mu_ij * B[j][k]; //* mag1; //add the dot_product times the jth normalised vector 
+        vec1[k] += mu_ij * B[j][k]; * mag1; //add the dot_product times the jth normalised vector 
         
         B[j][k]*=mag2;
       }
@@ -58,7 +58,7 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
     }
     //subtract from the ith initial vector
     for (k=0; k<dim; k++) {
-      //B[i][k]*=mag1;
+      B[i][k]*=mag1;
       B[i][k] -= vec1[k];
     }
   }
