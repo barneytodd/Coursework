@@ -155,6 +155,7 @@ int main(int argc, char **argv) {
 	//}
 	
   //reduce the lattice basis using Lenstra–Lenstra–Lovász lattice reduction
+	printf("dim: %d\n", dim);
 	printf("Address of dim before LLL function: %p\n", (void *)&dim);
 	printf("Address of B before LLL function: %p\n", (void *)B);
   LLL(0.75, dim, A, B, Mu);
