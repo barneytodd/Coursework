@@ -19,15 +19,15 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
   int i, j, k; 
   double mu_ij;
   double vec1[dim]; //store values to subtract from initial vectors
-  double mag1;
+  //double mag1;
   double mag2;
   //iterate through the initial vectors
   for (i=fmax(start, 1); i<dim; i++) { 
-    mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
-    for (j=0; j<dim; j++) {
-      vec1[j] = 0;
-      B[i][j] /= mag1;
-    }
+    //mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
+    //for (j=0; j<dim; j++) {
+    //  vec1[j] = 0;
+    //  B[i][j] /= mag1; //normalising vectors before computing inner proucts h
+    //}
     //iterate through the previous vectors
     for (j=0; j<i; j++) { 
       mag2 = sqrt(InnerProduct(dim, B[j], B[j]));
@@ -38,14 +38,14 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
         printf("j: %d\t", j);
         printf("ip check3: %.40f\n", InnerProduct(dim, B[i], B[j]) / InnerProduct(dim, B[j], B[j]) - B[i][0]/B[j][0]);
       
-        for (k=0;k<5;k++) {
-          printf("%.4f\t", B[i][k]);
-          printf("%.4f\n", B[j][k]);
-        }
+        //for (k=0;k<5;k++) {
+          //printf("%.4f\t", B[i][k]);
+          //printf("%.4f\n", B[j][k]);
+        //}
       }
       mu_ij = InnerProduct(dim, B[i], B[j])/InnerProduct(dim, B[j], B[j]);
       for (k=0; k<dim; k++) {
-        vec1[k] += mu_ij * B[j][k] * mag1; //add the dot_product times the jth normalised vector 
+        vec1[k] += mu_ij * B[j][k] //* mag1; //add the dot_product times the jth normalised vector 
         
         B[j][k]*=mag2;
       }
@@ -58,7 +58,7 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
     }
     //subtract from the ith initial vector
     for (k=0; k<dim; k++) {
-      B[i][k]*=mag1;
+      //B[i][k]*=mag1;
       B[i][k] -= vec1[k];
     }
   }
@@ -114,6 +114,7 @@ void LLL(double delta, int dim, double **A) {
   while (k<dim) {
     //reduce the kth vector until for all j<k, mu_kj<=0.5
     for (j=k-1; j>=0; j--) {
+      printf("IP: %.4f\n", InnerProduct(dim, 
       mu_kj = InnerProduct(dim, A[k], B[j])/InnerProduct(dim, B[j], B[j]); 
       if (fabs(mu_kj) > 0.5) {
         zero_check = true;
@@ -144,7 +145,7 @@ void LLL(double delta, int dim, double **A) {
       k = fmax(k-1, 1);          
     }
     m++;
-    if (m % 100000 == 0) { //need to improve this
+    if (m % 1000000 == 0) { //need to improve this
       printf("While loop failed\n");
         exit(1);
     }
