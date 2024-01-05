@@ -119,7 +119,7 @@ void update_matrices(int dim, int start, double **A, double B[][dim]) {
 
 
 /// Lenstra–Lenstra–Lovász reduce the input matrix A
-void LLL(double delta, int dim, double **A) {
+void LLL(double delta, int dim, double **A, double *Mu) {
   
   int i, j, k; //initialise variables i, j, k
   double B[dim][dim];
