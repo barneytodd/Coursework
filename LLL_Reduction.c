@@ -207,13 +207,13 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
     else {
       //swap A[k] and A[k-1]
       for (i=0; i<dim; i++) {
-        A[k][i] += A[k-1][i];
-        A[k-1][i] = A[k][i] - A[k-1][i];
-        A[k][i] -= A[k-1][i];
+        B[k][i] = A[k-1][i]; //B[k] is about to get updated, so we can use this as a temporary variable
+        A[k-1][i] = A[k][i];
+        A[k][i] = B[k][i];
 
-				array[k][i] += array[k-1][i];
-				array[k-1][i] = array[k][i] - array[k-1][i];
-				array[k][i] -= array[k-1][i];
+				B[k][i] = array[k-1][i];
+				array[k-1][i] = array[k][i];
+				array[k][i] = B[k][i];
       }
       update_matrices(dim, k-1, A, B, Mu); 
       k = fmax(k-1, 1);          
