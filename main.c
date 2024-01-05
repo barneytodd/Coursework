@@ -124,7 +124,7 @@ int main(int argc, char **argv) {
 
   double Mu[(dim-1)*dim/2]; //stores Mu values for GramSchmidt orthogonalisation
   
-  double **B = (double **)calloc(dim, sizeof(double *)); //stores GS orthogonalised values
+  double **B = (double **)malloc(dim * sizeof(double *)); //stores GS orthogonalised values
   if (B == NULL) {
       perror("Failed to allocate memory for the B matrix");
       exit(1);
