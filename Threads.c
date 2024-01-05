@@ -164,6 +164,7 @@ double ShortestVector1(int dim, double **A) {
 		printf("%.4f\t", GS_norms[i]);
 	}
 	printf("\n");
+	printf("shortest basis vector: %.4f\n", shortest_vector); 
 	//int x[dim]; //counts how many of each basis vector we're using
 	//double l[dim]; //stores the total contribution of all the used vectors in the direction of each GS vector, squared
 
