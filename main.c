@@ -123,9 +123,9 @@ int main(int argc, char **argv) {
   }
 
   double Mu[(dim-1)*dim/2)]; //stores Mu values for GramSchmidt orthogonalisation
-  
+  double B[dim][dim];
   //reduce the lattice basis using Lenstra–Lenstra–Lovász lattice reduction
-  LLL(0.75, dim, A, &Mu);
+  LLL(0.75, dim, A, B, &Mu);
   
   printf("Orthonormalized Vectors (A):\n");
   printf("[");
