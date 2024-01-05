@@ -14,7 +14,7 @@ double InnerProduct(int dim, double *arr1, double *arr2) {
   return sum1;
 }
 
-bool CheckOrth(int dim, int start, double **B, bool *orth_check) {
+bool CheckOrth(int dim, int start, double **B) {
   int i, j, k;
   double mag1;
   double mag2;
@@ -35,8 +35,8 @@ bool CheckOrth(int dim, int start, double **B, bool *orth_check) {
           B[j][k] /= mag2;
         }
         if (fabs(InnerProduct(dim, B[i], B[j])) > 0.01) {
-          *orth_check = false;
           printf("Failed: %.4f\n", fabs(InnerProduct(dim, B[i], B[j])));
+					return false;
         }
         for (k=0; k<dim; k++) {
         B[j][k] *= mag2;
@@ -46,6 +46,7 @@ bool CheckOrth(int dim, int start, double **B, bool *orth_check) {
         B[i][k] *= mag1;
       } 
     }
+	return true;
 }
 
 //compute GramSchmidt orthogonalisation without normalisation
@@ -99,7 +100,7 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
         B[i][k] -= vec1[k];
       }
     }
-	  CheckOrth(dim, start, B, &orth_check);
+	  orth_check = CheckOrth(dim, start, B);
   }
 }
   
