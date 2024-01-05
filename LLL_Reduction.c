@@ -94,10 +94,10 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
         
       }
       //subtract from the ith initial vector
-      for (k=0; k<dim; k++) {
+      //for (k=0; k<dim; k++) {
         //B[i][k]*=mag1; //reset B[i] to unnormalised version
-        B[i][k] -= vec1[k];
-      }
+        //B[i][k] -= vec1[k];
+      //}
     }
   //}
 }
