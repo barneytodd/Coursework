@@ -35,7 +35,7 @@ bool CheckOrth(int dim, int start, double B[dim][dim], bool *orth_check) {
           B[j][k] /= mag2;
         }
         if (fabs(InnerProduct(dim, B[i], B[j])) > 0.01) {
-          orth_check = false;
+          *orth_check = false;
           printf("Failed: %.4f\n", fabs(InnerProduct(dim, B[i], B[j])));
         }
         for (k=0; k<dim; k++) {
