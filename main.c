@@ -123,7 +123,22 @@ int main(int argc, char **argv) {
   }
 
   double Mu[(dim-1)*dim/2)]; //stores Mu values for GramSchmidt orthogonalisation
-  double B[dim][dim];
+  double **B = (double **)malloc(dim * sizeof(double *)); //stores GS orthogonalised values
+  if (B == NULL) {
+      perror("Failed to allocate memory for the B matrix");
+      exit(1);
+  }
+  for (i=0; i<dim; i++) {
+    B[i] = (double *)malloc(dim * sizeof(double));
+    if (B[i] == NULL) {
+        for (j=0; j<i; j++) {
+            free(B[j]);
+        }
+        free(B);
+        perror("Failed to allocate memory for the rows of the input matrix");
+        exit(1);
+    }
+  }
   //reduce the lattice basis using Lenstra–Lenstra–Lovász lattice reduction
   LLL(0.75, dim, A, B, &Mu);
   
@@ -146,10 +161,14 @@ int main(int argc, char **argv) {
   //free the memory allocated for A
   for (i=0;i<dim;i++) {
     free(A[i]);
+    free(B[i]);
     A[i] = NULL;
+    B[i] = NULL;
   }
   free(A);
+  free (B);
   A = NULL;
+  B=NULL;
 
   //save the output to result.txt
   FILE *result = fopen("result.txt", "w");
