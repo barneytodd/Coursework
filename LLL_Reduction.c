@@ -157,7 +157,14 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
   int m = 0;
 	int array[dim][dim];
 	for (i=0;i<dim;i++) {
-		array[i][i] = 1;
+		for (j=0; j<dim; j++) {
+			if (i==j) {
+				array[i][i] = 1;
+			}
+			else {
+				array[i][j] = 0;
+			}
+		}
 	}
   while (k<dim) {
     //reduce the kth vector until for all j<k, mu_kj<=0.5
@@ -202,7 +209,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
   }
 	printf("shortest\n");
 	for (i=0; i<dim; i++) {
-		printf("%d ", array[22][i]);
+		printf("%d, ", array[22][i]);
 	}
   printf("m: %d\n", m);
   //for (i=0;i<dim;i++) {
