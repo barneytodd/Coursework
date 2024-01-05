@@ -101,13 +101,13 @@ int main(int argc, char **argv) {
     }
   }
   endptr = NULL;
-  printf("A\n");
-  for (i = 0; i < dim; i++) {
-    for (j=0; j < dim; j++) {
-      printf("%.4f\t", A[i][j]);
-    }
-    printf("\n");
-  }
+  //printf("A\n");
+  //for (i = 0; i < dim; i++) {
+  //  for (j=0; j < dim; j++) {
+  //    printf("%.4f\t", A[i][j]);
+  //  }
+  //  printf("\n");
+  //}
 
   printf("Vectors (A):\n");
   printf("[");
