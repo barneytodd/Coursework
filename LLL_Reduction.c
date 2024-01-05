@@ -46,7 +46,7 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
       }
       
       if (j==0 && i<5) {
-        printf("mu_ij: %.40f\n", mu_ij)
+        printf("mu_ij: %.40f\n", mu_ij);
       }
       
       
