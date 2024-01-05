@@ -76,6 +76,7 @@ void LLL(double delta, int dim, double **A) {
   //GramSchmidt orthogonslise B
   //GramSchmidt(dim, 0, B); 
   update_matrices(dim, 0, A, B);
+  printf("B: \n");
   for (i=0; i<dim; i++) {
     for (j=0; j<dim; j++) {
       printf("%.4f\t", B[i][j]);
