@@ -66,7 +66,7 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
       }
     }
     for (i=0; i<dim; i++) {
-      for (j=0; j<dim; j++) {
+      for (j=0; j<i; j++) {
         if (InnerProduct(dim, B[i], B[j]) != 0) {
           orth_check = false;
         }
