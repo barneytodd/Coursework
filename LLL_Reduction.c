@@ -192,7 +192,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
     m++;
     printf("%d\n", m);
     if (m % 10 == 0) { //need to improve this
-	    break
+	    break;
       printf("While loop failed\n");
         exit(1);
     }
