@@ -62,6 +62,11 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
       B[i][k] -= vec1[k];
     }
   }
+  for (i=0; i<dim; i++) {
+    for (j=0; j<i; j++) {
+      printf("%.4f\t", InnerProduct(dim, B[i], B[j]));
+    }
+  }
 }
   
 //when A gets updated, recompute B to be the GramSchmidt orthogonalised version of the updated A
