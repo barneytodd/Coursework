@@ -23,7 +23,7 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
   double mag2;
   bool orth_check = false;
   while (!orth_check) {
-    orth_check = true
+    orth_check = true;
     //iterate through the initial vectors
     for (i=fmax(start, 1); i<dim; i++) { 
       mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
