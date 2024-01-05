@@ -146,12 +146,12 @@ int main(int argc, char **argv) {
 		}
 		printf("\n");
 	}
-	double ***B_add = &B
+	double ***B_add = &B;
 
   //reduce the lattice basis using Lenstra–Lenstra–Lovász lattice reduction
 	printf("Address of B before LLL function: %p\n", (void *)B);
   LLL(0.75, dim, A, B, Mu);
-	&B = B_add
+	&B = B_add;
   printf("Address of B after LLL function: %p\n", (void *)B);
   printf("Orthonormalized Vectors (A):\n");
   printf("[");
