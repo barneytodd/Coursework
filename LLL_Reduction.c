@@ -53,8 +53,8 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
   int i, j, k; 
   //double mu_ij;
   double vec1[dim]; //store values to subtract from initial vectors
-  double mag1;
-  double mag2;
+  //double mag1;
+  //double mag2;
   //bool orth_check = false;
   //while (!orth_check) {
     //orth_check = true;
@@ -63,13 +63,13 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
       mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
       for (j=0; j<dim; j++) {
         vec1[j] = 0;
-        B[i][j] /= mag1; //normalising vectors before computing inner proucts helps to reduce inaccuracies caused by double calculations
+        //B[i][j] /= mag1; //normalising vectors before computing inner proucts helps to reduce inaccuracies caused by double calculations
       }
       //iterate through the previous vectors
       for (j=0; j<i; j++) { 
-        mag2 = sqrt(InnerProduct(dim, B[j], B[j]));
+        //mag2 = sqrt(InnerProduct(dim, B[j], B[j]));
         for (k=0;k<dim;k++) {
-          B[j][k] /= mag2; //normalise before inner product
+          //B[j][k] /= mag2; //normalise before inner product
         }
         //if (j<2 && i<3) {
           //printf("j: %d\t", j);
@@ -82,9 +82,9 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
         //}
         Mu[(i-1)*i+j] = InnerProduct(dim, B[i], B[j]);///InnerProduct(dim, B[j], B[j]);
         for (k=0; k<dim; k++) {
-          vec1[k] += Mu[(i-1)*i+j] * B[j][k] * mag1; //add the dot_product times the jth normalised vector 
+          vec1[k] += Mu[(i-1)*i+j] * B[j][k];// * mag1; //add the dot_product times the jth normalised vector 
           
-          B[j][k]*=mag2;
+          //B[j][k]*=mag2;
         }
         
         //if (j==0 && i<5) {
@@ -95,7 +95,7 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
       }
       //subtract from the ith initial vector
       for (k=0; k<dim; k++) {
-        B[i][k]*=mag1; //reset B[i] to unnormalised version
+        //B[i][k]*=mag1; //reset B[i] to unnormalised version
         B[i][k] -= vec1[k];
       }
     }
