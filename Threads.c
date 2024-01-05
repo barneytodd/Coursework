@@ -118,6 +118,7 @@ void *Enumerate(void *args) {
 
 //Enumerate the lattice to find the shortest vector
 double ShortestVector1(int dim, double **A, double **B, double *Mu) {
+	printf("start\n");
 	for (int i = 0; i < dim; ++i) {
 		if (A[i] == NULL) {
 		    perror("Input matrix does not have the correct dimensions");
