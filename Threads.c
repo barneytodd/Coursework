@@ -170,6 +170,11 @@ double ShortestVector1(int dim, double **A) {
 	for (i=0;i<dim;i++) {
 		printf("%.4f\t", pow(GS_norms[i], 0.5));
 	}
+	printf("IPS\n");
+	for (i=0;i<dim;i++) {
+		printf("%.4f\n", InnerProduct(dim, A[i], A[j]));
+	}
+	
 	printf("\n");
 	printf("shortest basis vector: %.4f\n", shortest_vector); 
 	//int x[dim]; //counts how many of each basis vector we're using
@@ -183,12 +188,10 @@ double ShortestVector1(int dim, double **A) {
 	//double sum2; //stores the sum of x[j] * Mu[j][i] for j>i
 	//double sum3; //sum of l[j]'s, (the sum of all the l[j]'s from 1 to dim is equal to the squared norm of the current combination of basis vectors)
 	//i=dim-1; //start with the last vector
-	printf("GS: %.4f\n", pow(GS_norms[dim-1], 0.5));
-	printf("ratio: %.4f\n", shortest_vector/pow(GS_norms[dim-1], 0.5));
-	printf("floor ratio: %d\n", (int)floor(shortest_vector/pow(GS_norms[dim-1], 0.5)));
+	
 	int max_num = floor(shortest_vector/pow(GS_norms[dim-1], 0.5));
 	pthread_t threads[max_num];
-	printf("%d\n", max_num);
+	
 
 	pthread_mutex_t lock;
 	if (pthread_mutex_init(&lock, NULL) != 0) {
