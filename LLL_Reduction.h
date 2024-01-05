@@ -9,6 +9,6 @@ void update_matrices(int dim, int start, double **A, double **B, double *Mu);
 
 double InnerProduct(int dim, double *arr1, double *arr2);
 
-bool CheckOrth(int dim, int start, double **B, bool *orth_check);
+bool CheckOrth(int dim, int start, double **B);
 
 #endif
