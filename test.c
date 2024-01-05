@@ -57,7 +57,9 @@ double Determinant(int dim, double **A, bool *check) {
                 *check = true;
             }
             else {
+                printf("U[i][i]: %.4f\n", U[i][i]);
                 determinant *= U[i][i];
+                printf("det: %.4f\n", determinant);
             }
         }
     }
