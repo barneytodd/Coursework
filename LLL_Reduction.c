@@ -19,7 +19,7 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
   int i, j, k; 
   double mu_ij;
   double vec1[dim]; //store values to subtract from initial vectors
-  //double mag1;
+  double mag1;
   double mag2;
   //iterate through the initial vectors
   for (i=fmax(start, 1); i<dim; i++) { 
