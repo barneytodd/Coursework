@@ -185,20 +185,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
         update_matrices(dim, k, A, B, Mu);
       }
     }
-		printf("array\n");
-		for (i=0;i<dim;i++) {
-			for (j=0;j<dim;j++) {
-				printf("%.4f\t", array[i][j]);
-			}
-			printf("\n");
-		}
-	  printf("A\n");
-		for (i=0;i<dim;i++) {
-			for (j=0;j<dim;j++) {
-				printf("%.4f\t", A[i][j]);
-			}
-			printf("\n");
-		}
+		
     //LLL basis reduction requires (B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k
     Mu[(k-1)*k/2+k-1] = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
     if (InnerProduct(dim, B[k], B[k]) > ((delta - (Mu[(k-1)*k/2+k-1]*Mu[(k-1)*k/2+k-1])) * InnerProduct(dim, B[k-1], B[k-1]))) {
@@ -218,20 +205,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
       update_matrices(dim, k-1, A, B, Mu); 
       k = fmax(k-1, 1);          
     }
-		printf("array\n");
-		for (i=0;i<dim;i++) {
-			for (j=0;j<dim;j++) {
-				printf("%.4f\t", array[i][j]);
-			}
-			printf("\n");
-		}
-	  printf("A\n");
-		for (i=0;i<dim;i++) {
-			for (j=0;j<dim;j++) {
-				printf("%.4f\t", A[i][j]);
-			}
-			printf("\n");
-		}
+		
     m++;
     //printf("%d\n", m);
     if (m % 100000 == 0) { //need to improve this
