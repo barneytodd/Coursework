@@ -55,9 +55,9 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
   double vec1[dim]; //store values to subtract from initial vectors
   double mag1;
   double mag2;
-  bool orth_check = false;
-  while (!orth_check) {
-    orth_check = true;
+  //bool orth_check = false;
+  //while (!orth_check) {
+    //orth_check = true;
     //iterate through the initial vectors
     for (i=fmax(start, 1); i<dim; i++) { 
       mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
@@ -99,7 +99,7 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
         B[i][k] -= vec1[k];
       }
     }
-  }
+  //}
 }
   
 //when A gets updated, recompute B to be the GramSchmidt orthogonalised version of the updated A
