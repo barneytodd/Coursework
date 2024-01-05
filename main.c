@@ -130,7 +130,7 @@ int main(int argc, char **argv) {
       exit(1);
   }
   for (i=0; i<dim; i++) {
-    B[i] = (double *)calloc(dim, sizeof(double));
+    B[i] = (double *)malloc(dim * sizeof(double));
     if (B[i] == NULL) {
         for (j=0; j<i; j++) {
             free(B[j]);
@@ -146,12 +146,16 @@ int main(int argc, char **argv) {
 		}
 		printf("\n");
 	}
-	double ***B_add = &B;
 
+	for (i=0; i<dim; i++) {
+		for (j=0;j<dim;j++) {
+			B[i][j] = 0;
+		}
+	}
+	
   //reduce the lattice basis using Lenstra–Lenstra–Lovász lattice reduction
 	printf("Address of B before LLL function: %p\n", (void *)B);
   LLL(0.75, dim, A, B, Mu);
-	&B = B_add;
   printf("Address of B after LLL function: %p\n", (void *)B);
   printf("Orthonormalized Vectors (A):\n");
   printf("[");
