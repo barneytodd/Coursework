@@ -38,7 +38,7 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
         printf("j: %d\t", j);
         printf("ip check3: %.40f\n", InnerProduct(dim, B[i], B[j]) / InnerProduct(dim, B[j], B[j]) - B[i][0]/B[j][0]);
       
-        for (k=0;k<dim;k++) {
+        for (k=0;k<5;k++) {
           printf("%.4f\t", B[i][k]);
           printf("%.4f\n", B[j][k]);
         }
