@@ -140,6 +140,14 @@ int main(int argc, char **argv) {
         exit(1);
     }
   }
+	for (i=0;i<dim;i++) {
+		for (j=0;j<dim;j++) {
+			printf("%.4f\t", B[i][j]);
+		}
+		printf("\n");
+	}
+
+
   //reduce the lattice basis using Lenstra–Lenstra–Lovász lattice reduction
   LLL(0.75, dim, A, B, Mu);
   
