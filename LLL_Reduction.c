@@ -183,6 +183,7 @@ void LLL(double delta, int dim, double **A) {
       k = fmax(k-1, 1);          
     }
     m++;
+    printf("%d\n", m);
     if (m % 100000 == 0) { //need to improve this
       printf("While loop failed\n");
         exit(1);
