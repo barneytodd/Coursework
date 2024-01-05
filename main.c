@@ -156,6 +156,13 @@ int main(int argc, char **argv) {
       printf("], \n");
   }
 
+  for (i=0;i<dim;i++) {
+		for (j=0;j<dim;j++) {
+			printf("%.4f\t", B[i][j]);
+		}
+		printf("\n");
+	}
+  
   //compute lattice enumeration to find the shortest vector
   double shortest_length = ShortestVector1(dim, A, B, Mu);
   printf("shortest length: %.4f\n", shortest_length);
