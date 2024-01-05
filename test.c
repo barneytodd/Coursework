@@ -50,7 +50,7 @@ double Determinant(int dim, double **A, bool *check) {
             determinant *= pow(fabs(U[i][i]), 1.0/dim);
         }
         else {
-            if (isinf(determinant*U[i][i]) {
+            if (isinf(determinant*U[i][i])) {
                 determinant = pow(fabs(determinant), 1.0/dim);
                 determinant *= pow(fabs(U[i][i]), 1.0/dim);
                 check = true;
