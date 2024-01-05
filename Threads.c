@@ -136,6 +136,7 @@ double ShortestVector1(int dim, double **A, double **B, double *Mu) {
 		current_norm = sqrt(InnerProduct(dim, A[i], A[i])); //calculates norm of each vector in A, then compares to shortest vector
 		if (current_norm < shortest_vector) {
 			shortest_vector = current_norm;
+			printf("i: %d\n", i);
 		}
 	}
 
