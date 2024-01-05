@@ -26,7 +26,7 @@ double SumArray(int dim, int i, double *arr) {
 
 
 //returns the determinant of a matrix, using LU Decomposition
-double Determinant(int dim, double **A) { 
+double Determinant(int dim, double **A, bool *check) { 
     int i, j, k;
     double U[dim][dim];
     double factor;
@@ -44,7 +44,21 @@ double Determinant(int dim, double **A) {
                 U[j][k] -= U[i][k]*factor;
             }
         }
-        determinant *= pow(fabs(U[i][i]), 1.0/dim);
+        //if determinant gets too big, we can compute a running calculation of det^(1/dim) instead
+        //best not to do this unless we have to, as it increases the inaccuracy caused by inaccuracy in calculations with doubles
+        if (check) {
+            determinant *= pow(fabs(U[i][i]), 1.0/dim);
+        }
+        else {
+            if (isinf(determinant*U[i][i]) {
+                determinant = pow(fabs(determinant), 1.0/dim);
+                determinant *= pow(fabs(U[i][i]), 1.0/dim);
+                check = true;
+            }
+            else {
+                determinant *= U[i][i];
+            }
+        }
     }
     printf("determinant: %.4f\n", determinant);
     return determinant;
@@ -53,8 +67,12 @@ double Determinant(int dim, double **A) {
 
 //returns an estimate for an upper bound of the shortest vector length, using the equation 1.05 * (gamma(n/2+1))^(1/dim)/sqrt(pi) * det(input matrix)^(1/dim)
 double LimitCalc(int dim, double **A) { 
+    bool det_check = false; //checks whether determinant has alredy been raised to the power of 1/dim
     double gamma = tgamma((float)dim/2 + 1);
-    double det = fabs(Determinant(dim, A));
+    double det = Determinant(dim, A, &det_check);
+    if (!det_check) {
+        det = pow(fabs(det), 1.0/dim);
+    }
     return 1.05*(pow(gamma, 1.0/dim)/sqrt(M_PI))*det;
 }
 
