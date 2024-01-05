@@ -113,7 +113,7 @@ void update_matrices(int dim, int start, double **A, double **B, double *Mu) {
     }
   }
   
-  GramSchmidt(dim, start, B, Mu);
+  //GramSchmidt(dim, start, B, Mu);
   printf("Yes\n");
   //for (i=0; i<dim; i++) {
   //  for (j=0; j<i; j++) {
@@ -191,7 +191,8 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
     }
     m++;
     printf("%d\n", m);
-    if (m % 100000 == 0) { //need to improve this
+    if (m % 10 == 0) { //need to improve this
+	    break
       printf("While loop failed\n");
         exit(1);
     }
