@@ -170,7 +170,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
           printf("Error: input vectors are linearly dependent\n");
           exit(1);
         }
-        update_matrices(dim, k, A, B, Mu);
+        update_matrices(dim, 0, A, B, Mu);
       }
     }
     //LLL basis reduction requires (B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k
@@ -185,7 +185,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
         A[k-1][i] = A[k][i] - A[k-1][i];
         A[k][i] -= A[k-1][i];
       }
-      update_matrices(dim, k-1, A, B, Mu); 
+      update_matrices(dim, 0, A, B, Mu); 
       k = fmax(k-1, 1);          
     }
     m++;
