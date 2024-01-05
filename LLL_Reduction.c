@@ -19,23 +19,21 @@ bool CheckOrth(int dim, int start, double **B) {
   double mag1;
   double mag2;
   for (i=0; i<dim; i++) {
-      if (!orth_check) {
-        break;
-      }
       mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
       for (k=0; k<dim; k++) {
         B[i][k] /= mag1;
       }
       for (j=0; j<i; j++) {
-        if (!orth_check) {
-          break;
-        }
         mag2 = sqrt(InnerProduct(dim, B[j], B[j]));
         for (k=0; k<dim; k++) {
           B[j][k] /= mag2;
         }
         if (fabs(InnerProduct(dim, B[i], B[j])) > 0.01) {
           printf("Failed: %.4f\n", fabs(InnerProduct(dim, B[i], B[j])));
+					for (k=0; k<dim; k++) {
+						B[j][k] *= mag2;
+						B[i][k] *= mag1;
+					}
 					return false;
         }
         for (k=0; k<dim; k++) {
