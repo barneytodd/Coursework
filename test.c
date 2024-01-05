@@ -46,6 +46,7 @@ double Determinant(int dim, double **A, bool *check) {
         }
         //if determinant gets too big, we can compute a running calculation of det^(1/dim) instead
         //best not to do this unless we have to, as it increases the inaccuracy caused by inaccuracy in calculations with doubles
+        printf("check: %d\n", check);
         if (check) {
             determinant *= pow(fabs(U[i][i]), 1.0/dim);
         }
