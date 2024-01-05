@@ -161,7 +161,7 @@ int main(int argc, char **argv) {
 	//dim = 10;
 	printf("%d\n", dim);
 	printf("Address of dim after LLL function: %p\n", (void *)&dim);
-	exit(1);
+	//exit(1);
 	
   printf("Address of B after LLL function: %p\n", (void *)B);
   printf("Orthonormalized Vectors (A):\n");
@@ -183,7 +183,7 @@ int main(int argc, char **argv) {
 		}
 		printf("\n");
 	}
-  
+  exit(1);
   //compute lattice enumeration to find the shortest vector
   double shortest_length = ShortestVector1(dim, A, B, Mu);
   printf("shortest length: %.4f\n", shortest_length);
