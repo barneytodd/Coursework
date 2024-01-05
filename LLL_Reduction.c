@@ -29,7 +29,7 @@ bool CheckOrth(int dim, int start, double **B) {
           B[j][k] /= mag2;
         }
         if (fabs(InnerProduct(dim, B[i], B[j])) > 0.005) {
-          printf("Failed: %.4f\n", fabs(InnerProduct(dim, B[i], B[j])));
+          //printf("Failed: %.4f\n", fabs(InnerProduct(dim, B[i], B[j])));
 					for (k=0; k<dim; k++) {
 						B[j][k] *= mag2;
 						B[i][k] *= mag1;
@@ -213,7 +213,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
   }
 	printf("shortest\n");
 	for (i=0; i<dim; i++) {
-		printf("%ld, ", array[22][i]);
+		printf("%f, ", array[37][i]);
 	}
   printf("m: %d\n", m);
   //for (i=0;i<dim;i++) {
