@@ -113,7 +113,7 @@ void update_matrices(int dim, int start, double **A, double **B, double *Mu) {
     }
   }
   
-  //GramSchmidt(dim, start, B, Mu);
+  GramSchmidt(dim, start, B, Mu);
   printf("Yes\n");
   //for (i=0; i<dim; i++) {
   //  for (j=0; j<i; j++) {
