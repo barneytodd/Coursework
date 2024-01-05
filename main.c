@@ -158,7 +158,7 @@ int main(int argc, char **argv) {
 	printf("Address of dim before LLL function: %p\n", (void *)&dim);
 	printf("Address of B before LLL function: %p\n", (void *)B);
   LLL(0.75, dim, A, B, Mu);
-	dim = pow(argc-1, 0.5);
+	dim = 10;
 	printf("%d\n", dim);
 	printf("Address of dim after LLL function: %p\n", (void *)&dim);
 	exit(1);
