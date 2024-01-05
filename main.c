@@ -124,23 +124,23 @@ int main(int argc, char **argv) {
 
   double Mu[(dim-1)*dim/2]; //stores Mu values for GramSchmidt orthogonalisation
   
-  //double **B = (double **)malloc(dim * sizeof(double *)); //stores GS orthogonalised values
-  //if (B == NULL) {
-  //    perror("Failed to allocate memory for the B matrix");
-  //    exit(1);
-  //}
-  //for (i=0; i<dim; i++) {
-  //  B[i] = (double *)malloc(dim * sizeof(double));
-  //  if (B[i] == NULL) {
-  //      for (j=0; j<i; j++) {
-  //          free(B[j]);
-  //      }
-  //      free(B);
-  //      perror("Failed to allocate memory for the rows of the input matrix");
-  //      exit(1);
-  //  }
-  //}
-	double B[dim][dim]; 
+  double **B = (double **)malloc(dim * sizeof(double *)); //stores GS orthogonalised values
+  if (B == NULL) {
+      perror("Failed to allocate memory for the B matrix");
+      exit(1);
+  }
+  for (i=0; i<dim; i++) {
+    B[i] = (double *)malloc(dim * sizeof(double));
+    if (B[i] == NULL) {
+        for (j=0; j<i; j++) {
+            free(B[j]);
+        }
+        free(B);
+        perror("Failed to allocate memory for the rows of the input matrix");
+        exit(1);
+    }
+  }
+	//double B[dim][dim]; 
 	for (i=0;i<dim;i++) {
 		for (j=0;j<dim;j++) {
 			printf("%.4f\t", B[i][j]);
@@ -148,20 +148,20 @@ int main(int argc, char **argv) {
 		printf("\n");
 	}
 
-	for (i=0; i<dim; i++) {
-		for (j=0;j<dim;j++) {
-			B[i][j] = 0;
-		}
-	}
+	//for (i=0; i<dim; i++) {
+	//	for (j=0;j<dim;j++) {
+	//		B[i][j] = 0;
+	//	}
+	//}
 	
   //reduce the lattice basis using Lenstra–Lenstra–Lovász lattice reduction
 	printf("Address of dim before LLL function: %p\n", (void *)&dim);
 	printf("Address of B before LLL function: %p\n", (void *)B);
   LLL(0.75, dim, A, B, Mu);
-	dim = 10;
+	//dim = 10;
 	printf("%d\n", dim);
 	printf("Address of dim after LLL function: %p\n", (void *)&dim);
-	//exit(1);
+	exit(1);
 	
   printf("Address of B after LLL function: %p\n", (void *)B);
   printf("Orthonormalized Vectors (A):\n");
