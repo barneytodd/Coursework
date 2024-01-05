@@ -98,7 +98,7 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
         B[i][k] -= vec1[k];
       }
     }
-	  //orth_check = CheckOrth(dim, start, B);
+	  orth_check = CheckOrth(dim, start, B);
   }
 }
   
