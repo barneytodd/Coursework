@@ -184,7 +184,7 @@ int main(int argc, char **argv) {
 		}
 		printf("\n");
 	}
-  exit(1);
+  //exit(1);
   //compute lattice enumeration to find the shortest vector
   double shortest_length = ShortestVector1(dim, A, B, Mu);
   printf("shortest length: %.4f\n", shortest_length);
