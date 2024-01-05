@@ -14,7 +14,7 @@ double InnerProduct(int dim, double *arr1, double *arr2) {
   return sum1;
 }
 
-bool CheckOrth(int dim, int start, double B[dim][dim], bool *orth_check) {
+bool CheckOrth(int dim, int start, double **B, bool *orth_check) {
   int i, j, k;
   double mag1;
   double mag2;
