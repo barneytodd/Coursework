@@ -46,7 +46,6 @@ double Determinant(int dim, double **A, bool *check) {
         }
         //if determinant gets too big, we can compute a running calculation of det^(1/dim) instead
         //best not to do this unless we have to, as it increases the inaccuracy caused by inaccuracy in calculations with doubles
-        printf("check: %d\n", *check);
         if (*check) {
             determinant *= pow(fabs(U[i][i]), 1.0/dim);
         }
@@ -54,17 +53,13 @@ double Determinant(int dim, double **A, bool *check) {
             if (isinf(determinant*U[i][i])) {
                 determinant = pow(fabs(determinant), 1.0/dim);
                 determinant *= pow(fabs(U[i][i]), 1.0/dim);
-                printf("yes\n");
                 *check = true;
             }
             else {
-                printf("U[i][i]: %.4f\n", U[i][i]);
                 determinant *= U[i][i];
-                printf("det: %.4f\n", determinant);
             }
         }
     }
-    printf("determinant: %.4f\n", determinant);
     return determinant;
 }
 
