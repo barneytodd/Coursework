@@ -67,7 +67,8 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
       printf("%.4f\t", InnerProduct(dim, B[i], B[j]));
     }
   }
-  printf("\n");
+  printf("\n\n");
+  
 }
   
 //when A gets updated, recompute B to be the GramSchmidt orthogonalised version of the updated A
@@ -151,7 +152,7 @@ void LLL(double delta, int dim, double **A) {
       k = fmax(k-1, 1);          
     }
     m++;
-    if (m % 10 == 0) { //need to improve this
+    if (m % 3 == 0) { //need to improve this
       printf("While loop failed\n");
         exit(1);
     }
