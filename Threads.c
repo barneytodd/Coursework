@@ -195,6 +195,8 @@ double ShortestVector1(int dim, double **A, double **B, double *Mu) {
         	printf("Error: Mutex initialization failed\n");
         	exit(1);
     	}
+
+	printf("end\n");
 	
 	struct ThreadArgs args[max_num+1];
 	int count = 0;
