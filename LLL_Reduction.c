@@ -37,15 +37,15 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
         for (k=0;k<dim;k++) {
           B[j][k] /= mag2; //normalise before inner product
         }
-        if (j<2 && i<3) {
-          printf("j: %d\t", j);
-          printf("ip check3: %.40f\n", InnerProduct(dim, B[i], B[j]) / InnerProduct(dim, B[j], B[j]) - B[i][0]/B[j][0]);
+        //if (j<2 && i<3) {
+          //printf("j: %d\t", j);
+          //printf("ip check3: %.40f\n", InnerProduct(dim, B[i], B[j]) / InnerProduct(dim, B[j], B[j]) - B[i][0]/B[j][0]);
         
           //for (k=0;k<5;k++) {
             //printf("%.4f\t", B[i][k]);
             //printf("%.4f\n", B[j][k]);
           //}
-        }
+        //}
         mu_ij = InnerProduct(dim, B[i], B[j])/InnerProduct(dim, B[j], B[j]);
         for (k=0; k<dim; k++) {
           vec1[k] += mu_ij * B[j][k] * mag1; //add the dot_product times the jth normalised vector 
@@ -53,9 +53,9 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
           B[j][k]*=mag2;
         }
         
-        if (j==0 && i<5) {
-          printf("mu_ij: %.40f\n", mu_ij);
-        }
+        //if (j==0 && i<5) {
+        //  printf("mu_ij: %.40f\n", mu_ij);
+        //}
         
         
       }
