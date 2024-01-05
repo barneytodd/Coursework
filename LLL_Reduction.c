@@ -67,7 +67,7 @@ void GramSchmidt(int dim, int start, double B[][dim]) {
     }
     for (i=0; i<dim; i++) {
       for (j=0; j<i; j++) {
-        if (fabs(InnerProduct(dim, B[i], B[j])) > 0.5) {
+        if (fabs(InnerProduct(dim, B[i], B[j])) > 100) {
           orth_check = false;
         }
       }
