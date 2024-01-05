@@ -178,7 +178,7 @@ double ShortestVector1(int dim, double **A) {
 	//i=dim-1; //start with the last vector
 	printf("GS: %.4f\n", pow(GS_norms[dim-1], 0.5));
 	printf("ratio: %.4f\n", shortest_vector/pow(GS_norms[dim-1], 0.5));
-	printf("floor ratio: %d\n", floor(shortest_vector/pow(GS_norms[dim-1], 0.5)));
+	printf("floor ratio: %d\n", (int)floor(shortest_vector/pow(GS_norms[dim-1], 0.5)));
 	int max_num = floor(shortest_vector/pow(GS_norms[dim-1], 0.5));
 	pthread_t threads[max_num];
 	printf("%d\n", max_num);
