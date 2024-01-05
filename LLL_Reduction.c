@@ -82,7 +82,7 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
         //}
         Mu[(i-1)*i/2+j] = InnerProduct(dim, B[i], B[j]);///InnerProduct(dim, B[j], B[j]);
         for (k=0; k<dim; k++) {
-          vec1[k] += Mu[(i-1)*i+j] * B[j][k];// * mag1; //add the dot_product times the jth normalised vector 
+          vec1[k] += Mu[(i-1)*i/2+j] * B[j][k];// * mag1; //add the dot_product times the jth normalised vector 
           
           B[j][k]*=mag2;
         }
@@ -159,11 +159,11 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
     //reduce the kth vector until for all j<k, mu_kj<=0.5
     for (j=k-1; j>=0; j--) {
       //printf("IP: %.4f\n", InnerProduct(dim, 
-      Mu[(k-1)*k+j] = InnerProduct(dim, A[k], B[j])/InnerProduct(dim, B[j], B[j]); 
-      if (fabs(Mu[(k-1)*k+j]) > 0.5) {
+      Mu[(k-1)*k/2+j] = InnerProduct(dim, A[k], B[j])/InnerProduct(dim, B[j], B[j]); 
+      if (fabs(Mu[(k-1)*k/2+j]) > 0.5) {
         zero_check = true;
         for (i=0; i<dim; i++) {
-          A[k][i] -= round(Mu[(k-1)*k+j]) * A[j][i];
+          A[k][i] -= round(Mu[(k-1)*k/2+j]) * A[j][i];
           if (A[k][i] != 0) zero_check = false;
         }
         if (zero_check == true) {
@@ -174,8 +174,8 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
       }
     }
     //LLL basis reduction requires (B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k
-    Mu[(k-1)*k+k-1] = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
-    if (InnerProduct(dim, B[k], B[k]) > ((delta - (Mu[(k-1)*k+k-1]*Mu[(k-1)*k+k-1])) * InnerProduct(dim, B[k-1], B[k-1]))) {
+    Mu[(k-1)*k/2+k-1] = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
+    if (InnerProduct(dim, B[k], B[k]) > ((delta - (Mu[(k-1)*k/2+k-1]*Mu[(k-1)*k/2+k-1])) * InnerProduct(dim, B[k-1], B[k-1]))) {
       k+=1;
         }
     else {
