@@ -196,6 +196,10 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
         A[k][i] += A[k-1][i];
         A[k-1][i] = A[k][i] - A[k-1][i];
         A[k][i] -= A[k-1][i];
+
+				array[k][i] += array[k-1][i];
+				array[k-1][i] = array[k][i] - array[k-1][i];
+				array[k][i] -= array[k-1][i];
       }
       update_matrices(dim, k-1, A, B, Mu); 
       k = fmax(k-1, 1);          
