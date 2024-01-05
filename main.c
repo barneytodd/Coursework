@@ -159,8 +159,9 @@ int main(int argc, char **argv) {
 	printf("Address of B before LLL function: %p\n", (void *)B);
   LLL(0.75, dim, A, B, Mu);
 	printf("%d\n", dim);
-	exit(1);
 	printf("Address of dim after LLL function: %p\n", (void *)&dim);
+	exit(1);
+	
   printf("Address of B after LLL function: %p\n", (void *)B);
   printf("Orthonormalized Vectors (A):\n");
   printf("[");
