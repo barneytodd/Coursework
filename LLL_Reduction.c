@@ -15,7 +15,7 @@ double Multiply(double num1, double num2) {
 		char *str1 = (char *)malloc(16*sizeof(char));
 		char *str2 = (char *)malloc(1*sizeof(char));
 		int len1 = snprintf(str1, 16, "%.1f", fmax(num1, num2));
-		int len2 = snprintf(str1, 2, "%.1f", fmin(num1, num2));
+		int len2 = snprintf(str1, 4, "%.1f", fmin(num1, num2));
 		if (len1 > 16) {
 			str1 = (char *)realloc(str1, (len1+1) * sizeof(char));
         		snprintf(str1, len1+1, "%.1f", fmax(num1, num2)); 
@@ -38,7 +38,8 @@ double Multiply(double num1, double num2) {
 					current -= 10;
 					carry ++;
 				}
-				snprintf(result[i+j+1], 1, "%d", current);
+				result[i+j+1] = current + '0';
+				snprintf(&result[i+j+1], 1, "%d", current);
 			}
 		}
 		return strtod(result, NULL);
