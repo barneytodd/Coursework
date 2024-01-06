@@ -3,6 +3,21 @@
 #include <stdlib.h>
 #include "LLL_Reduction.h"
 #include <stdbool.h>
+#include <limits.h>
+
+double Multiply(double num1, double num2) {
+	
+	if (num1<LLONG_MAX && num2<LLONG_MAX) {
+		if (num1 - (long long int)num1 == 0.0) {
+			return (double)((long long int)num1 * (long long int)num2)
+		}
+		else {
+			str1 = 
+		}
+	}
+}
+
+
 
 //compute the inner product between two vectors
 double InnerProduct(int dim, double *arr1, double *arr2) {
