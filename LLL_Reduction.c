@@ -123,7 +123,6 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
 	//iterate through the LLL Reduction steps until:
   //(B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k, and
   //mu_kj<=0.5 for all k, j<k
-  
 	for (i=0;i<dim;i++) {
 		for (j=0; j<dim; j++) {
 			if (i==j) {
@@ -174,9 +173,10 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
       k = fmax(k-1, 1);  
 			m++;
     }
-		
-    //printf("%d\n", m);
-    if (m > (dim-1)*dim/2) { //need to improve this
+
+		//(dim-1)*dim/2 is the number of swaps required to completely reverse the list of vectors
+		//therefore any more than this without reducing any of the vectors means an error has occured
+    if (m > (dim-1)*dim/2) { 
       printf("Error: While loop failed\n");
     	exit(1);
     }
