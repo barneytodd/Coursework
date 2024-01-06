@@ -39,7 +39,7 @@ double Multiply(double num1, double num2) {
 					carry ++;
 				}
 				result[i+j+1] = current + '0';
-				snprintf(&result[i+j+1], 1, "%d", current);
+				//snprintf(&result[i+j+1], 1, "%d", current);
 			}
 		}
 		return strtod(result, NULL);
