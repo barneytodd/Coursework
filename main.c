@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
   int dim, i, j, k;
 	double a = Multiply(3, 4);
 	printf("%.4f\n", a);
-	exit(1)
+	exit(1);
   //printf("You have entered %d arguments:\n", argc);
   if (argc>2) {
     for (i = 2; i < argc; i++) {
