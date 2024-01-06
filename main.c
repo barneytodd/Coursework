@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
 	double b = 6.0;
 	double c = Multiply(&a, &b);
 	printf("a: %.4f, b: %.4f, c: %.4f\n", a, b, c);
-	exit(1);
+	//exit(1);
   //printf("You have entered %d arguments:\n", argc);
   if (argc>2) {
     for (i = 2; i < argc; i++) {
