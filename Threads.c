@@ -15,11 +15,11 @@ struct ThreadArgs {
 };
 
 void *Enumerate(void *args) {
-  //need num for x[dim-1], GS_norms, Mu, dim, pointer to shortest_vector, pointer to max x[dim-1], create own x, create own l
+	//restructure the arguments into the form of the struct above
   struct ThreadArgs *thread_args = (struct ThreadArgs *)args;
 
-  int x[thread_args->dim], i, j, k;
-  double l[thread_args->dim];
+  int x[thread_args->dim], i, j, k; //x stores the number of each basis vector used to reach each lattice point
+  double l[thread_args->dim]; //stores the total contribution squared, of the combination of basis vectors stored in x, in the direction of the ith GS vector
 
   for (i=0; i<thread_args->dim-1; i++) {
     x[i] = 0;
@@ -28,16 +28,19 @@ void *Enumerate(void *args) {
   i = thread_args->dim-1;
 
   double sum2; //stores the sum of x[j] * Mu[j][i] for j>i
-  double sum3;
+  double sum3; //stores the sum (j>i) of the l[j] values
   int m = 0;
+	int max_its = pow(2, dim); //an estimate of the maximum number of iterations required
+	
+	//max_num may get updated by the other threads
+	//in the case that max_num falls below num, we can exit this thread
   while (*thread_args->max_num > thread_args->num) { 
-		sum2 = 0;
 		//calculate the l[j] values from i upwards
 		for (j=thread_args->dim-1; j>=i; j--) { 
 			sum2 = 0;
 			//sum the contribution of each vector in the direction of the ith GS vector 
 			for (k=j+1; k<thread_args->dim; k++) {
-				sum2 += x[k] * thread_args->Mu[(k-1)*k/2+j]; //Mu[k][j]
+				sum2 += x[k] * thread_args->Mu[(k-1)*k/2+j]; 
 			}
 			l[j] = (x[j] + sum2) * (x[j] + sum2) * thread_args->GS_norms[j]; 	
 		}
@@ -63,52 +66,51 @@ void *Enumerate(void *args) {
 					printf("max x[dim-1]: %d\n", *(thread_args->max_num));
 					pthread_mutex_unlock(thread_args->lock);
 				}
-				x[0] += 1;
+				x[0]++;
 			}
-			//if i != 1, subtract 1 from i and then set the x[i] to be the minimum integer such that l[i] < shortest_vector^2 - sum3
+			//if i != 1, subtract 1 from i and then set x[i] to be the minimum integer such that l[i] < shortest_vector^2 - sum3
 			//if there is no such integer, add the 1 back to i and then add 1 to x[i]
 			else {
-				i -= 1;
-				
+				i--;
 				sum2 = 0;
 				for (k=i+1; k<thread_args->dim; k++) {
-					sum2 += x[k] * thread_args->Mu[(k-1)*k/2+i]; //Mu[k][i]
+					sum2 += x[k] * thread_args->Mu[(k-1)*k/2+i]; 
 				}
 				x[i] = round(- sum2); //the integer which minimises l[i]
 				l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * thread_args->GS_norms[i]; 
 				
 				if (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3) {
 					//subtract 1 from x[i] until l[i] is no longer < shortest_vector^2 - sum3
-					//then add 1 to x[i] to make x[i] the minimum possible integer such that l[i] < shortest_vector^2
+					//then add 1 to x[i] to make x[i] the minimum possible integer such that l[i] < shortest_vector^2 - sum3
 					do {
-						
-						x[i] -= 1;
+						x[i]--;
 						sum2 = 0;
 						for (k=i+1; k<thread_args->dim; k++) {
-							sum2 += x[k] * thread_args->Mu[(k-1)*k/2+i]; //Mu[k][i]
+							sum2 += x[k] * thread_args->Mu[(k-1)*k/2+i];
 						}
 						l[i] = (x[i] + sum2) * (x[i] + sum2) * thread_args->GS_norms[i]; 
-						
-						
 					} while (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3);
-					x[i] += 1; 
+					
+					x[i]++; 
 				}
 				else {
 					i+=1;
-					x[i] += 1;
+					x[i]++;
 				}
 			}
 		}
 		//if sum3 > shortest_vector^2, increase i by 1 and then increase x[i] by 1
 		else {
-			i += 1;
-			x[i] += 1;
+			i++;
+			x[i]++;
+			//if we reach the point of incrementing x[dim-1], then we have tested all possibilities with x[dim-1] = num, therefore we can exit the thread
 			if (i==thread_args->dim-1) {
 				break;
 			}
 		}
 	  m++;
-	  if (m==1000000000000000) { //need to improve this
+	  if (m > max) {
+			//need to think about this
 		  printf("thread: %d, infinite while loop\n", thread_args->num);
 			exit(1);
 	  }
@@ -118,16 +120,15 @@ void *Enumerate(void *args) {
 
 //Enumerate the lattice to find the shortest vector
 double ShortestVector1(int dim, double **A, double **B, double *Mu) {
-	printf("start\n");
-	for (int i = 0; i < dim; ++i) {
+	int i;
+	
+	for (i = 0; i < dim; ++i) {
 		if (A[i] == NULL) {
 		    perror("Input matrix does not have the correct dimensions");
 		    exit(1);
 		}
 	}
-	
-	
-	int i, j, k;
+		
 	double shortest_vector = sqrt(InnerProduct(dim, A[0], A[0])); //keeps track of current shortest vector
 	double current_norm; //stores the norm of each basis vector
 
@@ -136,7 +137,6 @@ double ShortestVector1(int dim, double **A, double **B, double *Mu) {
 		current_norm = sqrt(InnerProduct(dim, A[i], A[i])); //calculates norm of each vector in A, then compares to shortest vector
 		if (current_norm < shortest_vector) {
 			shortest_vector = current_norm;
-			printf("i: %d\n", i);
 		}
 	}
 
@@ -144,71 +144,21 @@ double ShortestVector1(int dim, double **A, double **B, double *Mu) {
 	
 	double GS_norms[dim]; //stores the norm of each GramSchidt orthogonalised vector
 	
-	//GramSchmidt orthogonalise A, and store the mu values and GS norms
-	//double sum1[dim]; 
-	//double mag1;
-	//for (i=1; i<dim; i++) { 
-	//	GS_norms[i-1] = InnerProduct(dim, A[i-1], A[i-1]);
-	//	mag1 = sqrt(InnerProduct(dim, A[i], A[i]));
-	//	for (j=0; j<dim; j++) {
-	//		sum1[j] = 0;
-	//		*A[i] /= mag1;
-	//	}
-	//	for (j=0; j<i; j++) {
-	//		for (k=0; k<dim; k++) {
-	//			A[j][k] /= sqrt(GS_norms[j]);
-	//		}
-	//		Mu[(i-1)*i/2+j] = InnerProduct(dim, A[i], A[j]);///GS_norms[j];
-	//		for (k=0; k<dim; k++) {
-	//			sum1[k] += Mu[(i-1)*i/2+j] * A[j][k] * mag1; //equivalent to Mu[i][j] if Mu was a dim x dim array
-	//			A[j][k] *= sqrt(GS_norms[j]);
-	//		}
-	//	}
-	//	for (k=0; k<dim; k++) {
-	//		A[i][k] *= mag1;
-	//		A[i][k] -= sum1[k];
-	//	}	
-	//}
-	//GS_norms[dim-1] = InnerProduct(dim, A[dim-1], A[dim-1]);
-
-	for (i=0;i<dim;i++) {
-		for (j=0;j<dim;j++) {
-			printf("%.4f\t", A[i][j]);
-		}
-		printf("\n");
-	}
-	
-	printf("before\n");
 	for (i=0;i<dim;i++) {
 		GS_norms[i] = InnerProduct(dim, B[i], B[i]);
 	}
-	printf("after\n");
-	
-	printf("shortest basis vector: %.4f\n", shortest_vector); 
-	//int x[dim]; //counts how many of each basis vector we're using
-	//double l[dim]; //stores the total contribution of all the used vectors in the direction of each GS vector, squared
 
-	//initialise the x and l values to 0
-	//for (j=0; j<dim; j++) {
-	//	x[j] = l[j] = 0;
-	//}
-	
-	//double sum2; //stores the sum of x[j] * Mu[j][i] for j>i
-	//double sum3; //sum of l[j]'s, (the sum of all the l[j]'s from 1 to dim is equal to the squared norm of the current combination of basis vectors)
-	//i=dim-1; //start with the last vector
-	
-	int max_num = floor(shortest_vector/pow(GS_norms[dim-1], 0.5));
+	int max_num = floor(shortest_vector/pow(GS_norms[dim-1], 0.5)); //maximum possible value for x[dim-1]
 	pthread_t threads[max_num];
-	
 
+	//create a lock for when each thread needs to edit shortest_vector
 	pthread_mutex_t lock;
 	if (pthread_mutex_init(&lock, NULL) != 0) {
-        	printf("Error: Mutex initialization failed\n");
-        	exit(1);
-    	}
+		printf("Error: Mutex initialization failed\n");
+		exit(1);
+  }
 
-	printf("end\n");
-	
+	//divide the enumeration into threads by x[dim-1] value
 	struct ThreadArgs args[max_num+1];
 	int count = 0;
 	for (i=0; i<=max_num; i++) {
@@ -226,9 +176,11 @@ double ShortestVector1(int dim, double **A, double **B, double *Mu) {
 		printf("Thread: %d\n", i);
 		count++;
 	}
+	
 	for (i=0; i<count; i++) {
 		pthread_join(threads[i], NULL);
 	}
 	pthread_mutex_destroy(&lock);
+	
 	return shortest_vector;
 }
