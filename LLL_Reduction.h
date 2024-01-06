@@ -13,6 +13,6 @@ double InnerProduct(int dim, double *arr1, double *arr2);
 
 bool CheckOrth(int dim, int start, double **B);
 
-double Multiply(double *num1, double *num2);
+double Multiply(double num1, double num2);
 
 #endif
