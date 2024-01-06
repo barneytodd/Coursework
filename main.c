@@ -13,7 +13,7 @@
 
 int main(int argc, char **argv) {
   int dim, i, j, k;
-	double a = 9223372036854775808.9567834778923487;
+	double a = 9223372036854775807.35;
 	printf("%.4f\t %.4f\n", a, a*a);
 	exit(1);
   //printf("You have entered %d arguments:\n", argc);
