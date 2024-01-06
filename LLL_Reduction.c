@@ -210,22 +210,24 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
 		
     m++;
     //printf("%d\n", m);
-    if (m % 100 == 0) { //need to improve this
-      printf("While loop failed\n");
+		if (m % 10 ==0) {
 			printf("A\n");
-	    for (i=0;i<dim;i++) {
+	    for (i=0;i<1;i++) {
 				for (j=0;j<dim;j++) {
 					printf("%.4f ", A[i][j]);
 				}
 				printf("\n");
 			}
 			printf("array\n");
-	    for (i=0;i<dim;i++) {
+	    for (i=0;i<1;i++) {
 				for (j=0;j<dim;j++) {
 					printf("%.4f ", array[i][j]);
 				}
 				printf("\n");
 			}
+		}
+    if (m % 100 == 0) { //need to improve this
+      printf("While loop failed\n");
     	exit(1);
     }
   }
