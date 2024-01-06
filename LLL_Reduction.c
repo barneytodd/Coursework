@@ -41,7 +41,7 @@ double Multiply(double num1, double num2) {
 				snprintf(result[i+j+1], 1, "%d", current);
 			}
 		}
-		return strtod(result);
+		return strtod(result, NULL);
 	}
 	
 }
