@@ -119,7 +119,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
   k = 1;
   bool zero_check = false; //checks if any vectors are reduced to 0, this can happen if the input vectors are linearly dependent and can result in an infinite loop
   int m = 0;
-	double array[dim][dim];
+	
 	//iterate through the LLL Reduction steps until:
   //(B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k, and
   //mu_kj<=0.5 for all k, j<k
@@ -142,9 +142,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
       if (fabs(Mu[(k-1)*k/2+j]) > 0.5) {
         zero_check = true;
         for (i=0; i<dim; i++) {
-		
           A[k][i] -= round(Mu[(k-1)*k/2+j]) * A[j][i];
-					array[k][i] -= round(Mu[(k-1)*k/2+j]) * array[j][i];
           if (A[k][i] != 0) zero_check = false;
         }
         if (zero_check == true) {
@@ -152,6 +150,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
           exit(1);
         }
         update_matrices(dim, k, A, B, Mu);
+				m=0;
       }
     }
 		
@@ -172,24 +171,16 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
 				array[k][i] = B[k][i];
       }
       update_matrices(dim, k-1, A, B, Mu); 
-      k = fmax(k-1, 1);          
+      k = fmax(k-1, 1);  
+			m++;
     }
 		
-    m++;
     //printf("%d\n", m);
-    if (m % 10000000 == 0) { //need to improve this
-      printf("While loop failed\n");
+    if (m > (dim-1)*dim/2) { //need to improve this
+      printf("Error: While loop failed\n");
     	exit(1);
     }
   }
-	printf("shortest\n");
-	for (i=0; i<dim; i++) {
-		for (j=0; j<dim; j++) {
-			printf("%f, ", array[i][j]);
-		}
-		printf("\n");
-	}
-  printf("m: %d\n", m);
 }
   
   
