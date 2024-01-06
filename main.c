@@ -13,7 +13,7 @@
 
 int main(int argc, char **argv) {
   int dim, i, j, k;
-	double a = LLONG_MAX -1 + 0.9567834778923487;
+	double a = (double)LLONG_MAX -1 + 0.9567834778923487;
 	printf("%.4f\n", a*a);
 	exit(1);
   //printf("You have entered %d arguments:\n", argc);
