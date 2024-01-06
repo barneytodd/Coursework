@@ -212,7 +212,21 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
     //printf("%d\n", m);
     if (m % 10 == 0) { //need to improve this
       printf("While loop failed\n");
-        exit(1);
+			printf("A\n");
+	    for (i=0;i<dim;i++) {
+				for (j=0;j<dim;j++) {
+					printf("%.4f ", A[i][j]);
+				}
+				printf("\n");
+			}
+			printf("array\n");
+	    for (i=0;i<dim;i++) {
+				for (j=0;j<dim;j++) {
+					printf("%.4f ", array[i][j]);
+				}
+				printf("\n");
+			}
+    	exit(1);
     }
   }
 	printf("shortest\n");
