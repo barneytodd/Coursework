@@ -5,50 +5,6 @@
 #include <stdbool.h>
 #include <limits.h>
 
-double Multiply(double num1, double num2) {
-	printf("%.4f\n", num1);
-	if (num1<pow(10, 15) && num2<pow(10, 15)) {
-		return (num1)*(num2);
-	}
-	else {
-		int i, j;
-		char *str1 = (char *)malloc(16*sizeof(char));
-		char *str2 = (char *)malloc(1*sizeof(char));
-		int len1 = snprintf(str1, 16, "%.0f", fmax(num1, num2));
-		int len2 = snprintf(str1, 4, "%.0f", fmin(num1, num2));
-		if (len1 > 16) {
-			str1 = (char *)realloc(str1, (len1+1) * sizeof(char));
-        		snprintf(str1, len1+1, "%.0f", fmax(num1, num2)); 
-		}
-		if (len2 > 2) {
-			str2 = (char *)realloc(str2, (len2+1) * sizeof(char));
-        		snprintf(str2, len2+1, "%.0f", fmin(num1, num2)); 
-		}
-		char *result = (char *)malloc((len1+len2+2)*sizeof(char));
-		for (i=0; i<len1+len2+1; i++) {
-			result[i] = '0';
-		}
-		printf("str1: %s\t str2: %s\n", str1, str2);
-		int carry;
-		int current;
-		for (i=0; i<len2; i++) {
-			for (j=0; j<len1; j++) {
-				carry = 0;
-				current = (int)str2[i]*(int)str1[j]+result[i+j+1]+carry;
-				while (current >= 10) {
-					current -= 10;
-					carry ++;
-				}
-				result[i+j+1] = current + '0';
-				//snprintf(&result[i+j+1], 1, "%d", current);
-			}
-		}
-		return strtod(result, NULL);
-	}
-	
-}
-
-
 
 //compute the inner product between two vectors
 double InnerProduct(int dim, double *arr1, double *arr2) {
