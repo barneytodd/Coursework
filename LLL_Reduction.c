@@ -11,9 +11,9 @@ double Multiply(double num1, double num2) {
 		if (num1 - (long long int)num1 == 0.0) {
 			return (double)((long long int)num1 * (long long int)num2);
 		}
-		else {
-			continue;
-		}
+		//else {
+		//	continue;
+		//}
 	}
 }
 
