@@ -79,14 +79,14 @@ double LimitCalc(int dim, double **A) {
 
 //runs a test to check whether the shortest vector returned is a plausible solution or not
 //Deals with two cases: (a) the input matrix is an identity matrix or (b) it is not
-void runTests(int dim, double **A) { 
+void runTests(int dim, double **A, double **B, double *Mu) { 
     
     int i;
     double limit = LimitCalc(dim, A);
     
-    LLL(0.75, dim, A);
+    LLL(0.75, dim, A, B, Mu);
     printf("LLL completed\n");
-    double shortest_vector = ShortestVector1(dim, A);
+    double shortest_vector = ShortestVector1(dim, A, B, Mu);
 
     //true if the input matrix is an identity matrix
     bool unit_test = true;
@@ -139,14 +139,32 @@ int main() {
             exit(1);
         }                
     }
-    
+    double Mu[(dim-1)*dim/2]; //stores Mu values for GramSchmidt orthogonalisation
+  
+    double **B = (double **)malloc(dim * sizeof(double *)); //stores GS orthogonalised values
+    if (B == NULL) {
+        perror("Failed to allocate memory for the B matrix");
+        exit(1);
+    }
+    for (i=0; i<dim; i++) {
+      B[i] = (double *)malloc(dim * sizeof(double));
+      if (B[i] == NULL) {
+          for (j=0; j<i; j++) {
+              free(B[j]);
+          }
+          free(B);
+          perror("Failed to allocate memory for the rows of the input matrix");
+          exit(1);
+      }
+    }
+  
     //set A to be the dim x dim identity matrix
     for (i=0; i<dim; i++) { 
         A[i][i] = 1.0;
     }
     
     printf("Input matrix dim: %d, identity matrix\n", dim);
-    runTests(dim, A); 
+    runTests(dim, A, B, Mu); 
 
     //set the bounds for the values of the second matrix, and its dimension
     int min = -10000;
@@ -170,9 +188,10 @@ int main() {
             exit(1);
         }          
     }
-    srand(time(NULL));
+    
     
     //initialise A to a set of random doubles, sampled from U(min, max)
+    srand(time(NULL));
     for (i=0;i<dim;i++) {
         for (j=0;j<dim;j++) {
             A[i][j] = ((double)rand() / RAND_MAX) * (max-min) + min; 
@@ -180,7 +199,7 @@ int main() {
     }
 
     printf("Input matrix dim: %d, randomly generated matrix with values between %d and %d\n", dim, min, max);
-    runTests(dim, A);
+    runTests(dim, A, B, U);
 
     
     for (i=0;i<dim;i++) {
