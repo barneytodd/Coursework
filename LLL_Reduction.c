@@ -28,6 +28,7 @@ double Multiply(double num1, double num2) {
 		for (i=0; i<len1+len2+1; i++) {
 			result[i] = '0';
 		}
+		printf("str1: %s\t str2: %s\n", str1, str2);
 		int carry;
 		int current;
 		for (i=0; i<len2; i++) {
