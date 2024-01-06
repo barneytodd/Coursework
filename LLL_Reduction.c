@@ -228,7 +228,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
 				printf("\n");
 			}
 		}
-    if (m % 100 == 0) { //need to improve this
+    if (m % 30 == 0) { //need to improve this
       printf("While loop failed\n");
     	exit(1);
     }
