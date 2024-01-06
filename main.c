@@ -13,7 +13,7 @@
 
 int main(int argc, char **argv) {
   int dim, i, j, k;
-	double a = Multiply(3, 4);
+	double a = Multiply(371644562438531748585630085667746983470408244373580742281269821738816154869236300428137729771977309321210236491639933332.0, 6);
 	printf("%.4f\n", a);
 	exit(1);
   //printf("You have entered %d arguments:\n", argc);
