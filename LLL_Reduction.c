@@ -210,7 +210,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
 		
     m++;
     //printf("%d\n", m);
-    if (m % 10 == 0) { //need to improve this
+    if (m % 100 == 0) { //need to improve this
       printf("While loop failed\n");
 			printf("A\n");
 	    for (i=0;i<dim;i++) {
