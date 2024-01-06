@@ -142,15 +142,9 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
       if (fabs(Mu[(k-1)*k/2+j]) > 0.5) {
         zero_check = true;
         for (i=0; i<dim; i++) {
-		printf("%.4f\n", A[j][i]);
-		printf("%.4f\n", Multiply(round(Mu[(k-1)*k/2+j]), A[j][i]));
-		exit(1);
-					printf("k: %d, j: %d, A[k][i]: %.4f, round(Mu): %.1f, A[j][i]: %.4f, Mu*AJ: %.4f\n", k, j, A[k][i], round(Mu[(k-1)*k/2+j]), A[j][i], round(Mu[(k-1)*k/2+j]) * A[j][i]);
-					printf("array[k][i]: %.4f, array[j][i]: %.4f\n", array[k][i], array[j][i]);
+		
           A[k][i] -= round(Mu[(k-1)*k/2+j]) * A[j][i];
-					printf("A[k][i]: %.4f\n", A[k][i]);
 					array[k][i] -= round(Mu[(k-1)*k/2+j]) * array[j][i];
-					printf("array[k][i]: %.4f\n", array[k][i]);
           if (A[k][i] != 0) zero_check = false;
         }
         if (zero_check == true) {
@@ -183,40 +177,19 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
 		
     m++;
     //printf("%d\n", m);
-		if (m % 10 ==0) {
-			printf("A\n");
-	    for (i=0;i<1;i++) {
-				for (j=0;j<dim;j++) {
-					printf("%.4f ", A[i][j]);
-				}
-				printf("\n");
-			}
-			printf("array\n");
-	    for (i=0;i<1;i++) {
-				for (j=0;j<dim;j++) {
-					printf("%.4f ", array[i][j]);
-				}
-				printf("\n");
-			}
-		}
-    if (m % 30 == 0) { //need to improve this
+    if (m % 10000000 == 0) { //need to improve this
       printf("While loop failed\n");
     	exit(1);
     }
   }
 	printf("shortest\n");
 	for (i=0; i<dim; i++) {
-		printf("%f, ", array[0][i]);
+		for (j=0; j<dim; j++) {
+			printf("%f, ", array[i][j]);
+		}
+		printf("\n");
 	}
   printf("m: %d\n", m);
-  //for (i=0;i<dim;i++) {
-	//	for (j=0;j<dim;j++) {
-	//		printf("%.4f\t", B[i][j]);
-	//	}
-	//	printf("\n");
-	//}
-	//printf("Address of B after LLL function: %p\n", (void *)B);
-	//printf("dim: %d\n", dim);
 }
   
   
