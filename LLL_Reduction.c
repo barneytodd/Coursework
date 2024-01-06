@@ -16,6 +16,8 @@ double InnerProduct(int dim, double *arr1, double *arr2) {
   return sum1;
 }
 
+//checks if GS was successful, for large numbers floating point inaccuracy can cause GS vectors to not be orthogonal
+//requires cos(theta)<0.0001 for all pairs of GS vectors
 bool CheckOrth(int dim, int start, double **B) {
   int i, j, k;
   double mag1;
@@ -31,7 +33,6 @@ bool CheckOrth(int dim, int start, double **B) {
           B[j][k] /= mag2;
         }
         if (fabs(InnerProduct(dim, B[i], B[j])) > 0.0001) {
-          //printf("Failed: %.4f\n", fabs(InnerProduct(dim, B[i], B[j])));
 					for (k=0; k<dim; k++) {
 						B[j][k] *= mag2;
 						B[i][k] *= mag1;
@@ -52,13 +53,14 @@ bool CheckOrth(int dim, int start, double **B) {
 //compute GramSchmidt orthogonalisation without normalisation
 void GramSchmidt(int dim, int start, double **B, double *Mu) {
   int i, j, k; 
-  //double mu_ij;
   double vec1[dim]; //store values to subtract from initial vectors
   double mag1;
   double mag2;
-  bool orth_check = false;
-  while (!orth_check) {
-    orth_check = true;
+	
+  //bool orth_check = false;
+  //while (!orth_check) {
+    //orth_check = true;
+	
     //iterate through the initial vectors
     for (i=fmax(start, 1); i<dim; i++) { 
       mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
@@ -72,35 +74,24 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
         for (k=0;k<dim;k++) {
           B[j][k] /= mag2; //normalise before inner product
         }
-        //if (j<2 && i<3) {
-          //printf("j: %d\t", j);
-          //printf("ip check3: %.40f\n", InnerProduct(dim, B[i], B[j]) / InnerProduct(dim, B[j], B[j]) - B[i][0]/B[j][0]);
         
-          //for (k=0;k<5;k++) {
-            //printf("%.4f\t", B[i][k]);
-            //printf("%.4f\n", B[j][k]);
-          //}
-        //}
         Mu[(i-1)*i/2+j] = InnerProduct(dim, B[i], B[j]);///InnerProduct(dim, B[j], B[j]);
         for (k=0; k<dim; k++) {
           vec1[k] += Mu[(i-1)*i/2+j] * B[j][k] * mag1; //add the dot_product times the jth normalised vector 
           
           B[j][k]*=mag2;
-        }
-        
-        //if (j==0 && i<5) {
-        //  printf("mu_ij: %.40f\n", mu_ij);
-        //}
-        
-        
+        }      
       }
+			
       //subtract from the ith initial vector
       for (k=0; k<dim; k++) {
         B[i][k]*=mag1; //reset B[i] to unnormalised version
         B[i][k] -= vec1[k];
       }
     }
-	  orth_check = CheckOrth(dim, start, B);
+	
+	  //orth_check = CheckOrth(dim, start, B);
+	
   }
 }
   
@@ -116,13 +107,6 @@ void update_matrices(int dim, int start, double **A, double **B, double *Mu) {
   }
   
   GramSchmidt(dim, start, B, Mu);
-  //printf("Yes\n");
-  //for (i=0; i<dim; i++) {
-    //for (j=0; j<i; j++) {
-      //printf("%.4f\t", InnerProduct(dim, B[i], B[j]));
-    //}
-  //}
-  //printf("\n\n");
 }
 
 
