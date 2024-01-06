@@ -9,10 +9,10 @@ double Multiply(double num1, double num2) {
 	
 	if (num1<LLONG_MAX && num2<LLONG_MAX) {
 		if (num1 - (long long int)num1 == 0.0) {
-			return (double)((long long int)num1 * (long long int)num2)
+			return (double)((long long int)num1 * (long long int)num2);
 		}
 		else {
-			str1 = 
+			continue;
 		}
 	}
 }
