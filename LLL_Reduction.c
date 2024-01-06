@@ -92,7 +92,7 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
 	
 	  //orth_check = CheckOrth(dim, start, B);
 	
-  }
+  //}
 }
   
 //when A gets updated, recompute B to be the GramSchmidt orthogonalised version of the updated A
