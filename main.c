@@ -13,12 +13,6 @@
 
 int main(int argc, char **argv) {
   int dim, i, j, k;
-	double a = 371644562438531748585630085667746983470408244373580742281269821738816154869236300428137729771977309321210236491639933332.0;
-	double b = 6.0;
-	double c = Multiply(a, b);
-	printf("a: %.4f, b: %.4f, c: %.4f\n", a, b, c);
-	//exit(1);
-  //printf("You have entered %d arguments:\n", argc);
   if (argc>2) {
     for (i = 2; i < argc; i++) {
       if (argv[i][0] == '[') {
@@ -26,7 +20,6 @@ int main(int argc, char **argv) {
         break;
       }
     }
-    //printf("dim: %d\n", dim);
   }
   else {
     dim = argc-1;
@@ -107,13 +100,6 @@ int main(int argc, char **argv) {
     }
   }
   endptr = NULL;
-  //printf("A\n");
-  //for (i = 0; i < dim; i++) {
-  //  for (j=0; j < dim; j++) {
-  //    printf("%.4f\t", A[i][j]);
-  //  }
-  //  printf("\n");
-  //}
 
   printf("Vectors (A):\n");
   printf("[");
@@ -146,31 +132,17 @@ int main(int argc, char **argv) {
         exit(1);
     }
   }
-	//double B[dim][dim]; 
+	
 	for (i=0;i<dim;i++) {
 		for (j=0;j<dim;j++) {
 			printf("%.4f\t", B[i][j]);
 		}
 		printf("\n");
 	}
-
-	//for (i=0; i<dim; i++) {
-	//	for (j=0;j<dim;j++) {
-	//		B[i][j] = 0;
-	//	}
-	//}
 	
   //reduce the lattice basis using Lenstra–Lenstra–Lovász lattice reduction
-	printf("dim: %d\n", dim);
-	printf("Address of dim before LLL function: %p\n", (void *)&dim);
-	printf("Address of B before LLL function: %p\n", (void *)B);
   LLL(0.75, dim, A, B, Mu);
-	//dim = 10;
-	printf("%d\n", dim);
-	printf("Address of dim after LLL function: %p\n", (void *)&dim);
-	//exit(1);
 	
-  printf("Address of B after LLL function: %p\n", (void *)B);
   printf("Orthonormalized Vectors (A):\n");
   printf("[");
   for (int i = 0; i < dim; i++) {
@@ -184,27 +156,20 @@ int main(int argc, char **argv) {
       printf("], \n");
   }
 
-  for (i=0;i<dim;i++) {
-		for (j=0;j<dim;j++) {
-			printf("%.4f\t", B[i][j]);
-		}
-		printf("\n");
-	}
-  //exit(1);
   //compute lattice enumeration to find the shortest vector
   double shortest_length = ShortestVector1(dim, A, B, Mu);
   printf("shortest length: %.4f\n", shortest_length);
   //free the memory allocated for A
   for (i=0;i<dim;i++) {
     free(A[i]);
-    //free(B[i]);
+    free(B[i]);
     A[i] = NULL;
-    //B[i] = NULL;
+    B[i] = NULL;
   }
   free(A);
-  //free (B);
+  free (B);
   A = NULL;
-  //B=NULL;
+  B=NULL;
 
   //save the output to result.txt
   FILE *result = fopen("result.txt", "w");
