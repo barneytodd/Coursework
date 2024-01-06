@@ -114,34 +114,16 @@ void update_matrices(int dim, int start, double **A, double **B, double *Mu) {
 void LLL(double delta, int dim, double **A, double **B, double *Mu) {
   
   int i, j, k; //initialise variables i, j, k
-  //double B[dim][dim];
-  //set be to be equal to A
-  //for (i=0; i<dim; i++) { 
-  //  for (j=0; j<dim; j++) { 
-  //    B[i][j] = A[i][j]; 
-  //    } 
-  //}
-
-  //GramSchmidt orthogonslise B
-  //GramSchmidt(dim, 0, B); 
-  update_matrices(dim, 0, A, B, Mu);
-  //printf("B: \n");
-  //for (i=0; i<dim; i++) {
-    //for (j=0; j<dim; j++) {
-    //  printf("%.4f\t", B[i][j]);
-    //}
-    //printf("\n");
-  //}
-  
+  update_matrices(dim, 0, A, B, Mu); 
+    
   k = 1;
-  //double mu_kj;
-  //double mu_k_kminus1; 
   bool zero_check = false; //checks if any vectors are reduced to 0, this can happen if the input vectors are linearly dependent and can result in an infinite loop
-  //iterate through the LLL Reduction steps until:
-  //(B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k, and
-  //mu_kj<=0.5 for all k, j<k
   int m = 0;
 	double array[dim][dim];
+	//iterate through the LLL Reduction steps until:
+  //(B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k, and
+  //mu_kj<=0.5 for all k, j<k
+  
 	for (i=0;i<dim;i++) {
 		for (j=0; j<dim; j++) {
 			if (i==j) {
