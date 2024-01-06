@@ -6,7 +6,7 @@
 #include <limits.h>
 
 double Multiply(double num1, double num2) {
-	printf("%.4f\n", *num1);
+	printf("%.4f\n", num1);
 	if (num1<pow(10, 15) && num2<pow(10, 15)) {
 		return (num1)*(num2);
 	}
