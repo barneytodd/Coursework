@@ -174,7 +174,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
       if (fabs(Mu[(k-1)*k/2+j]) > 0.5) {
         zero_check = true;
         for (i=0; i<dim; i++) {
-					printf("k: %d, j: %d, A[k][i]: %.4f, round(Mu): %.1f, A[j][i]: %.4f, Mu*AJ: .4f\n", k, j, A[k][i], round(Mu[(k-1)*k/2+j]), A[j][i], round(Mu[(k-1)*k/2+j]) * A[j][i]);
+					printf("k: %d, j: %d, A[k][i]: %.4f, round(Mu): %.1f, A[j][i]: %.4f, Mu*AJ: %.4f\n", k, j, A[k][i], round(Mu[(k-1)*k/2+j]), A[j][i], round(Mu[(k-1)*k/2+j]) * A[j][i]);
 					printf("array[k][i]: %.4f, array[j][i]: %.4f\n", array[k][i], array[j][i]);
           A[k][i] -= round(Mu[(k-1)*k/2+j]) * A[j][i];
 					printf("A[k][i]: %.4f\n", A[k][i]);
