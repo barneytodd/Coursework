@@ -123,16 +123,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
 	//iterate through the LLL Reduction steps until:
   //(B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k, and
   //mu_kj<=0.5 for all k, j<k
-	for (i=0;i<dim;i++) {
-		for (j=0; j<dim; j++) {
-			if (i==j) {
-				array[i][i] = 1;
-			}
-			else {
-				array[i][j] = 0;
-			}
-		}
-	}
+
   while (k<dim) {
     //reduce the kth vector until for all j<k, mu_kj<=0.5
     for (j=k-1; j>=0; j--) {
@@ -165,9 +156,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
         A[k-1][i] = A[k][i];
         A[k][i] = B[k][i];
 
-				B[k][i] = array[k-1][i];
-				array[k-1][i] = array[k][i];
-				array[k][i] = B[k][i];
+				
       }
       update_matrices(dim, k-1, A, B, Mu); 
       k = fmax(k-1, 1);  
