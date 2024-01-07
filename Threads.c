@@ -51,7 +51,7 @@ void *Enumerate(void *args) {
 			sum3 += l[j];
 		}
 	  	if (thread_args->num == 3) {
-			printf("sum3: %.4f\n", sum3);
+			printf("sum3: %.4f, %d\n", sum3, i);
 			printf("l[8]: %.4f, l[9]: %.4f\n", l[8], l[9]);
 		}
 		
