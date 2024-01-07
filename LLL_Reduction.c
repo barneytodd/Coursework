@@ -94,10 +94,9 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
         Mu[(i-1)*i/2+j] = InnerProduct(dim, B[i], B[j])*mag1;///InnerProduct(dim, B[j], B[j]);
         for (k=0; k<dim; k++) {
           vec1[k] += Mu[(i-1)*i/2+j] * B[j][k]; //add the dot_product times the jth normalised vector 
-          
-	B[j][k]*=mag2;
+					B[j][k]*=mag2;
         } 
-	Mu[(i-1)*i/2+j] /= mag2;     
+				Mu[(i-1)*i/2+j] /= mag2;     
       }
 			
       //subtract from the ith initial vector
@@ -154,7 +153,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
         }
         if (zero_check == true) {
           printf("Error: input vectors are linearly dependent\n");
-					FreeMemory(dim, 2, A, B);
+					FreeMemory(dim, A, B, Mu);
           exit(1);
         }
         update_matrices(dim, k, A, B, Mu);
@@ -185,7 +184,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
 		//therefore any more than this without reducing any of the vectors means an error has occured
     if (m > (dim-1)*dim/2) { 
       printf("Error: While loop failed\n");
-			FreeMemory(dim, 2, A, B);
+			FreeMemory(dim, A, B, Mu);
     	exit(1);
     }
   }
