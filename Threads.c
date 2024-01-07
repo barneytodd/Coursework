@@ -145,6 +145,7 @@ void *Enumerate(void *args) {
 			exit(1);
 	  }
   }
+	printf("%d terminated\n", thread_args->num);
   pthread_exit(NULL);
 }
 
