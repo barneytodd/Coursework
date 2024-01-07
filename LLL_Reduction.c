@@ -10,9 +10,13 @@ void FreeMemory(int dim, double **A, double **B) {
 	for (i=0; i<dim; i++) {
 		free(A[i]);
 		free(B[i]);
+		A[i] = NULL;
+		B[i] = NULL;
 	}
 	free(A);
 	free(B);
+	A = NULL;
+	B = NULL;
 }
 
 
