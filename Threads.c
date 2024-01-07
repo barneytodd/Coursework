@@ -35,6 +35,7 @@ void *Enumerate(void *args) {
 	//max_num may get updated by the other threads
 	//in the case that max_num falls below num, we can exit this thread
   while (*thread_args->max_num > thread_args->num) { 
+		double short_vec = *(thread_args->shortest_vector);
 		//calculate the l[j] values from i upwards
 		if (thread_args->num == 3) {
 			printf("i: %d\n", i);
@@ -111,11 +112,17 @@ void *Enumerate(void *args) {
 		//if sum3 > shortest_vector^2, increase i by 1 and then increase x[i] by 1
 		else {
 			i++;
+			if (i==thread_args->dim-1) {
+				if (short_vec == *(thread_args->shortest_vector)) {
+					break;
+				}
+				else {
+					x[i]--;
+				}
+			}
 			x[i]++;
 			//if we reach the point of incrementing x[dim-1], then we have tested all possibilities with x[dim-1] = num, therefore we can exit the thread
-			if (i==thread_args->dim-1) {
-				break;
-			}
+			
 		}
 		m++;
 	  	if (thread_args->num == 3) {
