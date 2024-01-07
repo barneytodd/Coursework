@@ -72,7 +72,7 @@ double LimitCalc(int dim, double **A) {
     if (!det_check) {
         det = pow(fabs(det), 1.0/dim);
     }
-    return 1.05*(pow(gamma, 1.0/dim)/sqrt(M_PI))*det;
+    return 1.2*(pow(gamma, 1.0/dim)/sqrt(M_PI))*det;
 }
 
 
