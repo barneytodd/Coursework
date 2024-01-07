@@ -50,6 +50,11 @@ void *Enumerate(void *args) {
 		for (j=i; j<thread_args->dim; j++) {
 			sum3 += l[j];
 		}
+	  	if (thread_args->num == 3) {
+			printf("sum3: %.4f\n", sum3);
+			printf("sv: %.4f\n", *(thread_args->shortest_vector));
+			printf("sv2: .4f\n", (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector)));
+		}
 		
 		if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) {
 			//if i=0 and sum3 < (current shortest vector length)^2, we have a new shortest vector
