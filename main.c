@@ -1,6 +1,5 @@
 #include "LLL_Reduction.h"
-//#include "Enumeration.h"
-#include "Threads.h"
+#include "Enumeration.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -150,7 +149,7 @@ int main(int argc, char **argv) {
   }
 
   //compute lattice enumeration to find the shortest vector
-  double shortest_length = ShortestVector1(dim, A, B, Mu);
+  double shortest_length = ShortestVector(dim, A, B, Mu);
   printf("shortest length: %.4f\n", shortest_length);
   //free the memory allocated for A
   for (i=0;i<dim;i++) {
