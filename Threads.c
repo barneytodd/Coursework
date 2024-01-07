@@ -179,7 +179,7 @@ double ShortestVector1(int dim, double **A, double **B, double *Mu) {
 		for (j=0;j<i;j++) {
 			printf("%.4f ", Mu[(i-1)*i/2+j]);
 		}
-		printf("\n")
+		printf("\n");
 	}
 	
 	printf("GS\n");
