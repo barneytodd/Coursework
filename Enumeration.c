@@ -1,4 +1,5 @@
 #include "GeneralFunctions.h"
+#include "Enumeration.c"
 #include <math.h>
 #include <stdio.h>
 #include <pthread.h>
