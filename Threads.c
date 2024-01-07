@@ -36,7 +36,10 @@ void *Enumerate(void *args) {
 	//in the case that max_num falls below num, we can exit this thread
   while (*thread_args->max_num > thread_args->num) { 
 		//calculate the l[j] values from i upwards
-		for (j=thread_args->dim-1; j>=i; j--) { 
+		if (thread_args->num == 3) {
+			printf("i: %d\n", i);
+		}
+	  	for (j=thread_args->dim-1; j>=i; j--) { 
 			sum2 = 0;
 			//sum the contribution of each vector in the direction of the ith GS vector 
 			for (k=j+1; k<thread_args->dim; k++) {
