@@ -136,8 +136,6 @@ int main() {
             exit(1);
         }                
     }
-    double Mu[(dim-1)*dim/2]; //stores Mu values for GramSchmidt orthogonalisation
-  
     double **B = (double **)malloc(dim * sizeof(double *)); //stores GS orthogonalised values
     if (B == NULL) {
         perror("Failed to allocate memory for the B matrix");
@@ -156,6 +154,10 @@ int main() {
           exit(1);
       }
     }
+    
+    double *Mu = (double *)malloc((dim-1)*dim/2 * sizeof(double)]; //stores Mu values for GramSchmidt orthogonalisation
+  
+    
   
     //set A to be the dim x dim identity matrix
     for (i=0; i<dim; i++) { 
@@ -174,6 +176,7 @@ int main() {
     A = realloc(A, dim * sizeof(double *));
     if (A==NULL) {
         perror("Failed to reallocate memory for the input matrix");
+        FreeMemory(dim, 1, A, B);
         exit(1);
     }
     for (i=0;i<dim;i++) {
@@ -182,12 +185,31 @@ int main() {
             for (j=0;j<i;j++) {
                 free(A[j]);
             }
+            FreeMemory(dim, 1, A, B);
             free(A);
             perror("Failed to reallocate memory for the rows of the input matrix");
             exit(1);
         }          
     }
     
+    double **B = (double **)realloc(dim * sizeof(double *)); //stores GS orthogonalised values
+    if (B == NULL) {
+        perror("Failed to allocate memory for the B matrix");
+        FreeMemory(dim, 0, A, B);
+        exit(1);
+    }
+    for (i=0; i<dim; i++) {
+      B[i] = (double *)realloc(dim * sizeof(double));
+      if (B[i] == NULL) {
+          for (j=0; j<i; j++) {
+              free(B[j]);
+          }
+          FreeMemory(dim, 0, A, B);
+          free(B);
+          perror("Failed to allocate memory for the rows of the input matrix");
+          exit(1);
+      }
+    }
     
     //initialise A to a set of random doubles, sampled from U(min, max)
     srand(time(NULL));
