@@ -109,11 +109,11 @@ void *Enumerate(void *args) {
 			}
 		}
 	  m++;
-	  if (m > max_its) {
+	  //if (m > max_its) {
 			//need to think about this
-		  printf("thread: %d, infinite while loop\n", thread_args->num);
-			exit(1);
-	  }
+	//	  printf("thread: %d, infinite while loop\n", thread_args->num);
+	//		exit(1);
+	  //}
   }
   pthread_exit(NULL);
 }
