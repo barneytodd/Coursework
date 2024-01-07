@@ -142,6 +142,7 @@ void *Enumerate(void *args) {
 		printf("\n");
 		m++;
 	  if (m > max_its) {
+		  printf("yes\n");
 			exit(1);
 	  }
   }
