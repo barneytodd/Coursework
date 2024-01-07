@@ -69,7 +69,6 @@ double LimitCalc(int dim, double **A) {
     bool det_check = false; //checks whether determinant has alredy been raised to the power of 1/dim
     double gamma = tgamma((float)dim/2 + 1);
     double det = Determinant(dim, A, &det_check);
-    printf("det_check: %d\n", det_check);
     if (!det_check) {
         det = pow(fabs(det), 1.0/dim);
     }
