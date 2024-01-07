@@ -180,7 +180,6 @@ double ShortestVector1(int dim, double **A, double **B, double *Mu) {
 		printf("\n");
 	}
 	
-	printf("GS\n");
 	int max_num = floor(shortest_vector/pow(GS_norms[dim-1], 0.5)); //maximum possible value for x[dim-1]
 	printf("max_num: %d\n", max_num);
 	pthread_t threads[max_num];
