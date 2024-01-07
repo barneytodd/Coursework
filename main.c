@@ -59,6 +59,7 @@ int main(int argc, char **argv) {
 				for (j=0; j<i; j++) {
 						free(B[j]);
 				}
+				FreeMemory(dim, 0, A, B);
 				free(B);
 				perror("Failed to allocate memory for the rows of the input matrix");
 				exit(1);
@@ -76,14 +77,14 @@ int main(int argc, char **argv) {
       if (j == 0) {
         if (argv[k][0] != '[') {
           printf("Error: Incorrect input format\nExpected format for start of vector: '[number'\nInput format: '%s'\n", argv[1]);
-					FreeMemory(dim, A, B);
+					FreeMemory(dim, 2, A, B);
           exit(1);
         }
         A[i][j] = strtod(&argv[k][1], &endptr); 
         //check the format of 1 dimensional inputs
         if (dim==1 && strcmp(endptr, "]") != 0) {
           printf("Error: Incorrect input format\nDimension = 1\nExpected format: '[number]'\nInput format: '%s'\n", argv[1]);
-					FreeMemory(dim, A, B);
+					FreeMemory(dim, 2, A, B);
           exit(1);
         }
         else if (dim==1) {
@@ -98,12 +99,12 @@ int main(int argc, char **argv) {
         }
         else if (strcmp(endptr, "") == 0) {
           printf("Error: Incorrect input format\nVector %d has too many elements\nExpected: %d elements\n", i+1, dim);
-					FreeMemory(dim, A, B);
+					FreeMemory(dim, 2, A, B);
           exit(1);
         }
         else {
           printf("Error: Incorrect input format\nExpected format for end of vector: 'number]'\nInput format: '%s'\n", argv[k]);
-					FreeMemory(dim, A, B);
+					FreeMemory(dim, 2, A, B);
           exit(1);
         }
       }
@@ -113,12 +114,12 @@ int main(int argc, char **argv) {
       }
       if (strcmp(endptr, "]") == 0) {
         printf("Error: Incorrect input format\nExpected square matrix\nVector %d is of length %d, should be length %d\n", i+1, j+1, dim);
-				FreeMemory(dim, A, B);
+				FreeMemory(dim, 2, A, B);
         exit(1);
       }
       else if (strcmp(endptr, "") != 0) {
         printf("Error: Incorrect input format\nExpected format for all but the last entry of each vector: 'number' or '[number'\nInput format: '%s'\n", argv[k]);
-				FreeMemory(dim, A, B);
+				FreeMemory(dim, 2, A, B);
         exit(1);
       }
     }
@@ -160,16 +161,7 @@ int main(int argc, char **argv) {
   double shortest_length = ShortestVector(dim, A, B, Mu);
   printf("shortest length: %.4f\n", shortest_length);
   //free the memory allocated for A
-  for (i=0;i<dim;i++) {
-    free(A[i]);
-    free(B[i]);
-    A[i] = NULL;
-    B[i] = NULL;
-  }
-  free(A);
-  free (B);
-  A = NULL;
-  B=NULL;
+  FreeMemory(dim, 2, A, B);
 
   //save the output to result.txt
   FILE *result = fopen("result.txt", "w");
