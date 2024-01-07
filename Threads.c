@@ -60,14 +60,16 @@ void *Enumerate(void *args) {
 			if (i==0) {
 				if (sum3 != 0) {
 					pthread_mutex_lock(thread_args->lock);
-					*(thread_args->shortest_vector) = sqrt(sum3);
-					printf("shortest_vector: %.4f\n", *(thread_args->shortest_vector));
-					for (j=0; j<thread_args->dim; j++) {
-						printf("%d\t", x[j]);
+					if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) {
+						*(thread_args->shortest_vector) = sqrt(sum3);
+						printf("shortest_vector: %.4f\n", *(thread_args->shortest_vector));
+						for (j=0; j<thread_args->dim; j++) {
+							printf("%d\t", x[j]);
+						}
+						printf("\n");
+						*(thread_args->max_num) = floor(*(thread_args->shortest_vector)/pow(thread_args->GS_norms[thread_args->dim-1], 0.5));
+						printf("max x[dim-1]: %d\n", *(thread_args->max_num));
 					}
-					printf("\n");
-					*(thread_args->max_num) = floor(*(thread_args->shortest_vector)/pow(thread_args->GS_norms[thread_args->dim-1], 0.5));
-					printf("max x[dim-1]: %d\n", *(thread_args->max_num));
 					pthread_mutex_unlock(thread_args->lock);
 				}
 				x[0]++;
