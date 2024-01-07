@@ -107,6 +107,7 @@ void *Enumerate(void *args) {
 		else {
 			//if shortest_vector has been changed by another thread, we need to perform some checks
 			if (short_vec != *(thread_args->shortest_vector)) {
+				short_vec = *(thread_args->shortest_vector);
 				printf("yes\n");
 				l[thread_args->dim-2] = pow(x[thread_args->dim-2] + x[thread_args->dim-1] * thread_args->Mu[(k-1)*k/2+j], 2)*thread_args->GS_norms[thread_args->dim-2]; 
 
