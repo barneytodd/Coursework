@@ -156,10 +156,10 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 
 	//check the size of A, B and Mu
 	for (i = 0; i < dim; ++i) {
-		if (A[i] == NULL || B[i] == NULL || sizeof(A[i])/sizeof(A[i][0]) != dim || sizeof(B[i])/sizeof(B[i][0]) != dim || i=0 && sizeof(Mu)/sizeof(Mu[0]) != (dim-1)*dim/2) {
+		if (A[i] == NULL || B[i] == NULL) {
 			printf("Error: Input matrices for ShortestVector do not have the correct dimensions");
-			FreeMatrix(dim, &A);
-			FreeMatrix(dim, &B);
+			FreeMatrix(i, &A);
+			FreeMatrix(i, &B);
 			free(Mu);
 			Mu = NULL;		
 			exit(1);
