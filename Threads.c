@@ -53,7 +53,7 @@ void *Enumerate(void *args) {
 	  	if (thread_args->num == 3) {
 			printf("sum3: %.4f\n", sum3);
 			printf("sv: %.4f\n", *(thread_args->shortest_vector));
-			printf("sv2: .4f\n", (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector)));
+			printf("sv2: .4f\n", *(thread_args->shortest_vector)**(thread_args->shortest_vector));
 		}
 		
 		if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) {
