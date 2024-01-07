@@ -83,8 +83,7 @@ void runTests(int dim, double **A, double **B, double *Mu) {
     double limit = LimitCalc(dim, A);
     
     LLL(0.75, dim, A, B, Mu);
-    printf("LLL completed\n");
-    double shortest_vector = ShortestVector1(dim, A, B, Mu);
+    double shortest_vector = ShortestVector(dim, A, B, Mu);
 
     //true if the input matrix is an identity matrix
     bool unit_test = true;
