@@ -114,11 +114,12 @@ void *Enumerate(void *args) {
 				printf("%d ", x[i]);
 			}
 			printf("\n");
-		}
+		
 		  if (m > 100) {
 				//need to think about this
 		//	  printf("thread: %d, infinite while loop\n", thread_args->num);
 				exit(1);
+		  }
 	  }
   }
   pthread_exit(NULL);
