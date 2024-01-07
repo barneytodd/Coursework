@@ -139,7 +139,7 @@ void *Enumerate(void *args) {
 		m+=1;
 	  if (m > max_its) {
 			printf("Error: Enumeration loop for thread %d failed\n", thread_args->num);
-		  FreeMemory(thread_args->dim, A, B);
+		  FreeMemory(thread_args->dim, 2, A, B);
 			exit(1);
 	  }
   }
@@ -154,7 +154,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 	for (i = 0; i < dim; ++i) {
 		if (A[i] == NULL || B[i] == NULL || sizeof(A[i])/sizeof(A[i][0]) != dim || sizeof(B[i])/sizeof(B[i][0]) != dim || i=0 && sizeof(Mu)/sizeof(Mu[0]) != (dim-1)*dim/2) {
 			printf("Error: Input matrices for ShortestVector do not have the correct dimensions");
-			FreeMemory(dim, A, B);
+			FreeMemory(dim, 2, A, B);
 			exit(1);
 		}
 	}
@@ -185,7 +185,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 	pthread_mutex_t lock;
 	if (pthread_mutex_init(&lock, NULL) != 0) {
 		printf("Error: Mutex initialization failed\n");
-		FreeMemory(dim, A, B);
+		FreeMemory(dim, 2, A, B);
 		exit(1);
   }
 	
@@ -202,7 +202,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 		args[i].lock = &lock;
 		if (pthread_create(&threads[i], NULL, &Enumerate, (void *)&args[i]) != 0) {
 			printf("Error creating thread %d\n", i);
-			FreeMemory(dim, A, B);
+			FreeMemory(dim, 2, A, B);
 			exit(1);
 		}
 		//printf("Thread: %d\n", i);
