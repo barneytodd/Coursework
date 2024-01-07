@@ -37,23 +37,42 @@ int main(int argc, char **argv) {
   for (i=0; i<dim; i++) {
     A[i] = (double *)malloc(dim * sizeof(double));
     if (A[i] == NULL) {
-        FreeMemoryA(i, A);
-        perror("Failed to allocate memory for the rows of the input matrix");
-        exit(1);
+        for (j=0; j<dim, j++) {
+				free(A[j]);
+				A[j] = NULL;
+			}
+			free(A);
+			A = NULL;	
+			perror("Failed to allocate memory for the rows of the input matrix");
+			exit(1);
     }
   }
 	
 	double **B = (double **)malloc(dim * sizeof(double *)); //stores GS orthogonalised values
 	if (B == NULL) {
 			perror("Failed to allocate memory for the B matrix");
-			FreeMemoryA(dim, A);
+			for (i=0; i<dim, i++) {
+				free(A[i]);
+				A[i] = NULL;
+			}
+			free(A);
+			A = NULL;	
 			exit(1);
 	}
 	for (i=0; i<dim; i++) {
 		B[i] = (double *)malloc(dim * sizeof(double));
 		if (B[i] == NULL) {
-				FreeMemoryA(dim, A);
-				FreeMemoryB(i, B);
+				for (j=0; j<dim, j++) {
+					if (j<i) {
+						free(B[j]);
+						B[j] = NULL;
+					}
+					free(A[j]);
+					A[j] = NULL;
+				}
+				free(A);
+				free(B);
+				A = B = NULL;	
 				perror("Failed to allocate memory for the rows of B");
 				exit(1);
 		}
@@ -61,8 +80,14 @@ int main(int argc, char **argv) {
 	
 	double *Mu = (double *)malloc((dim-1)*dim/2 * sizeof(double *)); //stores Mu values for GramSchmidt orthogonalisation
 	if (Mu == NULL) {
-		FreeMemoryA(dim, A);
-		FreeMemoryB(dim, B);
+		for (j=0; j<dim, j++) {
+			free(A[j]);
+			free(B[j]);
+			A[j] = B[j] = NULL;
+		}
+		free(A);
+		free(B);
+		A = B = NULL;	
 		perror("Failed to allocate memory for Mu");
 		exit(1);
 	}
