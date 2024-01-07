@@ -109,17 +109,17 @@ void *Enumerate(void *args) {
 			}
 		}
 		m++;
-	  	//if (thread_args->num == 3) {
-		  	//for (i=0; i<thread_args->dim; i++) {
-				//printf("%d ", x[i]);
-			//}
-			//printf("\n");
-		//}
-		  //if (m > max_its) {
+	  	if (thread_args->num == 3) {
+		  	for (i=0; i<thread_args->dim; i++) {
+				printf("%d ", x[i]);
+			}
+			printf("\n");
+		}
+		  if (m > 100) {
 				//need to think about this
 		//	  printf("thread: %d, infinite while loop\n", thread_args->num);
-		//		exit(1);
-	  //}
+				exit(1);
+	  }
   }
   pthread_exit(NULL);
 }
