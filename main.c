@@ -51,6 +51,7 @@ int main(int argc, char **argv) {
 	double **B = (double **)malloc(dim * sizeof(double *)); //stores GS orthogonalised values
 	if (B == NULL) {
 			perror("Failed to allocate memory for the B matrix");
+			FreeMemory(dim, 0, A, B);
 			exit(1);
 	}
 	for (i=0; i<dim; i++) {
