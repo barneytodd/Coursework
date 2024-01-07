@@ -5,6 +5,16 @@
 #include <stdbool.h>
 #include <limits.h>
 
+void FreeMemory(int dim, double **A, double **B) {
+	int i;
+	for (i=0; i<dim; i++) {
+		free(A[i]);
+		free(B[i]);
+	}
+	free(A);
+	free(B);
+}
+
 
 //compute the inner product between two vectors
 double InnerProduct(int dim, double *arr1, double *arr2) {
