@@ -114,7 +114,9 @@ void *Enumerate(void *args) {
 		else {
 			i++;
 			if (i==thread_args->dim-1) {
-				printf("short_vec 2: %.4f, sv: %.4f\n", short_vec, *(thread_args->shortest_vector));
+				if (thread_args->num == 3) {
+					printf("short_vec 2: %.4f, sv: %.4f\n", short_vec, *(thread_args->shortest_vector));
+				}
 				if (short_vec == *(thread_args->shortest_vector)) {
 					break;
 				}
