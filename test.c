@@ -157,8 +157,8 @@ int main() {
     
     double *Mu = (double *)malloc((dim-1)*dim/2 * sizeof(double)); //stores Mu values for GramSchmidt orthogonalisation
     if (Mu == NULL) {
-		FreeMatrix(dim, A);
-		FreeMatrix(dim, B);
+		FreeMatrix(dim, &A);
+		FreeMatrix(dim, &B);
 		perror("Failed to allocate memory for Mu");
 		exit(1);
 	}
@@ -182,8 +182,7 @@ int main() {
     A = realloc(A, dim * sizeof(double *));
     if (A==NULL) {
         perror("Failed to reallocate memory for the input matrix");
-        FreeMatrix(i, &A);
-				FreeMatrix(i, &B);
+				FreeMatrix(dim, &B);
 				free(Mu);
 				Mu = NULL;
         exit(1);
@@ -192,7 +191,7 @@ int main() {
         A[i] = (double *)realloc(A[i], dim * sizeof(double));
         if (A[i]==NULL) {
             FreeMatrix(i, &A);
-						FreeMatrix(i, &B);
+						FreeMatrix(dim, &B);
 						free(Mu);
 						Mu = NULL;
             perror("Failed to reallocate memory for the rows of the input matrix");
@@ -203,14 +202,18 @@ int main() {
     double **B = (double **)realloc(dim * sizeof(double *)); //stores GS orthogonalised values
     if (B == NULL) {
         perror("Failed to reallocate memory for the B matrix");
-        FreeMemoryA(dim, A);
+        FreeMatrix(dim, &A);
+				free(Mu);
+				Mu = NULL;
         exit(1);
     }
     for (i=0; i<dim; i++) {
       B[i] = (double *)realloc(dim * sizeof(double));
       if (B[i] == NULL) {
-          FreeMemoryA(dim, A);
-          FreeMemoryB(i, B);
+          FreeMatrix(dim, &A);
+					FreeMatrix(i, &B);
+					free(Mu);
+					Mu = NULL;
           perror("Failed to reallocate memory for the rows of the input matrix");
           exit(1);
       }
@@ -218,8 +221,8 @@ int main() {
 
     double *Mu = (double *)realloc((dim-1)*dim/2 * sizeof(double)); //stores Mu values for GramSchmidt orthogonalisation
     if (Mu == NULL) {
-		FreeMemoryA(dim, A);
-		FreeMemoryB(dim, B);
+		FreeMatrix(dim, &A);
+		FreeMatrix(dim, &B);
 		perror("Failed to reallocate memory for Mu");
 		exit(1);
 	}
@@ -236,6 +239,9 @@ int main() {
     runTests(dim, A, B, Mu);
 
     
-    FreeMemory(dim, A, B, Mu);
+    FreeMatrix(dim, &A);
+		FreeMatrix(dim, &B);
+		free(Mu);
+		Mu = NULL;
     return 0;
 }
