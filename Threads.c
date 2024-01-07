@@ -30,7 +30,7 @@ void *Enumerate(void *args) {
   double sum2; //stores the sum of x[j] * Mu[j][i] for j>i
   double sum3; //stores the sum (j>i) of the l[j] values
   int m = 0;
-	int max_its = pow(2, dim); //an estimate of the maximum number of iterations required
+	int max_its = pow(2, thread_args->dim); //an estimate of the maximum number of iterations required
 	
 	//max_num may get updated by the other threads
 	//in the case that max_num falls below num, we can exit this thread
@@ -109,7 +109,7 @@ void *Enumerate(void *args) {
 			}
 		}
 	  m++;
-	  if (m > max) {
+	  if (m > max_its) {
 			//need to think about this
 		  printf("thread: %d, infinite while loop\n", thread_args->num);
 			exit(1);
