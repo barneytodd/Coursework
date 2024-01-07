@@ -98,7 +98,7 @@ void runTests(int dim, double **A, double **B, double *Mu) {
     if (unit_test) {
         printf("For Dimension: %d Expected: %.4f Got: %.4f\n", dim, 1.0, shortest_vector);
         if(shortest_vector != 1.0) {
-            FreeMemory(dim, A, B);
+            FreeMemory(dim, A, B, Mu);
         }
         assert(shortest_vector == 1.0);
     }
@@ -108,7 +108,7 @@ void runTests(int dim, double **A, double **B, double *Mu) {
     else {
         printf("For Dimension: %d Upper bound estimate: %.4f Got: %.4f\n", dim, limit, shortest_vector);
         if(shortest_vector > limit) {
-            FreeMemory(dim, A, B);
+            FreeMemory(dim, A, B, Mu);
         }
         assert(shortest_vector <= limit);
     }
@@ -139,7 +139,7 @@ int main() {
     double **B = (double **)malloc(dim * sizeof(double *)); //stores GS orthogonalised values
     if (B == NULL) {
         perror("Failed to allocate memory for the B matrix");
-        FreeMemory(dim, 0, A, B);
+        FreeMemoryA(dim, A);
         exit(1);
     }
     for (i=0; i<dim; i++) {
@@ -148,14 +148,15 @@ int main() {
           for (j=0; j<i; j++) {
               free(B[j]);
           }
-          FreeMemory(dim, 0, A, B);
+          FreeMemoryA(dim, A);
           free(B);
           perror("Failed to allocate memory for the rows of the input matrix");
           exit(1);
       }
     }
     
-    double *Mu = (double *)malloc((dim-1)*dim/2 * sizeof(double)]; //stores Mu values for GramSchmidt orthogonalisation
+    double *Mu = (double *)malloc((dim-1)*dim/2 * sizeof(double)); //stores Mu values for GramSchmidt orthogonalisation
+    
   
     
   
