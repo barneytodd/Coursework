@@ -1,7 +1,8 @@
+#include "LLL_Reduction.h"
+#include "GeneralFunctions.h"
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-#include "LLL_Reduction.h"
 #include <stdbool.h>
 #include <limits.h>
 
