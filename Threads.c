@@ -44,7 +44,9 @@ void *Enumerate(void *args) {
 			}
 			l[j] = (x[j] + sum2) * (x[j] + sum2) * thread_args->GS_norms[j]; 	
 		}
-
+		if (thread_args->num == 3) {
+			printf("i: %d\n", i);
+		}
 		//sum the l[j] values for j>=i
 		sum3 = 0;
 		for (j=i; j<thread_args->dim; j++) {
