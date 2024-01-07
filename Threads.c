@@ -142,7 +142,7 @@ void *Enumerate(void *args) {
 		printf("\n");
 		m++;
 	  if (m > max_its) {
-		  printf("yes\n");
+		  printf("yes\n max_its: %.4f\n", max_its);
 			exit(1);
 	  }
   }
