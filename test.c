@@ -98,7 +98,7 @@ void runTests(int dim, double **A, double **B, double *Mu) {
     if (unit_test) {
         printf("For Dimension: %d Expected: %.4f Got: %.4f\n", dim, 1.0, shortest_vector);
         if(shortest_vector != 1.0) {
-            printf("Expected %.4f, got %.4f\n", 1.0, shortest_vector);
+            FreeMemory(dim, A, B);
         }
         assert(shortest_vector == 1.0);
     }
@@ -108,7 +108,7 @@ void runTests(int dim, double **A, double **B, double *Mu) {
     else {
         printf("For Dimension: %d Upper bound estimate: %.4f Got: %.4f\n", dim, limit, shortest_vector);
         if(shortest_vector > limit) {
-            printf("Upper bound estimate %.4f, got %.4f\n", limit, shortest_vector);
+            FreeMemory(dim, A, B);
         }
         assert(shortest_vector <= limit);
     }
