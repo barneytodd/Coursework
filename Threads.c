@@ -147,7 +147,7 @@ void *Enumerate(void *args) {
 
 //Enumerate the lattice to find the shortest vector
 double ShortestVector1(int dim, double **A, double **B, double *Mu) {
-	int i;
+	int i, j;
 	
 	for (i = 0; i < dim; ++i) {
 		if (A[i] == NULL) {
@@ -175,6 +175,13 @@ double ShortestVector1(int dim, double **A, double **B, double *Mu) {
 		GS_norms[i] = InnerProduct(dim, B[i], B[i]);
 	}
 
+	for (i=0;i<dim;i++) {
+		for (j=0;j<i;j++) {
+			printf("%.4f ", Mu[(i-1)*i/2+j]);
+		}
+		printf("\n")
+	}
+	
 	printf("GS\n");
 	int max_num = floor(shortest_vector/pow(GS_norms[dim-1], 0.5)); //maximum possible value for x[dim-1]
 	printf("max_num: %d\n", max_num);
@@ -202,7 +209,7 @@ double ShortestVector1(int dim, double **A, double **B, double *Mu) {
 			printf("Error creating thread\n");
 			exit(1);
 		}
-		printf("Thread: %d\n", i);
+		//printf("Thread: %d\n", i);
 		count++;
 	}
 	
