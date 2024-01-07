@@ -31,7 +31,7 @@ void *Enumerate(void *args) {
 	
   double sum2; //stores the sum of x[j] * Mu[j][i] for j>i
   double sum3; //stores the sum (j>i) of the l[j] values
-  int m = 0; //counts the number of iterations of the while loop
+  double m = 0.0; //counts the number of iterations of the while loop, needs to be double in case num iterations > max int
 	double max_its = pow(2.0, thread_args->dim); //an estimate of the maximum number of iterations required
 	
 	double short_vec = *(thread_args->shortest_vector); //keep the value of the shortest_vector, we may need to adjust when it gets changed
@@ -136,11 +136,7 @@ void *Enumerate(void *args) {
 			}
 			x[i]++;
 		}
-		for (j=0; j<thread_args->dim; j++) {
-			printf("%d ", x[j]);
-		}
-		printf("\n");
-		m++;
+		m+=1;
 	  if (m > max_its) {
 		  printf("yes\n max_its: %.4f\n", max_its);
 			exit(1);
