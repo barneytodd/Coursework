@@ -169,7 +169,6 @@ double ShortestVector1(int dim, double **A, double **B, double *Mu) {
 	printf("shortest basis vector: %.4f\n", shortest_vector);
 	
 	double GS_norms[dim]; //stores the norm of each GramSchidt orthogonalised vector
-	update_matrices(dim, 0, A, B, Mu);
 	for (i=0;i<dim;i++) {
 		GS_norms[i] = InnerProduct(dim, B[i], B[i]);
 	}
