@@ -24,7 +24,8 @@ void *Enumerate(void *args) {
   for (i=0; i<thread_args->dim-1; i++) {
     x[i] = 0;
   }
-	
+
+	//set x[dim-1] to the thread number, and start with i = dim1
   x[thread_args->dim-1] = thread_args->num;
   i = thread_args->dim-1;
 	
@@ -33,11 +34,10 @@ void *Enumerate(void *args) {
   int m = 0; //counts the number of iterations of the while loop
 	int max_its = pow(2, thread_args->dim); //an estimate of the maximum number of iterations required
 	
+	double short_vec = *(thread_args->shortest_vector); //keep the value of the shortest_vector, we may need to adjust when it gets changed
+	
 	//max_num may get updated by the other threads
 	//in the case that max_num falls below num, we can exit this thread
-	
-	double short_vec = *(thread_args->shortest_vector); //keep the value of the shortest_vector, we may need to adjust when it gets changed
-		
   while (*thread_args->max_num > thread_args->num) { 
 		
 		//calculate the l[j] values from i upwards
@@ -60,15 +60,10 @@ void *Enumerate(void *args) {
 			if (i==0) {
 				if (sum3 != 0) {
 					pthread_mutex_lock(thread_args->lock);
-					if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) {
+					if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) { //check again whilst inside the lock, to make sure shortest_vector hasn't changed
 						*(thread_args->shortest_vector) = sqrt(sum3);
 						printf("shortest_vector: %.4f\n", *(thread_args->shortest_vector));
-						for (j=0; j<thread_args->dim; j++) {
-							printf("%d\t", x[j]);
-						}
-						printf("\n");
 						*(thread_args->max_num) = floor(*(thread_args->shortest_vector)/pow(thread_args->GS_norms[thread_args->dim-1], 0.5));
-						printf("max x[dim-1]: %d\n", *(thread_args->max_num));
 					}
 					pthread_mutex_unlock(thread_args->lock);
 				}
@@ -143,11 +138,9 @@ void *Enumerate(void *args) {
 		}
 		m++;
 	  if (m > max_its) {
-			//need to think about this
 			exit(1);
 	  }
   }
-	printf("%d terminated\n", thread_args->num);
   pthread_exit(NULL);
 }
 
