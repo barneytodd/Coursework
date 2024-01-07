@@ -110,7 +110,7 @@ void *Enumerate(void *args) {
 		}
 		m++;
 	  	if (thread_args->num == 3) {
-		  	for (i=0; i<dim; i++) {
+		  	for (i=0; i<thread_args->dim; i++) {
 				printf("%d ", x[i]);
 			}
 			printf("\n");
