@@ -8,8 +8,6 @@
 #include <limits.h>
 
 
-
-
 int main(int argc, char **argv) {
   int dim, i, j, k;
   if (argc>2) {
