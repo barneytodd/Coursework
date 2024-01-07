@@ -5,18 +5,26 @@
 #include <stdbool.h>
 #include <limits.h>
 
-void FreeMemory(int dim, double **A, double **B) {
+void FreeMemory(int dim, int choose_matrix, double **A, double **B) {
 	int i;
-	for (i=0; i<dim; i++) {
-		free(A[i]);
-		free(B[i]);
-		A[i] = NULL;
-		B[i] = NULL;
+	
+	if (choose_matrix == 0 || choose_matrix == 2) {
+		for (i=0; i<dim; i++) {
+			free(A[i]);
+			A[i] = NULL;
+		}
+		free(A);
 	}
-	free(A);
-	free(B);
-	A = NULL;
-	B = NULL;
+
+	if choose_matrix == 1 || choose_matrix == 2) {
+		for (i=0; i<dim; i++) {
+			free(B[i]);
+			B[i] = NULL;
+		}
+		free(B);
+		B = NULL;
+	}
+	
 }
 
 
