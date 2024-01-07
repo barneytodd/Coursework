@@ -26,7 +26,7 @@ void *Enumerate(void *args) {
   }
   x[thread_args->dim-1] = thread_args->num;
   i = thread_args->dim-1;
-
+	printf("num: %d\n", thread_args->num);
   double sum2; //stores the sum of x[j] * Mu[j][i] for j>i
   double sum3; //stores the sum (j>i) of the l[j] values
   int m = 0;
@@ -109,12 +109,12 @@ void *Enumerate(void *args) {
 			}
 		}
 		m++;
-	  	if (thread_args->num == 3) {
-		  	for (i=0; i<thread_args->dim; i++) {
-				printf("%d ", x[i]);
-			}
-			printf("\n");
-		}
+	  	//if (thread_args->num == 3) {
+		  	//for (i=0; i<thread_args->dim; i++) {
+				//printf("%d ", x[i]);
+			//}
+			//printf("\n");
+		//}
 		  //if (m > max_its) {
 				//need to think about this
 		//	  printf("thread: %d, infinite while loop\n", thread_args->num);
