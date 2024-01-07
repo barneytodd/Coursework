@@ -199,7 +199,7 @@ int main() {
     }
 
     printf("Input matrix dim: %d, randomly generated matrix with values between %d and %d\n", dim, min, max);
-    runTests(dim, A, B, U);
+    runTests(dim, A, B, Mu);
 
     
     for (i=0;i<dim;i++) {
