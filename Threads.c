@@ -136,6 +136,10 @@ void *Enumerate(void *args) {
 			}
 			x[i]++;
 		}
+		for (j=0; j<thread_args->dim; j++) {
+			printf("%d ", x[j]);
+		}
+		printf("\n");
 		m++;
 	  if (m > max_its) {
 			exit(1);
@@ -171,13 +175,6 @@ double ShortestVector1(int dim, double **A, double **B, double *Mu) {
 	double GS_norms[dim]; //stores the norm of each GramSchidt orthogonalised vector
 	for (i=0;i<dim;i++) {
 		GS_norms[i] = InnerProduct(dim, B[i], B[i]);
-	}
-
-	for (i=0;i<dim;i++) {
-		for (j=0;j<i;j++) {
-			printf("%.4f ", Mu[(i-1)*i/2+j]);
-		}
-		printf("\n");
 	}
 	
 	int max_num = floor(shortest_vector/pow(GS_norms[dim-1], 0.5)); //maximum possible value for x[dim-1]
