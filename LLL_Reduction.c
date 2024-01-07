@@ -136,7 +136,15 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
         }
         if (zero_check == true) {
           printf("Error: input vectors are linearly dependent\n");
-					FreeMemory(dim, A, B, Mu);
+					for (i=0; i<thread_args->dim, i++) {
+						free(A[i]);
+						free(B[i]);
+						A[i] = B[i] = NULL;
+					}
+					free(A);
+					free(B);
+					free(Mu);
+					A = B = Mu = NULL;	
           exit(1);
         }
         update_matrices(dim, k, A, B, Mu);
@@ -167,7 +175,15 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
 		//therefore any more than this without reducing any of the vectors means an error has occured
     if (m > (dim-1)*dim/2) { 
       printf("Error: While loop failed\n");
-			FreeMemory(dim, A, B, Mu);
+			for (i=0; i<thread_args->dim, i++) {
+				free(A[i]);
+				free(B[i]);
+				A[i] = B[i] = NULL;
+			}
+			free(A);
+			free(B);
+			free(Mu);
+			A = B = Mu = NULL;	
     	exit(1);
     }
   }
