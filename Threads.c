@@ -37,7 +37,7 @@ void *Enumerate(void *args) {
   while (*thread_args->max_num > thread_args->num) { 
 		double short_vec = *(thread_args->shortest_vector);
 		//calculate the l[j] values from i upwards
-		if (thread_args->num == 3) {
+		if (thread_args->num == 7) {
 			printf("i: %d\n", i);
 			printf("short_vec 1: %.4f\n", short_vec);
 		}
@@ -49,7 +49,7 @@ void *Enumerate(void *args) {
 			}
 			l[j] = (x[j] + sum2) * (x[j] + sum2) * thread_args->GS_norms[j]; 	
 		}
-		if (thread_args->num == 3) {
+		if (thread_args->num == 7) {
 			printf("i: %d\n", i);
 		}
 		//sum the l[j] values for j>=i
@@ -57,7 +57,7 @@ void *Enumerate(void *args) {
 		for (j=i; j<thread_args->dim; j++) {
 			sum3 += l[j];
 		}
-	  	if (thread_args->num == 3) {
+	  	if (thread_args->num == 7) {
 			printf("sum3: %.4f, %d\n", sum3, i);
 			printf("l[8]: %.4f, l[9]: %.4f\n", l[8], l[9]);
 		}
@@ -114,7 +114,7 @@ void *Enumerate(void *args) {
 		else {
 			i++;
 			if (i==thread_args->dim-1) {
-				if (thread_args->num == 3) {
+				if (thread_args->num == 7) {
 					printf("short_vec 2: %.4f, sv: %.4f\n", short_vec, *(thread_args->shortest_vector));
 				}
 				if (short_vec == *(thread_args->shortest_vector)) {
@@ -129,7 +129,7 @@ void *Enumerate(void *args) {
 			
 		}
 		m++;
-	  	if (thread_args->num == 3) {
+	  	if (thread_args->num == 7) {
 		  	for (j=0; j<thread_args->dim; j++) {
 				printf("%d ", x[j]);
 			}
