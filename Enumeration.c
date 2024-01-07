@@ -146,7 +146,7 @@ void *Enumerate(void *args) {
 }
 
 //Enumerate the lattice to find the shortest vector
-double ShortestVector1(int dim, double **A, double **B, double *Mu) {
+double ShortestVector(int dim, double **A, double **B, double *Mu) {
 	int i, j;
 	
 	for (i = 0; i < dim; ++i) {
