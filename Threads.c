@@ -39,6 +39,7 @@ void *Enumerate(void *args) {
 		//calculate the l[j] values from i upwards
 		if (thread_args->num == 3) {
 			printf("i: %d\n", i);
+			printf("short_vec 1: %.4f\n", short_vec);
 		}
 	  	for (j=thread_args->dim-1; j>=i; j--) { 
 			sum2 = 0;
@@ -113,6 +114,7 @@ void *Enumerate(void *args) {
 		else {
 			i++;
 			if (i==thread_args->dim-1) {
+				printf("short_vec 2: %.4f, sv: %.4f\n", short_vec, *(thread_args->shortest_vector));
 				if (short_vec == *(thread_args->shortest_vector)) {
 					break;
 				}
