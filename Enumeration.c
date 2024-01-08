@@ -88,17 +88,14 @@ void *Enumerate(void *args) {
 					//then add 1 to x[i] to make x[i] the minimum possible integer such that l[i] < shortest_vector^2 - sum3
 					n=0;
 					do {
-						printf("%d\n", k);
 						x[i]--;
 						sum2 = 0;
 						for (k=i+1; k<thread_args->dim; k++) {
 							sum2 += x[k] * (*(thread_args->Mu))[(k-1)*k/2+i];
 						}
 						l[i] = (x[i] + sum2) * (x[i] + sum2) * (*(thread_args->GS_norms))[i]; 
-						printf("%.4f\n", l[i]);
 						n++;
 						if (n>100) {
-							printf("k: %d\n", k);
 							printf("Error: thread %d failed\n", thread_args->num);
 							FreeMatrix(thread_args->dim, thread_args->A);
 							FreeMatrix(thread_args->dim, thread_args->B);
