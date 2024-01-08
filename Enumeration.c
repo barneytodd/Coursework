@@ -239,6 +239,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 		args[i].lock = &lock;
 		args[i].A = &A;
 		args[i].B = &B;
+		pthread_mutex_lock(&lock);
 		if (pthread_create(&threads[i], NULL, &Enumerate, (void *)&args[i]) != 0) {
 			printf("Error creating thread %d\n", i);
 			FreeMatrix(dim, &A);
@@ -247,6 +248,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 			Mu = NULL;		
 			exit(1);
 		}
+		pthread_mutex_unlock(&lock);
 		//printf("Thread: %d\n", i);
 		count++;
 	}
