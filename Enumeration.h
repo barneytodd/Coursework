@@ -11,6 +11,8 @@ struct ThreadArgs {
   double *shortest_vector;
   int *max_num;
 	pthread_mutex_t *lock;
+	double ***A;
+	double ***B;
 };
 
 void *Enumerate(void *args);
