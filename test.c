@@ -172,7 +172,7 @@ int main() {
     }
     
     printf("Input matrix dim: %d, identity matrix\n", dim);
-    //runTests(dim, A, B, Mu); 
+    runTests(dim, A, B, Mu); 
 
     //set the bounds for the values of the second input matrix, and its dimension
     int min = -10000;
