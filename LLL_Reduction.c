@@ -6,16 +6,6 @@
 #include <stdbool.h>
 #include <limits.h>
 
-//compute the inner product between two vectors
-double InnerProduct(int dim, double *arr1, double *arr2) {
-  double sum1 = 0;
-  int i;
-  for (i=0; i<dim; i++) {
-    sum1 += arr1[i]*arr2[i];
-  }
-  return sum1;
-}
-
 //checks if GS was successful, for large numbers floating point inaccuracy can cause GS vectors to not be orthogonal
 //requires cos(theta)<0.0001 for all pairs of GS vectors
 bool CheckOrth(int dim, int start, double **B) {
