@@ -54,6 +54,7 @@ void *Enumerate(void *args) {
 			//if i=0 and sum3 < (current shortest vector length)^2, we have a new shortest vector
 			if (i==0) {
 				if (sum3 != 0) {
+					printf("y\n");
 					pthread_mutex_lock(thread_args->lock);
 					if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) { //check again whilst inside the lock, to make sure shortest_vector hasn't changed
 						*(thread_args->shortest_vector) = sqrt(sum3);
