@@ -167,7 +167,12 @@ int main() {
 		perror("Failed to allocate memory for Mu");
 		exit(1);
 	}
-  
+  for (i=0; i<dim; i++) {
+	  for (j=0; j<i; j++) {
+	  	printf("%.4f ", Mu[(i-1)*i/2+j];
+			}
+	  printf("\n");
+  }
     
   
     //set A to be the dim x dim identity matrix
