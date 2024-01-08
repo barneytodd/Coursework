@@ -1,3 +1,4 @@
+#include "GeneralFunctions.h"
 #include <stdio.h>
 #include <stdlib.h>
 
