@@ -90,6 +90,7 @@ void *Enumerate(void *args) {
 						}
 						printf("sum2: %.4f\n", sum2);
 						l[i] = (x[i] + sum2) * (x[i] + sum2) * thread_args->GS_norms[i]; 
+						printf("%.4f\n", thread_args->GS_norms[i]);
 						printf("l[i]: %.4f\n", l[i]);
 						printf("x[i]: %d\n", x[i]);
 					} while (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3);
