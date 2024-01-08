@@ -11,7 +11,7 @@ void *Enumerate(void *args) {
   struct ThreadArgs *thread_args = (struct ThreadArgs *)args;
 
 	if ((*(thread_args->GS_norms))[0] < pow((*(thread_args->B[0][0])), 0.5)) {
-							printf("Error: GS_norms not loaded correctly\n", i);
+							printf("Error: GS_norms not loaded correctly\n");
 							FreeMatrix(thread_args->dim, thread_args->A);
 							FreeMatrix(thread_args->dim, thread_args->B);
 							free(*(thread_args->Mu));
