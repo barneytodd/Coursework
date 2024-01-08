@@ -13,7 +13,7 @@ void *Enumerate(void *args) {
   int x[thread_args->dim], i, j, k; //x stores the number of each basis vector used to reach each lattice point
   double l[thread_args->dim]; //stores the total contribution squared, of the combination of basis vectors stored in x, in the direction of the ith GS vector
 	for (i=0; i<thread_args->dim; i++) {
-		printf("%.4f ", thread_args->GS_norms[i]);
+		printf("%.4f ", *(thread_args->GS_norms)[i]);
 	}
 	printf("\n");
 	exit(1);
@@ -232,14 +232,13 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 	for (i=0; i<=max_num; i++) {
 		args[i].num = i;
 		args[i].dim = dim;
-		args[i].GS_norms = GS_norms;
+		args[i].GS_norms = &GS_norms;
 		args[i].Mu = Mu;
 		args[i].shortest_vector = &shortest_vector;
 		args[i].max_num = &max_num;
 		args[i].lock = &lock;
 		args[i].A = &A;
 		args[i].B = &B;
-		pthread_mutex_lock(&lock);
 		if (pthread_create(&threads[i], NULL, &Enumerate, (void *)&args[i]) != 0) {
 			printf("Error creating thread %d\n", i);
 			FreeMatrix(dim, &A);
@@ -248,7 +247,6 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 			Mu = NULL;		
 			exit(1);
 		}
-		pthread_mutex_unlock(&lock);
 		//printf("Thread: %d\n", i);
 		count++;
 	}
