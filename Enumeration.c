@@ -135,8 +135,8 @@ void *Enumerate(void *args) {
 			FreeMatrix(thread_args->dim, thread_args->B);
 			free(thread_args->Mu);
 			thread_args->Mu = NULL;		
-			free(*thread_args->GS_norms);
-			thread_args-> GS_norms = NULL;
+			free(*(thread_args->GS_norms));
+			*(thread_args)-> GS_norms = NULL;
 			exit(1);
 	  }
   }
