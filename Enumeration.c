@@ -82,6 +82,18 @@ void *Enumerate(void *args) {
 							sum2 += x[k] * (*(thread_args->Mu))[(k-1)*k/2+i];
 						}
 						l[i] = (x[i] + sum2) * (x[i] + sum2) * (*(thread_args->GS_norms))[i]; 
+
+						if ((*(thread_args->GS_norms))[i] == 0) {
+							printf("Error: GS_norm %d = 0\n", i);
+							FreeMatrix(thread_args->dim, thread_args->A);
+							FreeMatrix(thread_args->dim, thread_args->B);
+							free(*(thread_args->Mu));
+							*(thread_args->Mu) = NULL;		
+							free(*(thread_args->GS_norms));
+							*(thread_args)-> GS_norms = NULL;
+							exit(1);
+						}
+						
 					} while (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3);
 					
 					x[i]++; 
