@@ -88,6 +88,7 @@ void *Enumerate(void *args) {
 					//then add 1 to x[i] to make x[i] the minimum possible integer such that l[i] < shortest_vector^2 - sum3
 					k=0;
 					do {
+						printf("%d\n", k);
 						x[i]--;
 						sum2 = 0;
 						for (k=i+1; k<thread_args->dim; k++) {
