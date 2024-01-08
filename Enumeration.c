@@ -73,11 +73,13 @@ void *Enumerate(void *args) {
 				i--;
 				sum2 = 0;
 				for (k=i+1; k<thread_args->dim; k++) {
+					printf("thread: %d, i: %d\n", thread_args->num, i);
 					sum2 += x[k] * *(thread_args->Mu)[(k-1)*k/2+i]; 
+										printf("thread: %d, i: %d\n", thread_args->num, i);
+
 				}
 				x[i] = round(- sum2); //the integer which minimises l[i], if this doesn't work then no other integer will
 				l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * thread_args->GS_norms[i]; 
-							  printf("thread: %d, i: %d\n", thread_args->num, i);
 
 				if (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3) {
 					//subtract 1 from x[i] until l[i] is no longer < shortest_vector^2 - sum3
