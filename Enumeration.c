@@ -97,7 +97,7 @@ void *Enumerate(void *args) {
 						l[i] = (x[i] + sum2) * (x[i] + sum2) * (*(thread_args->GS_norms))[i]; 
 						printf("%.4f\n", l[i]);
 						n++;
-						if (m>100) {
+						if (n>100) {
 							printf("k: %d\n", k);
 							printf("Error: thread %d failed\n", thread_args->num);
 							FreeMatrix(thread_args->dim, thread_args->A);
