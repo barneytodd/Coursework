@@ -16,6 +16,7 @@ void *Enumerate(void *args) {
 		printf("%.4f ", thread_args->GS_norms[i]);
 	}
 	printf("\n");
+	exit(1);
   for (i=0; i<thread_args->dim-1; i++) {
     x[i] = 0;
   }
