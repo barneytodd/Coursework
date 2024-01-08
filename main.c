@@ -43,8 +43,9 @@ int main(int argc, char **argv) {
 			exit(1);
     }
   }
-	
-	double **B = (double **)malloc(dim * sizeof(double *)); //stores GS orthogonalised values
+
+	//initialise the matrix B, which stores GS orthogonalised values
+	double **B = (double **)malloc(dim * sizeof(double *)); 
 	if (B == NULL) {
 			perror("Failed to allocate memory for the B matrix");
 			FreeMatrix(dim, &A);
@@ -59,7 +60,10 @@ int main(int argc, char **argv) {
 			exit(1);
 		}
 	}
-	
+
+	//initialise the array Mu, which stores the mu values during GS orthogonalisation
+	//Mu can be stored as a matrix, however only the values below the diagonal are useful, so we store it as an 1D array to save memory
+	//Mu[(i-1)*i+j] in 1D array form is the equivalent of Mu[i][j] in matrix form
 	double *Mu = (double *)malloc((dim-1)*dim/2 * sizeof(double *)); //stores Mu values for GramSchmidt orthogonalisation
 	if (Mu == NULL) {
 		FreeMatrix(dim, &A);
