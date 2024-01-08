@@ -198,6 +198,8 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 	for (i=0;i<dim;i++) {
 		GS_norms[i] = InnerProduct(dim, B[i], B[i]);
 	}
+
+
 	
 	int max_num = floor(shortest_vector/pow(GS_norms[dim-1], 0.5)); //maximum possible value for x[dim-1]
 	pthread_t threads[max_num];
@@ -232,13 +234,16 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 	for (i=0; i<=max_num; i++) {
 		args[i].num = i;
 		args[i].dim = dim;
-		args[i].GS_norms = &GS_norms;
+		args[i].GS_norms = GS_norms;
 		args[i].Mu = Mu;
 		args[i].shortest_vector = &shortest_vector;
 		args[i].max_num = &max_num;
 		args[i].lock = &lock;
 		args[i].A = &A;
 		args[i].B = &B;
+		while (args[i].GS_norms[0] == 0) {
+			args[i].GS_norms[0] = GS_norms[0];
+		}
 		if (pthread_create(&threads[i], NULL, &Enumerate, (void *)&args[i]) != 0) {
 			printf("Error creating thread %d\n", i);
 			FreeMatrix(dim, &A);
