@@ -243,6 +243,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 		args[i].B = &B;
 	}
 	for (i=0; i<=max_num; i++) {
+		printf("gs: %.4f\n", args[i].GS_norms[0]);
 		if (pthread_create(&threads[i], NULL, &Enumerate, (void *)&args[i]) != 0) {
 			printf("Error creating thread %d\n", i);
 			FreeMatrix(dim, &A);
