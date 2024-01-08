@@ -1,11 +1,12 @@
+#include "LLL_Reduction.h"
+#include "Enumeration.h"
+#include "GeneralFunctions.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <stdbool.h>
 #include <math.h>
 #include <stdarg.h>
-#include "LLL_Reduction.h"
-#include "Enumeration.h"
 #include <stdbool.h>
 #include <time.h>
 
@@ -111,10 +112,11 @@ void runTests(int dim, double **A, double **B, double *Mu) {
     else {
         printf("For Dimension: %d Upper bound estimate: %.4f Got: %.4f\n", dim, limit, shortest_vector);
         if(shortest_vector > limit) {
-            FreeMatrix(dim, &A);
-						FreeMatrix(dim, &B);
-						free(Mu);
-						Mu = NULL;
+					printf("Limit only an estimate of the upper bound, if shortest_vector is close to the limit, it may still be the correct answer\n");
+					FreeMatrix(dim, &A);
+					FreeMatrix(dim, &B);
+					free(Mu);
+					Mu = NULL;
         }
         assert(shortest_vector <= limit);
     }
@@ -173,12 +175,12 @@ int main() {
     printf("Input matrix dim: %d, identity matrix\n", dim);
     runTests(dim, A, B, Mu); 
 
-    //set the bounds for the values of the second matrix, and its dimension
+    //set the bounds for the values of the second input matrix, and its dimension
     int min = -10000;
     int max = 10000;
-    dim = 10;
+    dim = 60;
 
-    //resize A
+    //resize A, B and Mu
     A = realloc(A, dim * sizeof(double *));
     if (A==NULL) {
         perror("Failed to reallocate memory for the input matrix");
