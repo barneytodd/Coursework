@@ -64,7 +64,6 @@ void *Enumerate(void *args) {
 				}
 				x[0]++;
 			}
-					  printf("thread: %d, i: %d\n", thread_args->num, i);
 
 			//if i != 1, subtract 1 from i and then set x[i] to be the minimum integer such that l[i] < shortest_vector^2 - sum3
 			//if there is no such integer, add the 1 back to i and then add 1 to x[i]
@@ -91,7 +90,6 @@ void *Enumerate(void *args) {
 					
 					x[i]++; 
 				}
-						  printf("thread: %d, i: %d\n", thread_args->num, i);
 
 				else {
 					i+=1;
