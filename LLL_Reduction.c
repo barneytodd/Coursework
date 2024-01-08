@@ -102,6 +102,7 @@ void update_matrices(int dim, int start, double **A, double **B, double *Mu) {
 
 /// Lenstra–Lenstra–Lovász reduce the input matrix A
 void LLL(double delta, int dim, double **A, double **B, double *Mu) {
+	printf("start LLL\n");
   
   int i, j, k; //initialise variables i, j, k
   update_matrices(dim, 0, A, B, Mu); 
@@ -168,6 +169,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
     	exit(1);
     }
   }
+	  printf("end LLL\n");
 }
   
   
