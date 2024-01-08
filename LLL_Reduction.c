@@ -114,7 +114,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
 	//iterate through the LLL Reduction steps until:
   //(B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k, and
   //mu_kj<=0.5 for all k, j<k
-
+	printf("y\n");
   while (k<dim) {
     //reduce the kth vector until for all j<k, mu_kj<=0.5
     for (j=k-1; j>=0; j--) {
@@ -138,7 +138,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
 				m=0;
       }
     }
-		
+	printf("y\n");	
     //LLL basis reduction requires (B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k
     Mu[(k-1)*k/2+k-1] = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
     if (InnerProduct(dim, B[k], B[k]) > ((delta - (Mu[(k-1)*k/2+k-1]*Mu[(k-1)*k/2+k-1])) * InnerProduct(dim, B[k-1], B[k-1]))) {
@@ -149,11 +149,11 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
       for (i=0; i<dim; i++) {
         B[k][i] = A[k-1][i]; //B[k] is about to get updated, so we can use this as a temporary variable
         A[k-1][i] = A[k][i];
-        A[k][i] = B[k][i];
-
-				
+        A[k][i] = B[k][i];			
       }
+	printf("y\n");
       update_matrices(dim, k-1, A, B, Mu); 
+	    printf("y\n");
       k = fmax(k-1, 1);  
 			m++;
     }
