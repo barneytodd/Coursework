@@ -9,7 +9,6 @@ void *Enumerate(void *args) {
 	
 	//restructure the arguments into the form of the struct above
   struct ThreadArgs *thread_args = (struct ThreadArgs *)args;
-	printf("gs: %.4f\n", (*(thread_args->GS_norms))[0]);
 	if ((*(thread_args->GS_norms))[0] < pow((*(thread_args->B[0][0])), 0.5)) {
 							printf("Error: GS_norms not loaded correctly\n");
 							FreeMatrix(thread_args->dim, thread_args->A);
