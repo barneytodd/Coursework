@@ -6,6 +6,7 @@
 #include <stdlib.h>
 
 void *Enumerate(void *args) {
+	printf("start enum\n");
 	//restructure the arguments into the form of the struct above
   struct ThreadArgs *thread_args = (struct ThreadArgs *)args;
 
@@ -29,6 +30,7 @@ void *Enumerate(void *args) {
 	
 	//max_num may get updated by the other threads
 	//in the case that max_num falls below num, we can exit this thread
+	printf("start enum loop\n");
   while (*thread_args->max_num > thread_args->num) { 
 		
 		//calculate the l[j] values from i upwards
@@ -137,6 +139,7 @@ void *Enumerate(void *args) {
 			exit(1);
 	  }
   }
+	printf("end enum\n");
   pthread_exit(NULL);
 }
 
