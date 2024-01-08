@@ -101,8 +101,21 @@ void update_matrices(int dim, int start, double **A, double **B, double *Mu) {
 
 /// Lenstra–Lenstra–Lovász reduce the input matrix A
 void LLL(double delta, int dim, double **A, double **B, double *Mu) {
-  
+
   int i, j, k; //initialise variables i, j, k
+
+	//check the size of A and B
+	for (i = 0; i < dim; i++) {
+		if (A[i] == NULL || B[i] == NULL) {
+			printf("Error: Input matrices for ShortestVector do not have the correct dimensions");
+			FreeMatrix(i, &A);
+			FreeMatrix(i, &B);
+			free(Mu);
+			Mu = NULL;		
+			exit(1);
+		}
+	}
+	
   update_matrices(dim, 0, A, B, Mu); 
     
   k = 1;
