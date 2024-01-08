@@ -142,10 +142,10 @@ void *Enumerate(void *args) {
 		m+=1;
 	  if (m > max_its) {
 			printf("Error: Enumeration loop for thread %d failed\n", thread_args->num);
-		  FreeMatrix(thread_args->dim, &A);
-			FreeMatrix(thread_args->dim, &B);
+		  FreeMatrix(thread_args->dim, thread_args->A);
+			FreeMatrix(thread_args->dim, thread_args->B);
 			free(*(thread_args->Mu));
-			Mu = NULL;			
+			*(thread_args->Mu) = NULL;			
 			exit(1);
 	  }
   }
