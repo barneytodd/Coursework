@@ -209,6 +209,7 @@ int main() {
 				free(A[i]);
 				free(B[i]);
 				A[i] = B[i] = NULL;
+			}
 		}
 			
     for (i=0;i<dim;i++) {
