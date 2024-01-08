@@ -9,10 +9,12 @@ struct ThreadArgs {
   int num;
   int dim;
   double *GS_norms;
-  double *Mu;
+  double **Mu;
   double *shortest_vector;
   int *max_num;
 	pthread_mutex_t *lock;
+	double ***A;
+	double ***B;
 };
 
 void *Enumerate(void *args) {
@@ -45,7 +47,7 @@ void *Enumerate(void *args) {
 		for (j=thread_args->dim-1; j>=i; j--) { 
 		sum2 = 0;
 			for (k=j+1; k<thread_args->dim; k++) {
-				sum2 += x[k] * thread_args->Mu[(k-1)*k/2+j]; 
+				sum2 += x[k] * *(thread_args->Mu)[(k-1)*k/2+j]; 
 			}
 			l[j] = (x[j] + sum2) * (x[j] + sum2) * thread_args->GS_norms[j]; 	
 		}
@@ -140,9 +142,9 @@ void *Enumerate(void *args) {
 		m+=1;
 	  if (m > max_its) {
 			printf("Error: Enumeration loop for thread %d failed\n", thread_args->num);
-		  FreeMatrix(dim, &A);
-			FreeMatrix(dim, &B);
-			free(Mu);
+		  FreeMatrix(thread_args->dim, &A);
+			FreeMatrix(thread_args->dim, &B);
+			free(*(thread_args->Mu));
 			Mu = NULL;			
 			exit(1);
 	  }
@@ -205,10 +207,12 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 		args[i].num = i;
 		args[i].dim = dim;
 		args[i].GS_norms = GS_norms;
-		args[i].Mu = Mu;
+		args[i].Mu = &Mu;
 		args[i].shortest_vector = &shortest_vector;
 		args[i].max_num = &max_num;
 		args[i].lock = &lock;
+		args[i].A = &A;
+		args[i].B = &B;
 		if (pthread_create(&threads[i], NULL, &Enumerate, (void *)&args[i]) != 0) {
 			printf("Error creating thread %d\n", i);
 			FreeMatrix(dim, &A);
