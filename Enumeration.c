@@ -32,7 +32,8 @@ void *Enumerate(void *args) {
 	//in the case that max_num falls below num, we can exit this thread
 	printf("start enum loop\n");
   while (*thread_args->max_num > thread_args->num) { 
-		
+			  printf("thread: %d, i: %d\n", thread_args->num, i);
+
 		//calculate the l[j] values from i upwards
 		for (j=thread_args->dim-1; j>=i; j--) { 
 		sum2 = 0;
@@ -47,7 +48,8 @@ void *Enumerate(void *args) {
 		for (j=i; j<thread_args->dim; j++) {
 			sum3 += l[j];
 		}
-		
+			  printf("thread: %d, i: %d\n", thread_args->num, i);
+
 		if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) {
 			//if i=0 and sum3 < (current shortest vector length)^2, we have a new shortest vector
 			if (i==0) {
@@ -62,6 +64,8 @@ void *Enumerate(void *args) {
 				}
 				x[0]++;
 			}
+					  printf("thread: %d, i: %d\n", thread_args->num, i);
+
 			//if i != 1, subtract 1 from i and then set x[i] to be the minimum integer such that l[i] < shortest_vector^2 - sum3
 			//if there is no such integer, add the 1 back to i and then add 1 to x[i]
 			else {
@@ -87,10 +91,14 @@ void *Enumerate(void *args) {
 					
 					x[i]++; 
 				}
+						  printf("thread: %d, i: %d\n", thread_args->num, i);
+
 				else {
 					i+=1;
 					x[i]++;
 				}
+					  printf("thread: %d, i: %d\n", thread_args->num, i);
+
 			}
 		}
 		//if sum3 > shortest_vector^2, increase i by 1 and then increase x[i] by 1
