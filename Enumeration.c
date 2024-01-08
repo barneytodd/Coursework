@@ -129,7 +129,7 @@ void *Enumerate(void *args) {
 				}
 				//if l[dim-2] + l[dim-1] > shortest_vector^2, then x[dim-2] is now out of range w.r.t. the new shortest_vector
 				//this could potentially lead to this thread terminating before it has checked all possible x values
-				else {
+				//else {
 					//if l[dim-2] calculated with x[dim-2] < l[dim-2] calculated with x[dim-2]-1, then x[dim-2] is below the new accepted range
 					//therefore we haven't yet checked the x[dim2] values in the new accepted range, so we reset i to dim-1 and carry on
 					//if (l[thread_args->dim-2] < pow((x[thread_args->dim-2]-1) + (x[thread_args->dim-1]-1) * thread_args->Mu[(k-1)*k/2+j], 2)*thread_args->GS_norms[thread_args->dim-2]) {
@@ -138,10 +138,10 @@ void *Enumerate(void *args) {
 					//}
 					//in the opposite case, x[dim-2] is above the new accepted range, and so we have already checked all possibilities in this new range
 					//therefore we terminate this thread
-					else {
-						break;
-					}
-				}
+					//else {
+					//	break;
+					//}
+				//}
 			}
 			//otherwise we proceed as normal
 			i++;
