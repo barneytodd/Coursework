@@ -47,9 +47,9 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
   double mag1;
   double mag2;
 	
-  //bool orth_check = false;
-  //while (!orth_check) {
-    //orth_check = true;
+  bool orth_check = false;
+  while (!orth_check) {
+    orth_check = true;
 	
     //iterate through the initial vectors
     for (i=fmax(start, 1); i<dim; i++) { 
@@ -80,9 +80,9 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
       }
     }
 	
-	  //orth_check = CheckOrth(dim, start, B);
+	  orth_check = CheckOrth(dim, start, B);
 	
-  //}
+  }
 }
   
 //when A gets updated, recompute B to be the GramSchmidt orthogonalised version of the updated A
