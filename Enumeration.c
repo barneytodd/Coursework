@@ -94,6 +94,7 @@ void *Enumerate(void *args) {
 							sum2 += x[k] * (*(thread_args->Mu))[(k-1)*k/2+i];
 						}
 						l[i] = (x[i] + sum2) * (x[i] + sum2) * (*(thread_args->GS_norms))[i]; 
+						printf("%.4f\n", l[i]);
 						k++;
 						if (k>100) {
 							printf("Error: thread %d failed\n", thread_args->num);
