@@ -31,6 +31,12 @@ void *Enumerate(void *args) {
 	//max_num may get updated by the other threads
 	//in the case that max_num falls below num, we can exit this thread
 	printf("start enum loop\n");
+	for (j=0; j<thread_args->dim; j++) {
+		for (k=0; k<thread_args->dim; k++) {
+			printf("%.4f ", *(thread_args->Mu)[(i-1)*i/2+j]);
+		}
+		printf("\n");
+	}
   while (*thread_args->max_num > thread_args->num) { 
 			  printf("thread: %d, i: %d\n", thread_args->num, i);
 
@@ -74,7 +80,7 @@ void *Enumerate(void *args) {
 				sum2 = 0;
 				for (k=i+1; k<thread_args->dim; k++) {
 					printf("thread: %d, i: %d\n", thread_args->num, i);
-					sum2 += x[k] * (*(thread_args->Mu)[(k-1)*k/2+i]); 
+					sum2 += x[k] * *(thread_args->Mu)[(k-1)*k/2+i]; 
 										printf("thread: %d, i: %d\n", thread_args->num, i);
 
 				}
