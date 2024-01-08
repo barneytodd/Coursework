@@ -135,6 +135,7 @@ void *Enumerate(void *args) {
 			x[i]++;
 			
 		}
+	  printf("n\n");
 		m+=1;
 	  if (m > max_its) {
 			printf("Error: Enumeration loop for thread %d failed\n", thread_args->num);
