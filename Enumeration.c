@@ -31,6 +31,7 @@ void *Enumerate(void *args) {
 	//max_num may get updated by the other threads
 	//in the case that max_num falls below num, we can exit this thread
   while (*thread_args->max_num > thread_args->num) { 
+		
 		//calculate the l[j] values from i upwards
 		for (j=thread_args->dim-1; j>=i; j--) { 
 		sum2 = 0;
@@ -44,6 +45,7 @@ void *Enumerate(void *args) {
 		for (j=i; j<thread_args->dim; j++) {
 			sum3 += l[j];
 		}
+		
 		if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) {
 			//if i=0 and sum3 < (current shortest vector length)^2, we have a new shortest vector
 			if (i==0) {
@@ -69,6 +71,7 @@ void *Enumerate(void *args) {
 				}
 				x[i] = round(- sum2); //the integer which minimises l[i], if this doesn't work then no other integer will
 				l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * (*(thread_args->GS_norms))[i]; 
+				
 				if (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3) {
 					//subtract 1 from x[i] until l[i] is no longer < shortest_vector^2 - sum3
 					//then add 1 to x[i] to make x[i] the minimum possible integer such that l[i] < shortest_vector^2 - sum3
@@ -79,7 +82,6 @@ void *Enumerate(void *args) {
 							sum2 += x[k] * (*(thread_args->Mu))[(k-1)*k/2+i];
 						}
 						l[i] = (x[i] + sum2) * (x[i] + sum2) * (*(thread_args->GS_norms))[i]; 
-						//printf("%.4f\n", thread_args->GS_norms[i]);
 					} while (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3);
 					
 					x[i]++; 
@@ -91,6 +93,7 @@ void *Enumerate(void *args) {
 				}
 			}
 		}
+			
 		//if sum3 > shortest_vector^2, increase i by 1 and then increase x[i] by 1
 		else {
 			//if shortest_vector has been changed by another thread, we need to perform some checks
@@ -103,6 +106,7 @@ void *Enumerate(void *args) {
 				if (l[thread_args->dim-2]+l[thread_args->dim-1] < pow(*(thread_args->shortest_vector), 2)) {
 					continue;
 				}
+					
 				//if l[dim-2] + l[dim-1] > shortest_vector^2, then x[dim-2] is now out of range w.r.t. the new shortest_vector
 				//this could potentially lead to this thread terminating before it has checked all possible x values
 				else {
@@ -112,6 +116,7 @@ void *Enumerate(void *args) {
 						i = thread_args->dim-1;
 						continue;
 					}
+						
 					//in the opposite case, x[dim-2] is above the new accepted range, and so we have already checked all possibilities in this new range
 					//therefore we terminate this thread
 					else {
@@ -119,6 +124,7 @@ void *Enumerate(void *args) {
 					}
 				}
 			}
+			
 			//otherwise we proceed as normal
 			i++;
 			//if we're trying to increment x[dim-1], we've reached the end of this thread
@@ -126,7 +132,6 @@ void *Enumerate(void *args) {
 				break;
 			}
 			x[i]++;
-			
 		}
 		m+=1;
 	  if (m > max_its) {
