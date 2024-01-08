@@ -6,13 +6,14 @@
 struct ThreadArgs {
   int num;
   int dim;
-  double *GS_norms[];
+  
   double *Mu;
   double *shortest_vector;
   int *max_num;
 	pthread_mutex_t *lock;
 	double ***A;
 	double ***B;
+double *GS_norms[];
 };
 
 void *Enumerate(void *args);
