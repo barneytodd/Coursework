@@ -95,7 +95,7 @@ void *Enumerate(void *args) {
 						x[i]--;
 						sum2 = 0;
 						for (k=i+1; k<thread_args->dim; k++) {
-							sum2 += x[k] * *(thread_args->Mu)[(k-1)*k/2+i];
+							sum2 += x[k] * thread_args->Mu[(k-1)*k/2+i];
 						}
 						l[i] = (x[i] + sum2) * (x[i] + sum2) * thread_args->GS_norms[i]; 
 					} while (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3);
