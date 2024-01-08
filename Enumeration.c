@@ -234,7 +234,9 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 	for (i=0; i<=max_num; i++) {
 		args[i].num = i;
 		args[i].dim = dim;
+		pthread_mutex_lock(&lock);
 		args[i].GS_norms = GS_norms;
+		pthread_mutex_unlock(&lock);
 		args[i].Mu = Mu;
 		args[i].shortest_vector = &shortest_vector;
 		args[i].max_num = &max_num;
