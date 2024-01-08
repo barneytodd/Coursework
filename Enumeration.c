@@ -150,7 +150,7 @@ void *Enumerate(void *args) {
 
 //Enumerate the lattice to find the shortest vector
 double ShortestVector(int dim, double **A, double **B, double *Mu) {
-	int i, j;
+	int i;
 
 	//check the size of A and B
 	for (i = 0; i < dim; i++) {
@@ -186,7 +186,6 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 		exit(1);
 	}
 
-	
 	for (i=0;i<dim;i++) {
 		GS_norms[i] = InnerProduct(dim, B[i], B[i]);
 	}
@@ -194,7 +193,6 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 	int max_num = floor(shortest_vector/pow(GS_norms[dim-1], 0.5)); //maximum possible value for x[dim-1]
 	pthread_t threads[max_num];
 
-	
 	//create a lock for when each thread needs to edit shortest_vector
 	pthread_mutex_t lock;
 	if (pthread_mutex_init(&lock, NULL) != 0) {
@@ -220,10 +218,6 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 		args[i].lock = &lock;
 		args[i].A = &A;
 		args[i].B = &B;
-		//args[i].GS0 = GS_norms[0];
-	}
-	for (i=0; i<=max_num; i++) {
-		//printf("gs: %.4f\n", args[i].GS_norms[0]);
 		if (pthread_create(&threads[i], NULL, &Enumerate, (void *)&args[i]) != 0) {
 			printf("Error creating thread %d\n", i);
 			FreeMatrix(dim, &A);
@@ -234,7 +228,6 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 			GS_norms = NULL;
 			exit(1);
 		}
-		//printf("Thread: %d\n", i);
 		count++;
 	}
 	for (i=0; i<count; i++) {
