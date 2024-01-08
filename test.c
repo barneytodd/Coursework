@@ -198,7 +198,7 @@ int main() {
         exit(1);
     }
     for (i=0;i<dim;i++) {
-        A[i] = (double *)realloc(A[i], dim * sizeof(double));
+        A[i] = realloc(A[i], dim * sizeof(double));
         if (A[i]==NULL) {
             FreeMatrix(i, &A);
 						FreeMatrix(dim, &B);
@@ -218,7 +218,7 @@ int main() {
         exit(1);
     }
     for (i=0; i<dim; i++) {
-      B[i] = realloc(B, dim * sizeof(double));
+      B[i] = realloc(B[i], dim * sizeof(double));
       if (B[i] == NULL) {
           FreeMatrix(dim, &A);
 					FreeMatrix(i, &B);
