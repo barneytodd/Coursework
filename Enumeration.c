@@ -6,9 +6,10 @@
 #include <stdlib.h>
 
 void *Enumerate(void *args) {
+	
 	//restructure the arguments into the form of the struct above
   struct ThreadArgs *thread_args = (struct ThreadArgs *)args;
-
+	printf("start: %d\n", thread_args->num);
   int x[thread_args->dim], i, j, k; //x stores the number of each basis vector used to reach each lattice point
   double l[thread_args->dim]; //stores the total contribution squared, of the combination of basis vectors stored in x, in the direction of the ith GS vector
 
@@ -140,6 +141,7 @@ void *Enumerate(void *args) {
 			exit(1);
 	  }
   }
+printf("end: %d\n", thread_args->num);
   pthread_exit(NULL);
 }
 
