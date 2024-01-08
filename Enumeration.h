@@ -6,7 +6,7 @@
 struct ThreadArgs {
   int num;
   int dim;
-  double **GS_norms;
+  double *GS_norms;
   double *Mu;
   double *shortest_vector;
   int *max_num;
