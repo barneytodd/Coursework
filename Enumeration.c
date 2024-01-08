@@ -51,6 +51,8 @@ void *Enumerate(void *args) {
 			  printf("thread: %d, i: %d\n", thread_args->num, i);
 
 		if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) {
+						  printf("thread: %d, i: %d\n", thread_args->num, i);
+
 			//if i=0 and sum3 < (current shortest vector length)^2, we have a new shortest vector
 			if (i==0) {
 				if (sum3 != 0) {
@@ -75,7 +77,8 @@ void *Enumerate(void *args) {
 				}
 				x[i] = round(- sum2); //the integer which minimises l[i], if this doesn't work then no other integer will
 				l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * thread_args->GS_norms[i]; 
-				
+							  printf("thread: %d, i: %d\n", thread_args->num, i);
+
 				if (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3) {
 					//subtract 1 from x[i] until l[i] is no longer < shortest_vector^2 - sum3
 					//then add 1 to x[i] to make x[i] the minimum possible integer such that l[i] < shortest_vector^2 - sum3
@@ -89,6 +92,8 @@ void *Enumerate(void *args) {
 					} while (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3);
 					
 					x[i]++; 
+								  printf("thread: %d, i: %d\n", thread_args->num, i);
+
 				}
 
 				else {
