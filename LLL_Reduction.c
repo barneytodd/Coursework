@@ -95,8 +95,10 @@ void update_matrices(int dim, int start, double **A, double **B, double *Mu) {
       B[i][j] = A[i][j];  
     }
   }
+	printf("u\n");
   
   GramSchmidt(dim, start, B, Mu);
+	printf("u\n");
 }
 
 
