@@ -70,6 +70,7 @@ void *Enumerate(void *args) {
 			//if there is no such integer, add the 1 back to i and then add 1 to x[i]
 			else {
 				i--;
+				printf("i: %d\n", i);
 				sum2 = 0;
 				for (k=i+1; k<thread_args->dim; k++) {
 					sum2 += x[k] * thread_args->Mu[(k-1)*k/2+i]; 
@@ -87,7 +88,9 @@ void *Enumerate(void *args) {
 						for (k=i+1; k<thread_args->dim; k++) {
 							sum2 += x[k] * thread_args->Mu[(k-1)*k/2+i];
 						}
+						printf("sum2: %.4f\n", sum2);
 						l[i] = (x[i] + sum2) * (x[i] + sum2) * thread_args->GS_norms[i]; 
+						printf("l[i]: %.4f\n", l[i]);
 					} while (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3);
 					
 					x[i]++; 
