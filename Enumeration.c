@@ -32,9 +32,9 @@ void *Enumerate(void *args) {
 	//in the case that max_num falls below num, we can exit this thread
 	printf("start enum loop\n");
 	for (j=0; j<thread_args->dim; j++) {
-		for (k=0; k<thread_args->dim; k++) {
+		for (k=0; k<j; k++) {
 			printf("i ");
-			printf("%.4f ", *(thread_args->Mu)[(i-1)*i/2+j]);
+			printf("%.4f ", *(thread_args->Mu)[(j-1)*j/2+k]);
 		}
 		printf("\n");
 	}
