@@ -139,7 +139,7 @@ void *Enumerate(void *args) {
 			exit(1);
 	  }
   }
-	printf("end enum\n");
+	printf("end enum\nthread: %d\n", thread_args->num);
   pthread_exit(NULL);
 }
 
@@ -148,7 +148,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 	int i;
 
 	//check the size of A, B and Mu
-	for (i = 0; i < dim; ++i) {
+	for (i = 0; i < dim; ++ithread) {
 		if (A[i] == NULL || B[i] == NULL) {
 			printf("Error: Input matrices for ShortestVector do not have the correct dimensions");
 			FreeMatrix(i, &A);
@@ -215,7 +215,6 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 		//printf("Thread: %d\n", i);
 		count++;
 	}
-	
 	for (i=0; i<count; i++) {
 		pthread_join(threads[i], NULL);
 	}
