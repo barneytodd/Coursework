@@ -12,7 +12,7 @@ void *Enumerate(void *args) {
 	printf("start: %d\n", thread_args->num);
   int x[thread_args->dim], i, j, k; //x stores the number of each basis vector used to reach each lattice point
   double l[thread_args->dim]; //stores the total contribution squared, of the combination of basis vectors stored in x, in the direction of the ith GS vector
-	for (i=0; i<dim; i++) {
+	for (i=0; i<thread_args->dim; i++) {
 		printf("%.4f ", thread_args->GS_norms[i]);
 	}
 	printf("\n");
