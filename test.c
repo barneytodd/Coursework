@@ -177,8 +177,13 @@ int main() {
     //set the bounds for the values of the second input matrix, and its dimension
     int min = -10000;
     int max = 10000;
-    dim = 10;
-
+    int new_dim = 10;
+		
+		new_dim = dim - new_dim; //set to the difference
+		dim -=new_dim; //set to the new dim
+		
+		
+	
     //resize A, B and Mu
     A = realloc(A, dim * sizeof(double *));
     if (A==NULL) {
@@ -188,6 +193,24 @@ int main() {
 				Mu = NULL;
         exit(1);
     }
+
+		B = realloc(B, dim * sizeof(double *)); //stores GS orthogonalised values
+		    if (B == NULL) {
+		        perror("Failed to reallocate memory for the B matrix");
+		        FreeMatrix(dim, &A);
+						free(Mu);
+						Mu = NULL;
+		        exit(1);
+		    }
+
+
+		if (new_dim>0) {
+			for (i=dim; i<new_dim+dim; i++)  {
+				free(A[i]);
+				free(B[i]);
+				A[i] = B[i] = NULL;
+		}
+			
     for (i=0;i<dim;i++) {
         A[i] = realloc(A[i], dim * sizeof(double));
         if (A[i]==NULL) {
@@ -200,14 +223,7 @@ int main() {
         }          
     }
     
-    B = realloc(B, dim * sizeof(double *)); //stores GS orthogonalised values
-    if (B == NULL) {
-        perror("Failed to reallocate memory for the B matrix");
-        FreeMatrix(dim, &A);
-				free(Mu);
-				Mu = NULL;
-        exit(1);
-    }
+    
     for (i=0; i<dim; i++) {
       B[i] = realloc(B[i], dim * sizeof(double));
       if (B[i] == NULL) {
@@ -227,7 +243,11 @@ int main() {
 		perror("Failed to reallocate memory for Mu");
 		exit(1);
 	}
-    
+		free(Mu+dim);
+
+	
+
+	
     //initialise A to a set of random doubles, sampled from U(min, max)
     srand(time(NULL));
     for (i=0;i<dim;i++) {
