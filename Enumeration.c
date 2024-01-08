@@ -35,7 +35,7 @@ void *Enumerate(void *args) {
 		for (j=thread_args->dim-1; j>=i; j--) { 
 		sum2 = 0;
 			for (k=j+1; k<thread_args->dim; k++) {
-				sum2 += x[k] * thread_args->Mu[(k-1)*k/2+j]; 
+				sum2 += x[k] * (*(thread_args->Mu))[(k-1)*k/2+j]; 
 			}
 			l[j] = (x[j] + sum2) * (x[j] + sum2) * (*(thread_args->GS_norms))[j]; 	
 		}
