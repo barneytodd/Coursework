@@ -21,7 +21,7 @@ void *Enumerate(void *args) {
 							exit(1);
 						}
 	
-  int x[thread_args->dim], i, j, k; //x stores the number of each basis vector used to reach each lattice point
+  int x[thread_args->dim], i, j, k, m; //x stores the number of each basis vector used to reach each lattice point
   double l[thread_args->dim]; //stores the total contribution squared, of the combination of basis vectors stored in x, in the direction of the ith GS vector
 	
   for (i=0; i<thread_args->dim-1; i++) {
@@ -86,7 +86,7 @@ void *Enumerate(void *args) {
 				if (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3) {
 					//subtract 1 from x[i] until l[i] is no longer < shortest_vector^2 - sum3
 					//then add 1 to x[i] to make x[i] the minimum possible integer such that l[i] < shortest_vector^2 - sum3
-					k=0;
+					m=0;
 					do {
 						printf("%d\n", k);
 						x[i]--;
@@ -96,8 +96,8 @@ void *Enumerate(void *args) {
 						}
 						l[i] = (x[i] + sum2) * (x[i] + sum2) * (*(thread_args->GS_norms))[i]; 
 						printf("%.4f\n", l[i]);
-						k++;
-						if (k>100) {
+						m++;
+						if (m>100) {
 							printf("k: %d\n", k);
 							printf("Error: thread %d failed\n", thread_args->num);
 							FreeMatrix(thread_args->dim, thread_args->A);
