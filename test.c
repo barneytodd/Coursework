@@ -183,7 +183,13 @@ int main() {
 		dim -=new_dim; //set to the new dim
 		
 		
-	
+	if (new_dim>0) {
+			for (i=dim; i<new_dim+dim; i++)  {
+				free(A[i]);
+				free(B[i]);
+				A[i] = B[i] = NULL;
+			}
+		}
     //resize A, B and Mu
     A = realloc(A, dim * sizeof(double *));
     if (A==NULL) {
@@ -192,26 +198,7 @@ int main() {
 				free(Mu);
 				Mu = NULL;
         exit(1);
-    }
-
-		B = realloc(B, dim * sizeof(double *)); //stores GS orthogonalised values
-		    if (B == NULL) {
-		        perror("Failed to reallocate memory for the B matrix");
-		        FreeMatrix(dim, &A);
-						free(Mu);
-						Mu = NULL;
-		        exit(1);
-		    }
-
-
-		if (new_dim>0) {
-			for (i=dim; i<new_dim+dim; i++)  {
-				free(A[i]);
-				free(B[i]);
-				A[i] = B[i] = NULL;
-			}
-		}
-			
+    }			
     for (i=0;i<dim;i++) {
         A[i] = realloc(A[i], dim * sizeof(double));
         if (A[i]==NULL) {
@@ -224,7 +211,14 @@ int main() {
         }          
     }
     
-    
+    B = realloc(B, dim * sizeof(double *)); //stores GS orthogonalised values
+		if (B == NULL) {
+				perror("Failed to reallocate memory for the B matrix");
+				FreeMatrix(dim, &A);
+				free(Mu);
+				Mu = NULL;
+				exit(1);
+		}
     for (i=0; i<dim; i++) {
       B[i] = realloc(B[i], dim * sizeof(double));
       if (B[i] == NULL) {
@@ -236,7 +230,7 @@ int main() {
           exit(1);
       }
     }
-
+		
     Mu = realloc(Mu, (dim-1)*dim/2 * sizeof(double)); //stores Mu values for GramSchmidt orthogonalisation
     if (Mu == NULL) {
 		FreeMatrix(dim, &A);
@@ -244,7 +238,7 @@ int main() {
 		perror("Failed to reallocate memory for Mu");
 		exit(1);
 	}
-		free(Mu+dim);
+		
 
 	
 
