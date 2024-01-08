@@ -88,23 +88,19 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
 //when A gets updated, recompute B to be the GramSchmidt orthogonalised version of the updated A
 void update_matrices(int dim, int start, double **A, double **B, double *Mu) {
   int i, j;
-	printf("dim: %d\n", dim);
   //set B to equal A for the vectors after the one that has just changed
   for (i=start; i<dim; i++) {
     for (j=0; j<dim; j++) {
       B[i][j] = A[i][j];  
     }
   }
-	printf("u\n");
   
   GramSchmidt(dim, start, B, Mu);
-	printf("u\n");
 }
 
 
 /// Lenstra–Lenstra–Lovász reduce the input matrix A
 void LLL(double delta, int dim, double **A, double **B, double *Mu) {
-	printf("start LLL\n");
   
   int i, j, k; //initialise variables i, j, k
   update_matrices(dim, 0, A, B, Mu); 
@@ -116,7 +112,6 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
 	//iterate through the LLL Reduction steps until:
   //(B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k, and
   //mu_kj<=0.5 for all k, j<k
-	printf("y\n");
   while (k<dim) {
     //reduce the kth vector until for all j<k, mu_kj<=0.5
     for (j=k-1; j>=0; j--) {
@@ -140,7 +135,6 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
 				m=0;
       }
     }
-	printf("y\n");	
     //LLL basis reduction requires (B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k
     Mu[(k-1)*k/2+k-1] = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
     if (InnerProduct(dim, B[k], B[k]) > ((delta - (Mu[(k-1)*k/2+k-1]*Mu[(k-1)*k/2+k-1])) * InnerProduct(dim, B[k-1], B[k-1]))) {
@@ -153,9 +147,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
         A[k-1][i] = A[k][i];
         A[k][i] = B[k][i];			
       }
-	printf("y\n");
       update_matrices(dim, k-1, A, B, Mu); 
-	    printf("y\n");
       k = fmax(k-1, 1);  
 			m++;
     }
@@ -171,7 +163,6 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
     	exit(1);
     }
   }
-	  printf("end LLL\n");
 }
   
   
