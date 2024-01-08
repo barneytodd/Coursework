@@ -33,7 +33,7 @@ void *Enumerate(void *args) {
 	printf("start enum loop\n");
 	for (j=0; j<thread_args->dim; j++) {
 		for (k=0; k<j; k++) {
-			printf("i ");
+			//printf("i ");
 			printf("%.4f ", *(thread_args->Mu)[(j-1)*j/2+k]);
 		}
 		printf("\n");
