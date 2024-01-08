@@ -128,6 +128,7 @@ void *Enumerate(void *args) {
 				break;
 			}
 			x[i]++;
+			printf("thread: %d, i: %d\n", thread_args->num, i);
 		}
 		m+=1;
 	  if (m > max_its) {
