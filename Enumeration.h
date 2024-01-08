@@ -13,6 +13,7 @@ struct ThreadArgs {
 	pthread_mutex_t *lock;
 	double ***A;
 	double ***B;
+double GS0;
 };
 
 void *Enumerate(void *args);
