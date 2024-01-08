@@ -74,7 +74,7 @@ void *Enumerate(void *args) {
 				sum2 = 0;
 				for (k=i+1; k<thread_args->dim; k++) {
 					printf("thread: %d, i: %d\n", thread_args->num, i);
-					sum2 += x[k] * *(thread_args->Mu)[(k-1)*k/2+i]; 
+					sum2 += x[k] * (*(thread_args->Mu)[(k-1)*k/2+i]); 
 										printf("thread: %d, i: %d\n", thread_args->num, i);
 
 				}
