@@ -83,11 +83,8 @@ void runTests(int dim, double **A, double **B, double *Mu) {
     int i;
     double limit = LimitCalc(dim, A);
 
-	printf("Before LLL\n");
     LLL(0.75, dim, A, B, Mu);
-	printf("After LLL\n");
     double shortest_vector = ShortestVector(dim, A, B, Mu);
-	printf("After shortest_vector\n");
 
     //true if the input matrix is an identity matrix
     bool unit_test = true;
@@ -167,12 +164,6 @@ int main() {
 		perror("Failed to allocate memory for Mu");
 		exit(1);
 	}
-  for (i=0; i<dim; i++) {
-	  for (j=0; j<i; j++) {
-	  	printf("%.4f ", Mu[(i-1)*i/2+j]);
-			}
-	  printf("\n");
-  }
     
   
     //set A to be the dim x dim identity matrix
