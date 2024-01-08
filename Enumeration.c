@@ -12,7 +12,10 @@ void *Enumerate(void *args) {
 	printf("start: %d\n", thread_args->num);
   int x[thread_args->dim], i, j, k; //x stores the number of each basis vector used to reach each lattice point
   double l[thread_args->dim]; //stores the total contribution squared, of the combination of basis vectors stored in x, in the direction of the ith GS vector
-
+	for (i=0; i<dim; i++) {
+		printf("%.4f ", thread_args->GS_norms[i]);
+	}
+	printf("\n");
   for (i=0; i<thread_args->dim-1; i++) {
     x[i] = 0;
   }
@@ -210,7 +213,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 		printf("%.4f\n", GS_norms[i]);
 	}
 	printf("\n");
-	exit(1);
+	//exit(1);
 	
 	//create a lock for when each thread needs to edit shortest_vector
 	pthread_mutex_t lock;
