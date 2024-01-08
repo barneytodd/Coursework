@@ -187,7 +187,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 		Mu = NULL;		
 		exit(1);
   }
-	
+	printf("before threads\n");
 	//divide the enumeration into threads by x[dim-1] value
 	struct ThreadArgs args[max_num+1];
 	int count = 0;
