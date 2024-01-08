@@ -16,6 +16,7 @@ void *Enumerate(void *args) {
 		printf("%.4f ", thread_args->GS_norms[i]);
 	}
 	printf("\n");
+	printf("gs: %.4f\n", thread_args->GS0);
 	exit(1);
   for (i=0; i<thread_args->dim-1; i++) {
     x[i] = 0;
@@ -241,6 +242,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 		args[i].lock = &lock;
 		args[i].A = &A;
 		args[i].B = &B;
+		args[i].GS0 = GS_norms[0];
 	}
 	for (i=0; i<=max_num; i++) {
 		printf("gs: %.4f\n", args[i].GS_norms[0]);
