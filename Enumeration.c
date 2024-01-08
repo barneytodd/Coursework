@@ -31,7 +31,10 @@ void *Enumerate(void *args) {
 	//max_num may get updated by the other threads
 	//in the case that max_num falls below num, we can exit this thread
   while (*thread_args->max_num > thread_args->num) { 
-
+		for (j=0; j<thread_args->dim; j++) {
+			printf("%d ", x[j]);
+		}
+	  	printf("\n");
 		//calculate the l[j] values from i upwards
 		for (j=thread_args->dim-1; j>=i; j--) { 
 		sum2 = 0;
