@@ -179,17 +179,16 @@ int main() {
     int max = 10000;
     int new_dim = 10;
 		
-		new_dim = dim - new_dim; //set to the difference
-		dim -=new_dim; //set to the new dim
 		
-		
-	if (new_dim>0) {
-			for (i=dim; i<new_dim+dim; i++)  {
+	if (new_dim<dim) {
+			for (i=new_dim; i<dim; i++)  {
 				free(A[i]);
 				free(B[i]);
 				A[i] = B[i] = NULL;
 			}
 		}
+
+		dim = new_dim;
     //resize A, B and Mu
     A = realloc(A, dim * sizeof(double *));
     if (A==NULL) {
