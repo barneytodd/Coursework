@@ -88,7 +88,7 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
 //when A gets updated, recompute B to be the GramSchmidt orthogonalised version of the updated A
 void update_matrices(int dim, int start, double **A, double **B, double *Mu) {
   int i, j;
-
+	printf("dim: %d\n", dim);
   //set B to equal A for the vectors after the one that has just changed
   for (i=start; i<dim; i++) {
     for (j=0; j<dim; j++) {
