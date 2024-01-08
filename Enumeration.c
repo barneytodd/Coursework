@@ -5,18 +5,6 @@
 #include <pthread.h>
 #include <stdlib.h>
 
-struct ThreadArgs {
-  int num;
-  int dim;
-  double *GS_norms;
-  double **Mu;
-  double *shortest_vector;
-  int *max_num;
-	pthread_mutex_t *lock;
-	double ***A;
-	double ***B;
-};
-
 void *Enumerate(void *args) {
 	//restructure the arguments into the form of the struct above
   struct ThreadArgs *thread_args = (struct ThreadArgs *)args;
