@@ -6,7 +6,6 @@
 #include <stdlib.h>
 
 void *Enumerate(void *args) {
-	printf("start enum\n");
 	//restructure the arguments into the form of the struct above
   struct ThreadArgs *thread_args = (struct ThreadArgs *)args;
 
@@ -30,16 +29,7 @@ void *Enumerate(void *args) {
 	
 	//max_num may get updated by the other threads
 	//in the case that max_num falls below num, we can exit this thread
-	printf("dim: %d\n", thread_args->dim);
-	for (j=0; j<thread_args->dim; j++) {
-		for (k=0; k<j; k++) {
-			//printf("i ");
-			printf("%.4f ", thread_args->Mu[(j-1)*j/2+k]);
-		}
-		printf("\n");
-	}
   while (*thread_args->max_num > thread_args->num) { 
-			  printf("thread: %d, i: %d\n", thread_args->num, i);
 
 		//calculate the l[j] values from i upwards
 		for (j=thread_args->dim-1; j>=i; j--) { 
@@ -55,11 +45,8 @@ void *Enumerate(void *args) {
 		for (j=i; j<thread_args->dim; j++) {
 			sum3 += l[j];
 		}
-			  printf("thread: %d, i: %d\n", thread_args->num, i);
 
 		if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) {
-						  printf("thread: %d, i: %d\n", thread_args->num, i);
-
 			//if i=0 and sum3 < (current shortest vector length)^2, we have a new shortest vector
 			if (i==0) {
 				if (sum3 != 0) {
@@ -80,10 +67,7 @@ void *Enumerate(void *args) {
 				i--;
 				sum2 = 0;
 				for (k=i+1; k<thread_args->dim; k++) {
-					printf("thread: %d, i: %d\n", thread_args->num, i);
 					sum2 += x[k] * thread_args->Mu[(k-1)*k/2+i]; 
-										printf("thread: %d, i: %d\n", thread_args->num, i);
-
 				}
 				x[i] = round(- sum2); //the integer which minimises l[i], if this doesn't work then no other integer will
 				l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * thread_args->GS_norms[i]; 
@@ -101,16 +85,12 @@ void *Enumerate(void *args) {
 					} while (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3);
 					
 					x[i]++; 
-								  printf("thread: %d, i: %d\n", thread_args->num, i);
-
 				}
 
 				else {
 					i+=1;
 					x[i]++;
 				}
-					  printf("thread: %d, i: %d\n", thread_args->num, i);
-
 			}
 		}
 		//if sum3 > shortest_vector^2, increase i by 1 and then increase x[i] by 1
@@ -150,7 +130,6 @@ void *Enumerate(void *args) {
 			x[i]++;
 			
 		}
-	  printf("thread: %d, i: %d\n", thread_args->num, i);
 		m+=1;
 	  if (m > max_its) {
 			printf("Error: Enumeration loop for thread %d failed\n", thread_args->num);
@@ -161,7 +140,6 @@ void *Enumerate(void *args) {
 			exit(1);
 	  }
   }
-	printf("end enum\nthread: %d\n", thread_args->num);
   pthread_exit(NULL);
 }
 
@@ -212,7 +190,6 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 		Mu = NULL;		
 		exit(1);
   }
-	printf("max_num: %d\n", max_num);
 	//divide the enumeration into threads by x[dim-1] value
 	struct ThreadArgs args[max_num+1];
 	int count = 0;
