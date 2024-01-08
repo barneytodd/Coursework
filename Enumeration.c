@@ -30,7 +30,7 @@ void *Enumerate(void *args) {
 	
 	//max_num may get updated by the other threads
 	//in the case that max_num falls below num, we can exit this thread
-	printf("start enum loop\n");
+	printf("dim: %d\n", thread_args->dim);
 	for (j=0; j<thread_args->dim; j++) {
 		for (k=0; k<j; k++) {
 			//printf("i ");
