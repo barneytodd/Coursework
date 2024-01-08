@@ -98,6 +98,7 @@ void *Enumerate(void *args) {
 						printf("%.4f\n", l[i]);
 						k++;
 						if (k>100) {
+							printf("k: %d\n", k);
 							printf("Error: thread %d failed\n", thread_args->num);
 							FreeMatrix(thread_args->dim, thread_args->A);
 							FreeMatrix(thread_args->dim, thread_args->B);
