@@ -163,7 +163,7 @@ printf("end: %d\n", thread_args->num);
 
 //Enumerate the lattice to find the shortest vector
 double ShortestVector(int dim, double **A, double **B, double *Mu) {
-	int i;
+	int i, j;
 
 	//check the size of A, B and Mu
 	for (i = 0; i < dim; i++) {
@@ -198,6 +198,20 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 	int max_num = floor(shortest_vector/pow(GS_norms[dim-1], 0.5)); //maximum possible value for x[dim-1]
 	pthread_t threads[max_num];
 
+	printf("B\n");
+	for (i=0; i<dim; i++) {
+		for (j=0; j<dim; j++) {
+			printf("%.4f ", B[i][j]);
+		}
+		printf("\n");
+	}
+	printf("GS\n");
+	for (i=0; i<dim; i++) {
+		printf("%.4f\n", GS_norms[i]);
+	}
+	printf("\n");
+	exit(1);
+	
 	//create a lock for when each thread needs to edit shortest_vector
 	pthread_mutex_t lock;
 	if (pthread_mutex_init(&lock, NULL) != 0) {
