@@ -78,14 +78,14 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
         Mu[(i-1)*i/2+j] = InnerProduct(dim, B[i], B[j])*mag1;///InnerProduct(dim, B[j], B[j]);
         for (k=0; k<dim; k++) {
           vec1[k] += Mu[(i-1)*i/2+j] * B[j][k]; //add the dot_product times the jth normalised vector 
-					B[j][k]*=mag2;
+					B[j][k]*=mag2; //reset B[j] to original values
         } 
-				Mu[(i-1)*i/2+j] /= mag2;     
+				Mu[(i-1)*i/2+j] /= mag2; //reset Mu[i][j] to normal value     
       }
 			
       //subtract from the ith initial vector
       for (k=0; k<dim; k++) {
-        B[i][k]*=mag1; //reset B[i] to unnormalised version
+        B[i][k]*=mag1; //reset B[i] to original version
         B[i][k] -= vec1[k];
       }
     }
