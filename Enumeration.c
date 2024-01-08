@@ -10,16 +10,16 @@ void *Enumerate(void *args) {
 	//restructure the arguments into the form of the struct above
   struct ThreadArgs *thread_args = (struct ThreadArgs *)args;
 	printf("start: %d\n", thread_args->num);
-	if (thread_args->GS_norms[0] == NULL) {
-		thread_args->GS_norms[0] = thread_args->GS0;
-	}
+	//if (thread_args->GS_norms[0] == 0.0) {
+	//	thread_args->GS_norms[0] = thread_args->GS0;
+	//}
   int x[thread_args->dim], i, j, k; //x stores the number of each basis vector used to reach each lattice point
   double l[thread_args->dim]; //stores the total contribution squared, of the combination of basis vectors stored in x, in the direction of the ith GS vector
 	for (i=0; i<thread_args->dim; i++) {
-		printf("%.4f ", thread_args->GS_norms[i]);
+		printf("%.4f ", (*thread_args->GS_norms)[i]);
 	}
 	printf("\n");
-	printf("gs: %.4f\n", thread_args->GS0);
+	//printf("gs: %.4f\n", thread_args->GS0);
 	exit(1);
   for (i=0; i<thread_args->dim-1; i++) {
     x[i] = 0;
@@ -238,17 +238,17 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 	for (i=0; i<=max_num; i++) {
 		args[i].num = i;
 		args[i].dim = dim;
-		args[i].GS_norms = GS_norms;
+		args[i].GS_norms = &GS_norms;
 		args[i].Mu = Mu;
 		args[i].shortest_vector = &shortest_vector;
 		args[i].max_num = &max_num;
 		args[i].lock = &lock;
 		args[i].A = &A;
 		args[i].B = &B;
-		args[i].GS0 = GS_norms[0];
+		//args[i].GS0 = GS_norms[0];
 	}
 	for (i=0; i<=max_num; i++) {
-		printf("gs: %.4f\n", args[i].GS_norms[0]);
+		//printf("gs: %.4f\n", args[i].GS_norms[0]);
 		if (pthread_create(&threads[i], NULL, &Enumerate, (void *)&args[i]) != 0) {
 			printf("Error creating thread %d\n", i);
 			FreeMatrix(dim, &A);
