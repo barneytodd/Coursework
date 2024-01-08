@@ -169,7 +169,7 @@ int main() {
 	}
   for (i=0; i<dim; i++) {
 	  for (j=0; j<i; j++) {
-	  	printf("%.4f ", Mu[(i-1)*i/2+j];
+	  	printf("%.4f ", Mu[(i-1)*i/2+j]);
 			}
 	  printf("\n");
   }
