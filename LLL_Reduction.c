@@ -31,6 +31,7 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
 		}
 		//iterate through the previous vectors
 		for (j=0; j<i; j++) { 
+			printf("j: %d\t", j);
 			mag2 = sqrt(InnerProduct(dim, B[j], B[j]));
 			//for (k=0;k<dim;k++) {
 		  	//B[j][k] /= mag2; //normalise before inner product
