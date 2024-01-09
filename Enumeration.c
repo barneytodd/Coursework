@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>
-#include <unistd.h>
 
 //runs the lattice enumeration loop for each thread
 void *Enumerate(void *args) {
@@ -171,7 +170,6 @@ void *Enumerate(void *args) {
 			exit(1);
 	  }
   }
-	sleep(10);
   pthread_exit(NULL);
 }
 
