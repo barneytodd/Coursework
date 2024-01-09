@@ -5,6 +5,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 
+//runs the lattice enumeration loop for each thread
 void *Enumerate(void *args) {
 	
 	//restructure the arguments into the form of the struct above
@@ -34,9 +35,9 @@ void *Enumerate(void *args) {
   double sum2; //stores the sum of x[j] * Mu[j][i] for j>i
   double sum3; //stores the sum (j>i) of the l[j] values
   double m = 0.0; //counts the number of iterations of the while loop, needs to be double in case num iterations > max int
-	double max_its = pow(2.0, thread_args->dim); //an estimate of the maximum number of iterations required
+	double max_its = pow(2.0, pow(thread_args->dim-1, 2)); //an upper bound of the number of iterations required
 	
-	double short_vec = *(thread_args->shortest_vector); //keep the value of the shortest_vector, we may need to adjust when it gets changed
+	double short_vec = *(thread_args->shortest_vector); //keep the value of the shortest_vector, we may need to adjust if it gets changed by another thread
 	
 	//max_num may get updated by the other threads
 	//in the case that max_num falls below num, we can exit this thread
@@ -50,6 +51,7 @@ void *Enumerate(void *args) {
 			}
 			l[j] = (x[j] + sum2) * (x[j] + sum2) * (*(thread_args->GS_norms))[j]; 	
 		}
+		
 		//sum the l[j] values for j>=i
 		sum3 = 0;
 		for (j=i; j<thread_args->dim; j++) {
@@ -124,8 +126,9 @@ void *Enumerate(void *args) {
 				
 				l[thread_args->dim-2] = pow(x[thread_args->dim-2] + x[thread_args->dim-1] * (*(thread_args->Mu))[(k-1)*k/2+j], 2) * (*(thread_args->GS_norms))[thread_args->dim-2]; 
 
-				//if l[dim-2] + l[dim-1] < shortest_vector^2, then we are fine to carry on
+				//if l[dim-2] + l[dim-1] < shortest_vector^2, then we are fine to carry on from i = dim-2
 				if (l[thread_args->dim-2]+l[thread_args->dim-1] < pow(*(thread_args->shortest_vector), 2)) {
+					i = thread_args->dim-2;
 					continue;
 				}
 					
@@ -189,7 +192,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 	double shortest_vector = sqrt(InnerProduct(dim, A[0], A[0])); //keeps track of current shortest vector
 	double current_norm; //stores the norm of each basis vector
 
-	//find the shortest basis vector and set shortes_vector to be equal to its norm
+	//find the shortest basis vector and set shortest_vector to be equal to its norm
 	for (i=1; i<dim; i++) {
 		current_norm = sqrt(InnerProduct(dim, A[i], A[i])); //calculates norm of each vector in A, then compares to shortest vector
 		if (current_norm < shortest_vector) {
@@ -198,8 +201,9 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 	}
 	
 	printf("shortest basis vector: %.4f\n", shortest_vector);
-	
-	double *GS_norms = (double *)malloc(dim * sizeof(double)); //stores the norm of each GramSchidt orthogonalised vector
+
+	//stores the squared norm of each GramSchidt orthogonalised vector
+	double *GS_norms = (double *)malloc(dim * sizeof(double)); 
 	if (GS_norms == NULL) {
 		FreeMatrix(dim, &A);
 		FreeMatrix(dim, &B);
@@ -227,6 +231,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 		GS_norms = NULL;
 		exit(1);
   }
+	
 	//divide the enumeration into threads by x[dim-1] value
 	struct ThreadArgs args[max_num+1];
 	int count = 0;
