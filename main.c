@@ -121,18 +121,18 @@ int main(int argc, char **argv) {
 		return 0;
 	}
 	
-  printf("Vectors (A):\n");
-  printf("[");
-  for (int i = 0; i < dim; i++) {
-    printf("[");
-      for (int j = 0; j < dim; j++) {
-        printf("%.4f", A[i][j]);
-        if (j!=dim-1) {
-          printf(", ");
-        }
-      }
-      printf("], \n");
-  }
+  //printf("Vectors (A):\n");
+  //printf("[");
+  //for (int i = 0; i < dim; i++) {
+    //printf("[");
+      //for (int j = 0; j < dim; j++) {
+        //printf("%.4f", A[i][j]);
+        //if (j!=dim-1) {
+         // printf(", ");
+        //}
+      //}
+      //printf("], \n");
+  //}
 
   //initialise the matrix B, which stores GS orthogonalised values
 	double **B = (double **)malloc(dim * sizeof(double *)); 
@@ -165,18 +165,18 @@ int main(int argc, char **argv) {
   //reduce the lattice basis using Lenstra–Lenstra–Lovász lattice reduction
   LLL(0.75, dim, A, B, Mu);
 	
-  printf("Orthonormalized Vectors (A):\n");
-  printf("[");
-  for (int i = 0; i < dim; i++) {
-    printf("[");
-      for (int j = 0; j < dim; j++) {
-        printf("%.4f", A[i][j]);
-        if (j!=dim-1) {
-          printf(", ");
-        }
-      }
-      printf("], \n");
-  }
+  //printf("Orthonormalized Vectors (A):\n");
+  //printf("[");
+  //for (int i = 0; i < dim; i++) {
+    //printf("[");
+      //for (int j = 0; j < dim; j++) {
+        //printf("%.4f", A[i][j]);
+        //if (j!=dim-1) {
+          //printf(", ");
+        //}
+      //}
+      //printf("], \n");
+  //}
 
   //compute lattice enumeration to find the shortest vector
   double shortest_length = 922.0;//ShortestVector(dim, A, B, Mu);
