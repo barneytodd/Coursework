@@ -124,7 +124,7 @@ void *Enumerate(void *args) {
 			if (short_vec != *(thread_args->shortest_vector)) {
 				short_vec = *(thread_args->shortest_vector);
 				
-				l[thread_args->dim-2] = pow(x[thread_args->dim-2] + x[thread_args->dim-1] * (*(thread_args->Mu))[(k-1)*k/2+j], 2) * (*(thread_args->GS_norms))[thread_args->dim-2]; 
+				l[thread_args->dim-2] = pow(x[thread_args->dim-2] + x[thread_args->dim-1] * (*(thread_args->Mu))[(thread_args->dim-2)*(thread_args->dim-1)/2+thread_args->dim-2], 2) * (*(thread_args->GS_norms))[thread_args->dim-2]; 
 
 				//if l[dim-2] + l[dim-1] < shortest_vector^2, then we are fine to carry on from i = dim-2
 				if (l[thread_args->dim-2]+l[thread_args->dim-1] < pow(*(thread_args->shortest_vector), 2)) {
