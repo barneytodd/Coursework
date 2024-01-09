@@ -27,7 +27,7 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
 			Mu[(i-1)*i/2+j] = InnerProduct(dim, B[i], B[j])*mag1;
 		}
 		for (k=0; k<dim; k++) {
-			B[i][k] *= mag1
+			B[i][k] *= mag1;
 		}
 		//iterate through the previous vectors
 		for (j=0; j<i; j++) { 
