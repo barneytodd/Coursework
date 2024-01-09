@@ -42,10 +42,11 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
 				//if (k==0 && j==0) {
 				printf("Mu: %.4f, B[i]: %.4f, B[j]: %.4f\t", Mu[(i-1)*i/2+j], B[i][k], B[j][k]);
 				//}
-				printf("\n");
+				
 				B[i][k] -= Mu[(i-1)*i/2+j] * B[j][k];
 				B[j][k] *= mag2; //reset B[j] to original values
 			} 
+			printf("\n");
 			Mu[(i-1)*i/2+j] /= mag2; //reset Mu[i][j] to normal value     
 		}
 				
