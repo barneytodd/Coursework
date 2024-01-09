@@ -105,6 +105,7 @@ int main(int argc, char **argv) {
   }
   endptr = NULL;
 
+	//if dim = 1, the shortest vector is A[0][0]
 	if (dim==1) {
 		FILE *result = fopen("result.txt", "w");
 	  if (result == NULL) {
