@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include <unistd.h>
+
 
 int main(int argc, char **argv) {
   int dim, i, j, k;
@@ -173,7 +173,6 @@ int main(int argc, char **argv) {
     perror("Error closing the result file");
     exit(1);
   }
-	sleep(10);
   
   return 0;
 }
