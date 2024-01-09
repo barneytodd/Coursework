@@ -6,11 +6,10 @@
 #include <math.h>
 #include <string.h>
 
-#include <limits.h>
-
-
 int main(int argc, char **argv) {
   int dim, i, j, k;
+	
+	//calculate the input dimnesion by looking for the start of the second vector
   if (argc>2) {
     for (i = 2; i < argc; i++) {
       if (argv[i][0] == '[') {
