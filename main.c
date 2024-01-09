@@ -153,7 +153,7 @@ int main(int argc, char **argv) {
   //LLL(0.75, dim, A, B, Mu);
 
   //compute lattice enumeration to find the shortest vector
-  double shortest_length = 922.0//ShortestVector(dim, A, B, Mu);
+  double shortest_length = 922.0;//ShortestVector(dim, A, B, Mu);
   printf("shortest length: %.4f\n", shortest_length);
   //free the memory allocated for A
   FreeMatrix(dim, &A);
