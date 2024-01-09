@@ -51,6 +51,13 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
 			//B[i][k] -= vec1[k];
 		//}
 	}
+	printf("B\n");
+	for (i=0; i<dim; i++) {
+		for (j=0; j<dim; j++) {
+			printf("%.4f ", B[i][j]);
+		}
+		printf("\n");
+	}
 }
   
 //when A gets updated, recompute B to be the GramSchmidt orthogonalised version of the updated A, along with the associated Mu values
@@ -137,7 +144,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
 		//(dim-1)*dim/2 is the number of swaps required to completely reverse the list of vectors
 		//therefore any more than this without reducing any of the vectors means an error has occured
     if (m > (dim-1)*dim/2) { 
-      printf("Error: While loop failed\n");
+      printf("Error: LLL while loop failed\n");
 			FreeMatrix(dim, &A);
 			FreeMatrix(dim, &B);
 			free(Mu);
