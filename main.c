@@ -163,7 +163,7 @@ int main(int argc, char **argv) {
 	}
 
   //reduce the lattice basis using Lenstra–Lenstra–Lovász lattice reduction
-  LLL(0.75, dim, A, B, Mu);
+  //LLL(0.75, dim, A, B, Mu);
 	
   printf("Orthonormalized Vectors (A):\n");
   printf("[");
