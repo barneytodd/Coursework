@@ -4,7 +4,6 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <limits.h>
 
 //compute GramSchmidt orthogonalisation without normalisation
 void GramSchmidt(int dim, int start, double **B, double *Mu) {
