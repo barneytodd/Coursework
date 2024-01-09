@@ -18,9 +18,13 @@ int main(int argc, char **argv) {
       }
     }
   }
-  else {
-    dim = argc-1;
+  else if (argc == 2) {
+    dim = 1;
   }
+	else {
+		printf("Error: no input vectors provided\n");
+		exit(1);
+	}
   
   //check that there are dim^2 + 1 arguments
   if (dim != (int)pow(argc-1, 0.5)) {
@@ -147,6 +151,20 @@ int main(int argc, char **argv) {
   }
   endptr = NULL;
 
+	if (dim==1) {
+		FILE *result = fopen("result.txt", "w");
+	  if (result == NULL) {
+	    perror("Error opening the result file");
+	    exit(1);
+	  }
+	  fprintf(result, "%.4f\n", A[0][0]);
+	  if (fclose(result) != 0) {
+	    perror("Error closing the result file");
+	    exit(1);
+  	}
+		return 0;
+	}
+	
   printf("Vectors (A):\n");
   printf("[");
   for (int i = 0; i < dim; i++) {
