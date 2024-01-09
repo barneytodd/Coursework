@@ -12,7 +12,7 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
   double mag2; //stores the norm of each j vector
 	
 	//iterate through the initial vectors
-	for (i=fmax(start, 1); i<dim; i++) { 
+	for (i=start; i<dim; i++) { 
 		mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
 		for (k=0; k<dim; k++) {
 			B[i][k] /= mag1; //normalising vectors before computing inner proucts helps to reduce inaccuracies caused by double calculations
