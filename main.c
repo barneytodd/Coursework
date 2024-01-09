@@ -162,6 +162,7 @@ int main(int argc, char **argv) {
 	    perror("Error closing the result file");
 	    exit(1);
   	}
+		FreeMatrix(dim, &A);
 		return 0;
 	}
 	
