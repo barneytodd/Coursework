@@ -41,7 +41,7 @@ void *Enumerate(void *args) {
 	
 	//max_num may get updated by the other threads
 	//in the case that max_num falls below num, we can exit this thread
-  while (*thread_args->max_num > thread_args->num) { 
+  while (*thread_args->max_num >= thread_args->num) { 
 		
 		//calculate the l[j] values from i upwards
 		for (j=thread_args->dim-1; j>=i; j--) { 
