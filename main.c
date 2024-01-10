@@ -150,8 +150,9 @@ int main(int argc, char **argv) {
 		exit(1);
 	}
 
+	update_matrices(dim, 0, A, B, Mu);
   //reduce the lattice basis using Lenstra–Lenstra–Lovász lattice reduction
-  LLL(0.75, dim, A, B, Mu);
+  //LLL(0.75, dim, A, B, Mu);
 
   //compute lattice enumeration to find the shortest vector
   double shortest_length = ShortestVector(dim, A, B, Mu);
