@@ -230,9 +230,10 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 		GS_norms = NULL;
 		exit(1);
   }
-
+	printf("max_num: %d\n", max_num);
 	int batch_size = 10;
 	int n = (max_num+1)/batch_size;
+	printf("n: %d\n", n);
 	int m;
 	for (i=0; i<n+1; i++) {
 		if (max_num+1-batch_size*n >= batch_size) {
