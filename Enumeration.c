@@ -268,7 +268,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 			}
 			else {
 				count++;
-				printf("thread %d created\n", j+batch_size+i);
+				printf("thread %d created\n", j+batch_size*i);
 			}
 			
 			
