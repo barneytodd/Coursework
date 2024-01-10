@@ -265,6 +265,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 				GS_norms = NULL;
 				exit(1);
 			}
+			printf("thread %d created\n", j+batch_size+i);
 			count++;
 		}
 		for (j=0; j<count; j++) {
