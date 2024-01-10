@@ -65,7 +65,7 @@ void *Enumerate(void *args) {
 					pthread_mutex_lock(thread_args->lock);
 					if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) { //check again whilst inside the lock, to make sure shortest_vector hasn't changed
 						*(thread_args->shortest_vector) = sqrt(sum3);
-						printf("shortest_vector: %.4f\n", *(thread_args->shortest_vector));
+						//printf("shortest_vector: %.4f\n", *(thread_args->shortest_vector));
 						*(thread_args->max_num) = floor(*(thread_args->shortest_vector)/pow((*(thread_args->GS_norms))[thread_args->dim-1], 0.5));
 					}
 					pthread_mutex_unlock(thread_args->lock);
@@ -170,7 +170,7 @@ void *Enumerate(void *args) {
 			exit(1);
 	  }
   }
-	printf("m: %.0f\n", m);
+	printf("m: %.0f, ", m);
   pthread_exit(NULL);
 }
 
