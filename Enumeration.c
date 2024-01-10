@@ -175,7 +175,7 @@ void *Enumerate(void *args) {
 
 //Enumerate the lattice to find the shortest vector
 double ShortestVector(int dim, double **A, double **B, double *Mu) {
-	int i;
+	int i, j;
 
 	//check the size of A and B
 	for (i = 0; i < dim; i++) {
@@ -217,8 +217,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 	}
 
 	int max_num = floor(shortest_vector/pow(GS_norms[dim-1], 0.5)); //maximum possible value for x[dim-1]
-	pthread_t threads[max_num];
-	printf("%d\n", max_num);
+	
 	//create a lock for when each thread needs to edit shortest_vector
 	pthread_mutex_t lock;
 	if (pthread_mutex_init(&lock, NULL) != 0) {
@@ -231,34 +230,46 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 		GS_norms = NULL;
 		exit(1);
   }
-	
-	//divide the enumeration into threads by x[dim-1] value
-	struct ThreadArgs args[max_num+1];
-	int count = 0;
-	for (i=0; i<=max_num; i++) {
-		args[i].num = i;
-		args[i].dim = dim;
-		args[i].GS_norms = &GS_norms;
-		args[i].Mu = &Mu;
-		args[i].shortest_vector = &shortest_vector;
-		args[i].max_num = &max_num;
-		args[i].lock = &lock;
-		args[i].A = &A;
-		args[i].B = &B;
-		if (pthread_create(&threads[i], NULL, &Enumerate, (void *)&args[i]) != 0) {
-			printf("Error creating thread %d\n", i);
-			FreeMatrix(dim, &A);
-			FreeMatrix(dim, &B);
-			free(Mu);
-			Mu = NULL;		
-			free(GS_norms);
-			GS_norms = NULL;
-			exit(1);
+
+	int batch_size = 10;
+	int n = (max_num+1)/batch_size;
+	int m;
+	for (i=0; i<n+1; i++) {
+		if (max_num+1-batch_size*n >= batch_size) {
+			m = batch_size;
 		}
-		count++;
-	}
-	for (i=0; i<count; i++) {
-		pthread_join(threads[i], NULL);
+		else {
+			m = (max_num+1) % batch_size;
+		}
+		pthread_t threads[m];
+		//divide the enumeration into threads by x[dim-1] value
+		struct ThreadArgs args[m];
+		int count = 0;
+		for (j=0; j<m; j++) {
+			args[j].num = j + batch_size*i;
+			args[j].dim = dim;
+			args[j].GS_norms = &GS_norms;
+			args[j].Mu = &Mu;
+			args[j].shortest_vector = &shortest_vector;
+			args[j].max_num = &max_num;
+			args[j].lock = &lock;
+			args[j].A = &A;
+			args[j].B = &B;
+			if (pthread_create(&threads[j], NULL, &Enumerate, (void *)&args[j]) != 0) {
+				printf("Error creating thread %d\n", j);
+				FreeMatrix(dim, &A);
+				FreeMatrix(dim, &B);
+				free(Mu);
+				Mu = NULL;		
+				free(GS_norms);
+				GS_norms = NULL;
+				exit(1);
+			}
+			count++;
+		}
+		for (j=0; j<count; j++) {
+			pthread_join(threads[j], NULL);
+		}
 	}
 	pthread_mutex_destroy(&lock);
 
