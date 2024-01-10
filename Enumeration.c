@@ -218,7 +218,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 
 	int max_num = floor(shortest_vector/pow(GS_norms[dim-1], 0.5)); //maximum possible value for x[dim-1]
 	pthread_t threads[max_num];
-
+	printf("%d\n", max_num);
 	//create a lock for when each thread needs to edit shortest_vector
 	pthread_mutex_t lock;
 	if (pthread_mutex_init(&lock, NULL) != 0) {
