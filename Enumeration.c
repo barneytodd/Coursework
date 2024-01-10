@@ -266,12 +266,14 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 				GS_norms = NULL;
 				exit(1);
 			}
+			else {
+				count++;
+			}
 			printf("thread %d created\n", j+batch_size+i);
 			
 		}
 		for (j=0; j<m; j++) {
 			pthread_join(threads[j], NULL);
-			count++;
 		}
 		while (count < m) {
 			;
