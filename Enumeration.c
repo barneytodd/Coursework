@@ -170,7 +170,7 @@ void *Enumerate(void *args) {
 			exit(1);
 	  }
   }
-	printf("m: %.0f, ", m);
+	printf("%.0f, ", m);
   pthread_exit(NULL);
 }
 
