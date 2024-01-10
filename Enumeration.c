@@ -170,6 +170,7 @@ void *Enumerate(void *args) {
 			exit(1);
 	  }
   }
+	printf("m: %d\n", m);
   pthread_exit(NULL);
 }
 
@@ -265,6 +266,9 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 				free(GS_norms);
 				GS_norms = NULL;
 				exit(1);
+			}
+			else {
+				printf("thread %d created\n", i*batch_size+j);
 			}
 		}
 		//waits for all threads to finish before moving on to the next batch
