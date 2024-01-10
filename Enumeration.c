@@ -236,7 +236,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 	printf("n: %d\n", n);
 	int m;
 	for (i=0; i<n+1; i++) {
-		if (max_num+1-batch_size*n >= batch_size) {
+		if (max_num+1-batch_size*i >= batch_size) {
 			m = batch_size;
 		}
 		else {
