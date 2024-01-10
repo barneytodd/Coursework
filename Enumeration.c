@@ -279,7 +279,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 		while (count < m) {
 			;
 		}
-		int n = (max_num+1)/batch_size;
+		n = (max_num+1)/batch_size;
 		printf("threads joined\n");
 	}
 	pthread_mutex_destroy(&lock);
