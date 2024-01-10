@@ -10,16 +10,6 @@ void *Enumerate(void *args) {
 	
 	//restructure the arguments into the form of the struct above
   struct ThreadArgs *thread_args = (struct ThreadArgs *)args;
-	if ((*(thread_args->GS_norms))[0] < pow((*(thread_args->B[0][0])), 2)) {
-							printf("Error: GS_norms not loaded correctly\n");
-							FreeMatrix(thread_args->dim, thread_args->A);
-							FreeMatrix(thread_args->dim, thread_args->B);
-							free(*(thread_args->Mu));
-							*(thread_args->Mu) = NULL;		
-							free(*(thread_args->GS_norms));
-							*(thread_args)-> GS_norms = NULL;
-							exit(1);
-						}
 	
   int x[thread_args->dim], i, j, k, n; //x stores the number of each basis vector used to reach each lattice point
   double l[thread_args->dim]; //stores the total contribution squared, of the combination of basis vectors stored in x, in the direction of the ith GS vector
