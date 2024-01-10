@@ -55,7 +55,7 @@ void *Enumerate(void *args) {
 					pthread_mutex_lock(thread_args->lock);
 					if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) { //check again whilst inside the lock, to make sure shortest_vector hasn't changed
 						*(thread_args->shortest_vector) = sqrt(sum3);
-						//printf("shortest_vector: %.4f\n", *(thread_args->shortest_vector));
+						printf("shortest_vector: %.4f\n", *(thread_args->shortest_vector));
 						*(thread_args->max_num) = floor(*(thread_args->shortest_vector)/pow((*(thread_args->GS_norms))[thread_args->dim-1], 0.5));
 					}
 					pthread_mutex_unlock(thread_args->lock);
@@ -160,7 +160,6 @@ void *Enumerate(void *args) {
 			exit(1);
 	  }
   }
-	printf("%.0f, ", m);
   pthread_exit(NULL);
 }
 
@@ -221,13 +220,11 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 		GS_norms = NULL;
 		exit(1);
   }
-	printf("max_num: %d\n", max_num);
-	int batch_size = fmin(10, dim/2);
-	int n = (max_num+1)/batch_size;
-	printf("n: %d\n", n);
-	int m;
+	int batch_size = fmin(10, dim/2); //max number of threads allowed to be open at one time
+	int n = (max_num+1)/batch_size; //number of full batches needed
+	int m; //determines how many threads we create in each iteration
 	
-	//divide the enumeration into threads by x[dim-1] value, maximum number of threads at one time = batch_size
+	//divide the enumeration into threads by x[dim-1] value, maximum number of threads allowed at one time = batch_size
 	for (i=0; i<n+1; i++) {
 		if (max_num+1-batch_size*i >= batch_size) {
 			m = batch_size;
