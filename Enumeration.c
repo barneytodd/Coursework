@@ -235,6 +235,8 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 	int n = (max_num+1)/batch_size;
 	printf("n: %d\n", n);
 	int m;
+	
+	//divide the enumeration into threads by x[dim-1] value, maximum number of threads at one time = batch_size
 	for (i=0; i<n+1; i++) {
 		if (max_num+1-batch_size*i >= batch_size) {
 			m = batch_size;
@@ -243,9 +245,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 			m = (max_num+1) % batch_size;
 		}
 		pthread_t threads[m];
-		//divide the enumeration into threads by x[dim-1] value
 		struct ThreadArgs args[m];
-		int count = 0;
 		for (j=0; j<m; j++) {
 			args[j].num = j + batch_size*i;
 			args[j].dim = dim;
@@ -266,21 +266,12 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 				GS_norms = NULL;
 				exit(1);
 			}
-			else {
-				count++;
-				printf("thread %d created\n", j+batch_size*i);
-			}
-			
-			
 		}
+		//waits for all threads to finish before moving on to the next batch
 		for (j=0; j<m; j++) {
 			pthread_join(threads[j], NULL);
 		}
-		//while (count < m) {
-		//	;
-		//}
 		n = (max_num+1)/batch_size;
-		printf("threads joined\n");
 	}
 	pthread_mutex_destroy(&lock);
 
