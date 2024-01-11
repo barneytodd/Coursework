@@ -139,7 +139,7 @@ int main() {
       FreeMatrix(i, &A);
       perror("failed to allocate memory for the rows of the input matrix");
       exit(1);
-    }                
+    }
   }
   double **B = (double **)malloc(dim * sizeof(double *));  // stores GS orthogonalised values
   if (B == NULL) {
