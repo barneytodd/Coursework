@@ -7,43 +7,43 @@
 
 // compute GramSchmidt orthogonalisation without normalisation
 void GramSchmidt(int dim, int start, double **B, double *Mu) {
-  int i, j, k; 
+  int i, j, k;
   double mag1;  // stores the norm of each i vector in the following loop
   double mag2;  // stores the norm of each j vector
 
   // iterate through the initial vectors
-  for (i = start; i < dim; i++) { 
+  for (i = start; i < dim; i++) {
     mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
-    for ( k = 0; k < dim; k++) {
+    for (k = 0; k < dim; k++) {
       B[i][k] /= mag1;  // normalising vectors before computing inner proucts helps to reduce inaccuracies caused by double calculations
     }
 
     // calculate the Mu values
     for (j = 0; j < i; j++) {
       mag2 = sqrt(InnerProduct(dim, B[j], B[j]));
-      for (k = 0;k < dim;k++) {
+      for (k = 0; k < dim; k++) {
         B[j][k] /= mag2;  // normalise before inner product
       }
       Mu[(i-1)*i/2+j] = InnerProduct(dim, B[i], B[j])*mag1;
-      for (k = 0;k < dim;k++) {
+      for (k = 0; k < dim; k++) {
         B[j][k] *= mag2;  // normalise before inner product
       }
     }
 
     // reset B[i] to original values
     for (k = 0; k < dim; k++) {
-      B[i][k] *= mag1; 
+      B[i][k] *= mag1;
     }
 
     // iterate through the previous vectors
-    for (j = 0; j < i; j++) { 
+    for (j = 0; j < i; j++) {
       mag2 = sqrt(InnerProduct(dim, B[j], B[j]));
       for (k = 0; k < dim; k++) {
         B[j][k]/=mag2;  // normalise to avoid multiplication with large numbers
         B[i][k] -= Mu[(i-1)*i/2+j] * B[j][k];
         B[j][k] *= mag2;  // reset B[j] to original values
-      } 
-      Mu[(i-1)*i/2+j] /= mag2;  // reset Mu[i][j] to normal value     
+      }
+      Mu[(i-1)*i/2+j] /= mag2;  // reset Mu[i][j] to normal value
     }
   }
 }
@@ -54,7 +54,7 @@ void update_matrices(int dim, int start, double **A, double **B, double *Mu) {
   // set B to equal A for the vectors after the one that has just changed
   for (i = start; i < dim; i++) {
     for (j = 0; j < dim; j++) {
-      B[i][j] = A[i][j];  
+      B[i][j] = A[i][j];
     }
   }
   GramSchmidt(dim, start, B, Mu);
@@ -72,12 +72,12 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
       FreeMatrix(i, &A);
       FreeMatrix(i, &B);
       free(Mu);
-      Mu = NULL;		
+      Mu = NULL;
       exit(1);
     }
   }
 
-  update_matrices(dim, 0, A, B, Mu); 
+  update_matrices(dim, 0, A, B, Mu);
 
   k = 1;
   bool zero_check = false;  // checks if any vectors are reduced to 0, this can happen if the input vectors are linearly dependent and can result in an infinite loop
@@ -89,7 +89,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
   while (k < dim) {
     // reduce the kth vector until for all j<k, mu_kj<=0.5
     for (j = k-1; j >= 0; j--) {
-      Mu[(k-1)*k/2+j] = InnerProduct(dim, A[k], B[j])/InnerProduct(dim, B[j], B[j]); 
+      Mu[(k-1)*k/2+j] = InnerProduct(dim, A[k], B[j])/InnerProduct(dim, B[j], B[j]);
       if (fabs(Mu[(k-1)*k/2+j]) > 0.5) {
         zero_check = true;
         for (i = 0; i < dim; i++) {
@@ -101,7 +101,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
           FreeMatrix(dim, &A);
           FreeMatrix(dim, &B);
           free(Mu);
-          Mu = NULL;		
+          Mu = NULL;
           exit(1);
         }
         update_matrices(dim, k, A, B, Mu);
@@ -110,7 +110,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
     }
 
     // LLL basis reduction requires (B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k
-    Mu[(k-1)*k/2+k-1] = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
+    Mu[(k-1)*k/2+k-1] = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]);
     if (InnerProduct(dim, B[k], B[k]) > ((delta - (Mu[(k-1)*k/2+k-1]*Mu[(k-1)*k/2+k-1])) * InnerProduct(dim, B[k-1], B[k-1]))) {
       k+=1;
     }
@@ -120,10 +120,10 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
       for (i = 0; i < dim; i++) {
         B[k][i] = A[k-1][i];  // B[k] is about to get updated, so we can use this as a temporary variable
         A[k-1][i] = A[k][i];
-        A[k][i] = B[k][i];			
+        A[k][i] = B[k][i];
       }
-      update_matrices(dim, k-1, A, B, Mu); 
-      k = fmax(k-1, 1);  
+      update_matrices(dim, k-1, A, B, Mu);
+      k = fmax(k-1, 1);
       m++;
     }
 
@@ -134,7 +134,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
       FreeMatrix(dim, &A);
       FreeMatrix(dim, &B);
       free(Mu);
-      Mu = NULL;		
+      Mu = NULL;
       exit(1);
     }
   }
