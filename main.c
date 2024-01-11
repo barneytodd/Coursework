@@ -61,7 +61,7 @@ int main(int argc, char **argv) {
           FreeMatrix(dim, &A);
           exit(1);
         }
-        A[i][j] = strtod(&argv[k][1], &endptr); 
+        A[i][j] = strtod(&argv[k][1], &endptr);
         // check the format of 1 dimensional inputs
         if (dim == 1 && strcmp(endptr, "]") != 0) {
           printf("Error: Incorrect input format\nDimension = 1\nExpected format: '[number]'\nInput format: '%s'\n", argv[1]);
@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
           continue;
         }
       }
-      // check that the each vector has no more than dim elements 
+      // check that the each vector has no more than dim elements
       // and check that the last element is in the format 'number]'
       else if (j == dim-1) {
         A[i][j] = strtod(argv[k], &endptr);
