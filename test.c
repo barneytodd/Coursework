@@ -12,7 +12,7 @@
 
 
 // used to determine whether the input matrix is an identity matrix, returns the sum of the non-diagonal entries of a row
-double SumArray(int dim, int i, double *arr) { 
+double SumArray(int dim, int i, double *arr) {
   int j;
   double sum1 = 0;
   for (j = 0; j < i; j++) {
@@ -26,7 +26,7 @@ double SumArray(int dim, int i, double *arr) {
 
 
 // returns the determinant of a matrix, using LU Decomposition
-double Determinant(int dim, double **A, bool *check) { 
+double Determinant(int dim, double **A, bool *check) {
   int i, j, k;
   double U[dim][dim];
   double factor;
@@ -36,9 +36,9 @@ double Determinant(int dim, double **A, bool *check) {
       U[i][j] = A[i][j];
     }
   }
-  // calculates the upper triangular matrix U, where A = L x U 
+  // calculates the upper triangular matrix U, where A = L x U
   // (L is a lower triangular matrix with 1's on the leading diagonal, therfore its determinant is 1 and so det(A) = det(U))
-  for (i = 0;i < dim;i++) {
+  for (i = 0; i < dim; i++) {
     for (j = i+1; j < dim; j++) {
       factor = U[j][i]/U[i][i];
       for (k = i; k < dim; k++) {
@@ -66,7 +66,7 @@ double Determinant(int dim, double **A, bool *check) {
 
 
 // returns an estimate for an upper bound of the shortest vector length, using the equation 1.05 * (gamma(n/2+1))^(1/dim)/sqrt(pi) * det(input matrix)^(1/dim)
-double LimitCalc(int dim, double **A) { 
+double LimitCalc(int dim, double **A) {
   bool det_check = false;   // checks whether determinant has alredy been raised to the power of 1/dim
   double gamma = tgamma((float)dim/2 + 1);
   double det = Determinant(dim, A, &det_check);
@@ -79,7 +79,7 @@ double LimitCalc(int dim, double **A) {
 
 // runs a test to check whether the shortest vector returned is a plausible solution or not
 // Deals with two cases: (a) the input matrix is an identity matrix or (b) it is not
-void runTests(int dim, double **A, double **B, double *Mu) { 
+void runTests(int dim, double **A, double **B, double *Mu) {
   int i;
   double limit = LimitCalc(dim, A);
 
@@ -89,7 +89,7 @@ void runTests(int dim, double **A, double **B, double *Mu) {
   // true if the input matrix is an identity matrix
   bool unit_test = true;
   for (i = 0; i < dim; i++) {
-    if (A[i][i] != 1.0 || SumArray(dim, i, A[i]) != 0.0) { 
+    if (A[i][i] != 1.0 || SumArray(dim, i, A[i]) != 0.0) {
       unit_test = false;
       break;
     }
@@ -108,7 +108,7 @@ void runTests(int dim, double **A, double **B, double *Mu) {
   }
 
 
-  // if the input matrix is not an identity matrix, we expect to get a shortest vector length below the estimated upper bound   
+  // if the input matrix is not an identity matrix, we expect to get a shortest vector length below the estimated upper bound
   else {
     printf("For Dimension: %d Upper bound estimate: %.4f Got: %.4f\n", dim, limit, shortest_vector);
     if (shortest_vector > limit) {
@@ -167,12 +167,12 @@ int main() {
 
 
   // set A to be the dim x dim identity matrix
-  for (i = 0; i < dim; i++) { 
+  for (i = 0; i < dim; i++) {
     A[i][i] = 1.0;
   }
 
   printf("Input matrix dim: %d, identity matrix\n", dim);
-  runTests(dim, A, B, Mu); 
+  runTests(dim, A, B, Mu);
 
   // set the bounds for the values of the second input matrix, and its dimension
   int min = -10000;
@@ -197,7 +197,7 @@ int main() {
     free(Mu);
     Mu = NULL;
     exit(1);
-  }			
+  }
   for (i = 0; i < dim; i++) {
     A[i] = realloc(A[i], dim * sizeof(double));
     if (A[i] == NULL) {
@@ -207,7 +207,7 @@ int main() {
       Mu = NULL;
       perror("Failed to reallocate memory for the rows of the input matrix");
       exit(1);
-    }          
+    }
   }
 
   B = realloc(B, dim * sizeof(double *));  // stores GS orthogonalised values
@@ -242,7 +242,7 @@ int main() {
   srand(time(NULL));
   for (i = 0; i < dim; i++) {
     for (j = 0; j < dim; j++) {
-      A[i][j] = ((double)rand() / RAND_MAX) * (max-min) + min; 
+      A[i][j] = ((double)rand() / RAND_MAX) * (max-min) + min;
     }
   }
 
