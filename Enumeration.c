@@ -8,10 +8,10 @@
 // runs the lattice enumeration loop for each thread
 void *Enumerate(void *args) {
   struct ThreadArgs *thread_args = (struct ThreadArgs *)args;  // restructure the arguments into the form of the struct above
-  
+
   int x[thread_args->dim], i, j, k, n;  // x stores the number of each basis vector used to reach each lattice point
   double l[thread_args->dim];  // stores the total contribution squared, of the combination of basis vectors stored in x, in the direction of the ith GS vector
-  
+
   for (i = 0; i < thread_args->dim-1; i++) {
     x[i] = 0;
   }
@@ -19,14 +19,14 @@ void *Enumerate(void *args) {
   // set x[dim-1] to the thread number, and start with i = dim1
   x[thread_args->dim-1] = thread_args->num;
   i = thread_args->dim-1;
-  
+
   double sum2;  // stores the sum of x[j] * Mu[j][i] for j>i
   double sum3;  // stores the sum (j>i) of the l[j] values
   double m = 0.0;  // counts the number of iterations of the while loop, needs to be double in case num iterations > max int
   double max_its = pow(2.0, pow(thread_args->dim-1, 2));  // an upper bound of the number of iterations required
-  
+
   double short_vec = *(thread_args->shortest_vector);  // keep the value of the shortest_vector, we may need to adjust if it gets changed by another thread
-  
+
   // max_num may get updated by the other threads
   // in the case that max_num falls below num, we can exit this thread
   while (*thread_args->max_num >= thread_args->num) { 
@@ -38,7 +38,7 @@ void *Enumerate(void *args) {
       }
       l[j] = (x[j] + sum2) * (x[j] + sum2) * (*(thread_args->GS_norms))[j]; 	
     }
-    
+
     // sum the l[j] values for j>=i
     sum3 = 0;
     for (j = i; j < thread_args->dim; j++) {
@@ -70,7 +70,7 @@ void *Enumerate(void *args) {
         }
         x[i] = round(- sum2);  //the integer which minimises l[i], if this doesn't work then no other integer will
         l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * (*(thread_args->GS_norms))[i]; 
-        
+
         if (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3) {
           // subtract 1 from x[i] until l[i] is no longer < shortest_vector^2 - sum3
           // then add 1 to x[i] to make x[i] the minimum possible integer such that l[i] < shortest_vector^2 - sum3
@@ -102,21 +102,21 @@ void *Enumerate(void *args) {
         }
       }
     }
-			
+
     // if sum3 > shortest_vector^2, increase i by 1 and then increase x[i] by 1
     else {
       // if shortest_vector has been changed by another thread, we need to perform some checks
       if (short_vec != *(thread_args->shortest_vector)) {
         short_vec = *(thread_args->shortest_vector);
-        
+
         l[thread_args->dim-2] = pow(x[thread_args->dim-2] + x[thread_args->dim-1] * (*(thread_args->Mu))[(thread_args->dim-2)*(thread_args->dim-1)/2+thread_args->dim-2], 2) * (*(thread_args->GS_norms))[thread_args->dim-2]; 
-        
+
         // if l[dim-2] + l[dim-1] < shortest_vector^2, then we are fine to carry on from i = dim-2
         if (l[thread_args->dim-2]+l[thread_args->dim-1] < pow(*(thread_args->shortest_vector), 2)) {
           i = thread_args->dim-2;
           continue;
         }
-          
+
         // if l[dim-2] + l[dim-1] > shortest_vector^2, then x[dim-2] is now out of range w.r.t. the new shortest_vector
         // this could potentially lead to this thread terminating before it has checked all possible x values
         else {
@@ -126,7 +126,7 @@ void *Enumerate(void *args) {
             i = thread_args->dim-1;
             continue;
           }
-            
+
           // in the opposite case, x[dim-2] is above the new accepted range, and so we have already checked all possibilities in this new range
           // therefore we terminate this thread
           else {
@@ -134,7 +134,7 @@ void *Enumerate(void *args) {
           }
         }
       }
-      
+
       // otherwise we proceed as normal
       i++;
       // if we're trying to increment x[dim-1], we've reached the end of this thread
@@ -161,7 +161,7 @@ void *Enumerate(void *args) {
 // Enumerate the lattice to find the shortest vector
 double ShortestVector(int dim, double **A, double **B, double *Mu) {
   int i, j;
-  
+
   // check the size of A and B
   for (i = 0; i < dim; i++) {
     if (A[i] == NULL || B[i] == NULL) {
@@ -173,10 +173,10 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
       exit(1);
     }
   }
-		
+
   double shortest_vector = sqrt(InnerProduct(dim, A[0], A[0]));  // keeps track of current shortest vector
   double current_norm;  // stores the norm of each basis vector
-  
+
   // find the shortest basis vector and set shortest_vector to be equal to its norm
   for (i = 1; i < dim; i++) {
     current_norm = sqrt(InnerProduct(dim, A[i], A[i]));  // calculates norm of each vector in A, then compares to shortest vector
@@ -184,9 +184,9 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
       shortest_vector = current_norm;
     }
   }
-  
+
   printf("shortest basis vector: %.4f\n", shortest_vector);
-  
+
   // stores the squared norm of each GramSchidt orthogonalised vector
   double *GS_norms = (double *)malloc(dim * sizeof(double)); 
   if (GS_norms == NULL) {
@@ -200,9 +200,9 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
   for (i = 0;i < dim;i++) {
     GS_norms[i] = InnerProduct(dim, B[i], B[i]);
   }
-  
+
   int max_num = floor(shortest_vector/pow(GS_norms[dim-1], 0.5));  // maximum possible value for x[dim-1]
-  
+
   // create a lock for when each thread needs to edit shortest_vector
   pthread_mutex_t lock;
   if (pthread_mutex_init(&lock, NULL) != 0) {
@@ -218,7 +218,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
   int batch_size = fmin(10, dim/2);  // max number of threads allowed to be open at one time
   int n = (max_num+1)/batch_size;  // number of full batches needed
   int m;  // determines how many threads we create in each iteration
-  
+
   // divide the enumeration into threads by x[dim-1] value, maximum number of threads allowed at one time = batch_size
   for (i = 0; i < n+1; i++) {
     if (max_num+1-batch_size*i >= batch_size) {
@@ -260,9 +260,9 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
     n = (max_num+1)/batch_size;  // update in case max_num has changed
   }
   pthread_mutex_destroy(&lock);
-  
+
   free(GS_norms);
   GS_norms = NULL;
-  
+
   return shortest_vector;
 }
