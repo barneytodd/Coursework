@@ -11,7 +11,8 @@
 #include <time.h>
 
 
-// used to determine whether the input matrix is an identity matrix, returns the sum of the non-diagonal entries of a row
+// used to determine whether the input matrix is an identity matrix, 
+// returns the sum of the non-diagonal entries of a row
 double SumArray(int dim, int i, double *arr) {
   int j;
   double sum1 = 0;
@@ -65,7 +66,8 @@ double Determinant(int dim, double **A, bool *check) {
 }
 
 
-// returns an estimate for an upper bound of the shortest vector length, using the equation 1.05 * (gamma(n/2+1))^(1/dim)/sqrt(pi) * det(input matrix)^(1/dim)
+// returns an estimate for an upper bound of the shortest vector length, 
+// using the equation 1.05 * (gamma(n/2+1))^(1/dim)/sqrt(pi) * det(input matrix)^(1/dim)
 double LimitCalc(int dim, double **A) {
   bool det_check = false;   // checks whether determinant has alredy been raised to the power of 1/dim
   double gamma = tgamma((float)dim/2 + 1);
@@ -141,7 +143,9 @@ int main() {
       exit(1);
     }
   }
-  double **B = (double **)malloc(dim * sizeof(double *));  // stores GS orthogonalised values
+  
+  // B stores GS orthogonalised values
+  double **B = (double **)malloc(dim * sizeof(double *));  
   if (B == NULL) {
     perror("Failed to allocate memory for the B matrix");
     FreeMatrix(dim, &A);
@@ -156,8 +160,9 @@ int main() {
       exit(1);
     }
   }
-
-  double *Mu = (double *)malloc((dim-1)*dim/2 * sizeof(double));  // stores Mu values for GramSchmidt orthogonalisation
+  
+  // stores Mu values for GramSchmidt orthogonalisation
+  double *Mu = (double *)malloc((dim-1)*dim/2 * sizeof(double));  
   if (Mu == NULL) {
   FreeMatrix(dim, &A);
   FreeMatrix(dim, &B);
@@ -210,7 +215,7 @@ int main() {
     }
   }
 
-  B = realloc(B, dim * sizeof(double *));  // stores GS orthogonalised values
+  B = realloc(B, dim * sizeof(double *));
   if (B == NULL) {
     perror("Failed to reallocate memory for the B matrix");
     FreeMatrix(dim, &A);
@@ -229,8 +234,8 @@ int main() {
       exit(1);
     }
   }
-
-  Mu = realloc(Mu, (dim-1)*dim/2 * sizeof(double));  // stores Mu values for GramSchmidt orthogonalisation
+  
+  Mu = realloc(Mu, (dim-1)*dim/2 * sizeof(double));  
   if (Mu == NULL) {
     FreeMatrix(dim, &A);
     FreeMatrix(dim, &B);
