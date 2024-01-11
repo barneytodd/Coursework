@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
   int dim, i, j, k;
   
   // calculate the input dimnesion by looking for the start of the second vector
-  if (argc>2) {
+  if (argc > 2) {
     for (i = 2; i < argc; i++) {
       if (argv[i][0] == '[') {
         dim = i-1;
@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
     perror("Failed to allocate memory for the input matrix");
     exit(1);
   }
-  for (i=0; i<dim; i++) {
+  for (i = 0; i < dim; i++) {
     A[i] = (double *)malloc(dim * sizeof(double));
     if (A[i] == NULL) {
       FreeMatrix(i, &A);
@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
         }
         A[i][j] = strtod(&argv[k][1], &endptr); 
         // check the format of 1 dimensional inputs
-        if (dim==1 && strcmp(endptr, "]") != 0) {
+        if (dim == 1 && strcmp(endptr, "]") != 0) {
           printf("Error: Incorrect input format\nDimension = 1\nExpected format: '[number]'\nInput format: '%s'\n", argv[1]);
           FreeMatrix(dim, &A);	
           exit(1);
@@ -107,7 +107,7 @@ int main(int argc, char **argv) {
   endptr = NULL;
   
   // if dim = 1, the shortest vector is A[0][0]
-  if (dim==1) {
+  if (dim == 1) {
     FILE *result = fopen("result.txt", "w");
     if (result == NULL) {
       perror("Error opening the result file");
@@ -129,7 +129,7 @@ int main(int argc, char **argv) {
     FreeMatrix(dim, &A);
     exit(1);
   }
-  for (i=0; i<dim; i++) {
+  for (i = 0; i < dim; i++) {
     B[i] = (double *)malloc(dim * sizeof(double));
     if (B[i] == NULL) {
       FreeMatrix(dim, &A);
