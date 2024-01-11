@@ -129,7 +129,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
 
     // (dim-1)*dim/2 is the number of swaps required to completely reverse the list of vectors
     // therefore any more than this without reducing any of the vectors means an error has occured
-    if (m > (dim-1)*dim/2) { 
+    if (m > (dim-1)*dim/2) {
       printf("Error: LLL while loop failed\n");
       FreeMatrix(dim, &A);
       FreeMatrix(dim, &B);
