@@ -15,10 +15,10 @@
 double SumArray(int dim, int i, double *arr) { 
   int j;
   double sum1 = 0;
-  for (j=0; j<i; j++) {
+  for (j = 0; j < i; j++) {
       sum1 += arr[j];
   }
-  for (j=i+1; j<dim; j++) {
+  for (j = i+1; j < dim; j++) {
       sum1 += arr[j];
   }
   return sum1;
@@ -31,17 +31,17 @@ double Determinant(int dim, double **A, bool *check) {
   double U[dim][dim];
   double factor;
   double determinant = 1.0;
-  for (i=0; i<dim; i++) {
-    for (j=0;j<dim;j++) {
+  for (i = 0; i < dim; i++) {
+    for (j = 0; j < dim; j++) {
       U[i][j] = A[i][j];
     }
   }
   // calculates the upper triangular matrix U, where A = L x U 
   // (L is a lower triangular matrix with 1's on the leading diagonal, therfore its determinant is 1 and so det(A) = det(U))
-  for (i=0;i<dim;i++) {
-    for (j=i+1;j<dim;j++) {
+  for (i = 0;i < dim;i++) {
+    for (j = i+1; j < dim; j++) {
       factor = U[j][i]/U[i][i];
-      for (k=i;k<dim;k++) {
+      for (k = i; k < dim; k++) {
           U[j][k] -= U[i][k]*factor;
       }
     }
@@ -88,7 +88,7 @@ void runTests(int dim, double **A, double **B, double *Mu) {
   
   // true if the input matrix is an identity matrix
   bool unit_test = true;
-  for (i=0; i<dim; i++) {
+  for (i = 0; i < dim; i++) {
     if (A[i][i] != 1.0 || SumArray(dim, i, A[i]) != 0.0) { 
       unit_test = false;
       break;
@@ -98,7 +98,7 @@ void runTests(int dim, double **A, double **B, double *Mu) {
   // if the input matrix is an identity matrix, we expect to get the shortest vector length to be 1.0
   if (unit_test) {
     printf("For Dimension: %d Expected: %.4f Got: %.4f\n", dim, 1.0, shortest_vector);
-    if(shortest_vector != 1.0) {
+    if (shortest_vector != 1.0) {
       FreeMatrix(dim, &A);
       FreeMatrix(dim, &B);
       free(Mu);
@@ -111,7 +111,7 @@ void runTests(int dim, double **A, double **B, double *Mu) {
   // if the input matrix is not an identity matrix, we expect to get a shortest vector length below the estimated upper bound   
   else {
     printf("For Dimension: %d Upper bound estimate: %.4f Got: %.4f\n", dim, limit, shortest_vector);
-    if(shortest_vector > limit) {
+    if (shortest_vector > limit) {
       printf("Limit only an estimate of the upper bound, if shortest_vector is close to the limit, it may still be the correct answer\n");
       FreeMatrix(dim, &A);
       FreeMatrix(dim, &B);
@@ -129,13 +129,13 @@ int main() {
   
   // initialise the input matrix A
   double **A = (double **)calloc(dim, sizeof(double *));
-  if (A==NULL) {
+  if (A == NULL) {
     perror("failed to allocate memory for the input matrix");
     exit(1);
   }
-  for (i=0; i<dim; i++) {
+  for (i = 0; i < dim; i++) {
     A[i] = (double *)calloc(dim, sizeof(double));
-    if (A[i]==NULL) {
+    if (A[i] == NULL) {
       FreeMatrix(i, &A);
       perror("failed to allocate memory for the rows of the input matrix");
       exit(1);
@@ -147,7 +147,7 @@ int main() {
     FreeMatrix(dim, &A);
     exit(1);
   }
-  for (i=0; i<dim; i++) {
+  for (i = 0; i < dim; i++) {
     B[i] = (double *)malloc(dim * sizeof(double));
     if (B[i] == NULL) {
       FreeMatrix(dim, &A);
@@ -167,7 +167,7 @@ int main() {
     
   
   // set A to be the dim x dim identity matrix
-  for (i=0; i<dim; i++) { 
+  for (i = 0; i < dim; i++) { 
     A[i][i] = 1.0;
   }
   
@@ -180,8 +180,8 @@ int main() {
   int new_dim = 10;
   
   // free any rows no longer needed
-  if (new_dim<dim) {
-    for (i=new_dim; i<dim; i++)  {
+  if (new_dim < dim) {
+    for (i = new_dim; i < dim; i++)  {
       free(A[i]);
       free(B[i]);
       A[i] = B[i] = NULL;
@@ -191,16 +191,16 @@ int main() {
   dim = new_dim;
   // resize A, B and Mu
   A = realloc(A, dim * sizeof(double *));
-  if (A==NULL) {
+  if (A == NULL) {
     perror("Failed to reallocate memory for the input matrix");
     FreeMatrix(dim, &B);
     free(Mu);
     Mu = NULL;
     exit(1);
   }			
-  for (i=0;i<dim;i++) {
+  for (i = 0; i < dim; i++) {
     A[i] = realloc(A[i], dim * sizeof(double));
-    if (A[i]==NULL) {
+    if (A[i] == NULL) {
       FreeMatrix(i, &A);
       FreeMatrix(dim, &B);
       free(Mu);
@@ -218,7 +218,7 @@ int main() {
     Mu = NULL;
     exit(1);
   }
-  for (i=0; i<dim; i++) {
+  for (i = 0; i < dim; i++) {
     B[i] = realloc(B[i], dim * sizeof(double));
     if (B[i] == NULL) {
       FreeMatrix(dim, &A);
@@ -240,8 +240,8 @@ int main() {
   
   // initialise A to a set of random doubles, sampled from U(min, max)
   srand(time(NULL));
-  for (i=0;i<dim;i++) {
-    for (j=0;j<dim;j++) {
+  for (i = 0; i < dim; i++) {
+    for (j = 0; j < dim; j++) {
       A[i][j] = ((double)rand() / RAND_MAX) * (max-min) + min; 
     }
   }
