@@ -6,13 +6,11 @@
 #include <stdlib.h>
 
 // runs the lattice enumeration loop for each thread
-void *Enumerate(void *args) {
-	
-  // restructure the arguments into the form of the struct above
-  struct ThreadArgs *thread_args = (struct ThreadArgs *)args;
+void *Enumerate(void *args) {	
+  struct ThreadArgs *thread_args = (struct ThreadArgs *)args;  // restructure the arguments into the form of the struct above
   
-  int x[thread_args->dim], i, j, k, n; // x stores the number of each basis vector used to reach each lattice point
-  double l[thread_args->dim]; // stores the total contribution squared, of the combination of basis vectors stored in x, in the direction of the ith GS vector
+  int x[thread_args->dim], i, j, k, n;  // x stores the number of each basis vector used to reach each lattice point
+  double l[thread_args->dim];  // stores the total contribution squared, of the combination of basis vectors stored in x, in the direction of the ith GS vector
   
   for (i=0; i<thread_args->dim-1; i++) {
     x[i] = 0;
@@ -22,12 +20,12 @@ void *Enumerate(void *args) {
   x[thread_args->dim-1] = thread_args->num;
   i = thread_args->dim-1;
   
-  double sum2; // stores the sum of x[j] * Mu[j][i] for j>i
-  double sum3; // stores the sum (j>i) of the l[j] values
-  double m = 0.0; // counts the number of iterations of the while loop, needs to be double in case num iterations > max int
-  double max_its = pow(2.0, pow(thread_args->dim-1, 2)); // an upper bound of the number of iterations required
+  double sum2;  // stores the sum of x[j] * Mu[j][i] for j>i
+  double sum3;  // stores the sum (j>i) of the l[j] values
+  double m = 0.0;  // counts the number of iterations of the while loop, needs to be double in case num iterations > max int
+  double max_its = pow(2.0, pow(thread_args->dim-1, 2));  // an upper bound of the number of iterations required
   
-  double short_vec = *(thread_args->shortest_vector); // keep the value of the shortest_vector, we may need to adjust if it gets changed by another thread
+  double short_vec = *(thread_args->shortest_vector);  // keep the value of the shortest_vector, we may need to adjust if it gets changed by another thread
   
   // max_num may get updated by the other threads
   // in the case that max_num falls below num, we can exit this thread
@@ -53,7 +51,7 @@ void *Enumerate(void *args) {
       if (i==0) {
         if (sum3 != 0) {
           pthread_mutex_lock(thread_args->lock);
-          if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) { //check again whilst inside the lock, to make sure shortest_vector hasn't changed
+          if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) {  //check again whilst inside the lock, to make sure shortest_vector hasn't changed
             *(thread_args->shortest_vector) = sqrt(sum3);
             printf("shortest_vector: %.4f\n", *(thread_args->shortest_vector));
             *(thread_args->max_num) = floor(*(thread_args->shortest_vector)/pow((*(thread_args->GS_norms))[thread_args->dim-1], 0.5));
@@ -71,7 +69,7 @@ void *Enumerate(void *args) {
         for (k=i+1; k<thread_args->dim; k++) {
           sum2 += x[k] * (*(thread_args->Mu))[(k-1)*k/2+i]; 
         }
-        x[i] = round(- sum2); //the integer which minimises l[i], if this doesn't work then no other integer will
+        x[i] = round(- sum2);  //the integer which minimises l[i], if this doesn't work then no other integer will
         l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * (*(thread_args->GS_norms))[i]; 
         
         if (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3) {
@@ -179,12 +177,12 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
     }
   }
 		
-  double shortest_vector = sqrt(InnerProduct(dim, A[0], A[0])); // keeps track of current shortest vector
-  double current_norm; // stores the norm of each basis vector
+  double shortest_vector = sqrt(InnerProduct(dim, A[0], A[0]));  // keeps track of current shortest vector
+  double current_norm;  // stores the norm of each basis vector
   
   // find the shortest basis vector and set shortest_vector to be equal to its norm
   for (i=1; i<dim; i++) {
-    current_norm = sqrt(InnerProduct(dim, A[i], A[i])); //calculates norm of each vector in A, then compares to shortest vector
+    current_norm = sqrt(InnerProduct(dim, A[i], A[i]));  // calculates norm of each vector in A, then compares to shortest vector
     if (current_norm < shortest_vector) {
       shortest_vector = current_norm;
     }
@@ -206,7 +204,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
     GS_norms[i] = InnerProduct(dim, B[i], B[i]);
   }
 
-  int max_num = floor(shortest_vector/pow(GS_norms[dim-1], 0.5)); // maximum possible value for x[dim-1]
+  int max_num = floor(shortest_vector/pow(GS_norms[dim-1], 0.5));  // maximum possible value for x[dim-1]
   
   // create a lock for when each thread needs to edit shortest_vector
   pthread_mutex_t lock;
@@ -220,9 +218,9 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
     GS_norms = NULL;
     exit(1);
   }
-  int batch_size = fmin(10, dim/2); // max number of threads allowed to be open at one time
-  int n = (max_num+1)/batch_size; // number of full batches needed
-  int m; // determines how many threads we create in each iteration
+  int batch_size = fmin(10, dim/2);  // max number of threads allowed to be open at one time
+  int n = (max_num+1)/batch_size;  // number of full batches needed
+  int m;  // determines how many threads we create in each iteration
   
   // divide the enumeration into threads by x[dim-1] value, maximum number of threads allowed at one time = batch_size
   for (i=0; i<n+1; i++) {
@@ -262,7 +260,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
     for (j=0; j<m; j++) {
       pthread_join(threads[j], NULL);
     }
-    n = (max_num+1)/batch_size; // update in case max_num has changed
+    n = (max_num+1)/batch_size;  // update in case max_num has changed
   }
   pthread_mutex_destroy(&lock);
   
