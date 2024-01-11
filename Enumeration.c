@@ -32,9 +32,9 @@ void *Enumerate(void *args) {
   while (*thread_args->max_num >= thread_args->num) { 
     
     // calculate the l[j] values from i upwards
-    for (j=thread_args->dim-1; j>=i; j--) { 
+    for (j=thread_args->dim-1; j >= i; j--) { 
     sum2 = 0;
-      for (k=j+1; k<thread_args->dim; k++) {
+      for (k = j+1; k < thread_args->dim; k++) {
         sum2 += x[k] * (*(thread_args->Mu))[(k-1)*k/2+j]; 
       }
       l[j] = (x[j] + sum2) * (x[j] + sum2) * (*(thread_args->GS_norms))[j]; 	
