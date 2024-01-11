@@ -258,11 +258,11 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
 				printf("thread %d created\n", i*batch_size+j);
 			}
 		}
-		//waits for all threads to finish before moving on to the next batch
+		//requires all threads to finish before moving on to the next batch
 		for (j=0; j<m; j++) {
 			pthread_join(threads[j], NULL);
 		}
-		n = (max_num+1)/batch_size;
+		n = (max_num+1)/batch_size; //update in case max_num has changed
 	}
 	pthread_mutex_destroy(&lock);
 
