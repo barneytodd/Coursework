@@ -12,7 +12,7 @@ void *Enumerate(void *args) {
   int x[thread_args->dim], i, j, k, n;  // x stores the number of each basis vector used to reach each lattice point
   double l[thread_args->dim];  // stores the total contribution squared, of the combination of basis vectors stored in x, in the direction of the ith GS vector
   
-  for (i=0; i<thread_args->dim-1; i++) {
+  for (i = 0; i < thread_args->dim-1; i++) {
     x[i] = 0;
   }
 
@@ -32,7 +32,7 @@ void *Enumerate(void *args) {
   while (*thread_args->max_num >= thread_args->num) { 
     
     // calculate the l[j] values from i upwards
-    for (j=thread_args->dim-1; j >= i; j--) { 
+    for (j = thread_args->dim-1; j >= i; j--) { 
     sum2 = 0;
       for (k = j+1; k < thread_args->dim; k++) {
         sum2 += x[k] * (*(thread_args->Mu))[(k-1)*k/2+j]; 
@@ -42,7 +42,7 @@ void *Enumerate(void *args) {
     
     // sum the l[j] values for j>=i
     sum3 = 0;
-    for (j=i; j<thread_args->dim; j++) {
+    for (j = i; j < thread_args->dim; j++) {
       sum3 += l[j];
     }
 
@@ -66,7 +66,7 @@ void *Enumerate(void *args) {
       else {
         i--;
         sum2 = 0;
-        for (k=i+1; k<thread_args->dim; k++) {
+        for (k = i+1; k < thread_args->dim; k++) {
           sum2 += x[k] * (*(thread_args->Mu))[(k-1)*k/2+i]; 
         }
         x[i] = round(- sum2);  //the integer which minimises l[i], if this doesn't work then no other integer will
@@ -79,12 +79,12 @@ void *Enumerate(void *args) {
           do {
             x[i]--;
             sum2 = 0;
-            for (k=i+1; k<thread_args->dim; k++) {
+            for (k = i+1; k < thread_args->dim; k++) {
               sum2 += x[k] * (*(thread_args->Mu))[(k-1)*k/2+i];
             }
             l[i] = (x[i] + sum2) * (x[i] + sum2) * (*(thread_args->GS_norms))[i]; 
             n++;
-            if (n>100) {
+            if (n > 100) {
               printf("Error: thread %d failed\n", thread_args->num);
               FreeMatrix(thread_args->dim, thread_args->A);
               FreeMatrix(thread_args->dim, thread_args->B);
@@ -181,7 +181,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
   double current_norm;  // stores the norm of each basis vector
   
   // find the shortest basis vector and set shortest_vector to be equal to its norm
-  for (i=1; i<dim; i++) {
+  for (i = 1; i < dim; i++) {
     current_norm = sqrt(InnerProduct(dim, A[i], A[i]));  // calculates norm of each vector in A, then compares to shortest vector
     if (current_norm < shortest_vector) {
       shortest_vector = current_norm;
@@ -200,7 +200,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
     exit(1);
   }
 
-  for (i=0;i<dim;i++) {
+  for (i = 0;i < dim;i++) {
     GS_norms[i] = InnerProduct(dim, B[i], B[i]);
   }
 
@@ -223,7 +223,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
   int m;  // determines how many threads we create in each iteration
   
   // divide the enumeration into threads by x[dim-1] value, maximum number of threads allowed at one time = batch_size
-  for (i=0; i<n+1; i++) {
+  for (i = 0; i < n+1; i++) {
     if (max_num+1-batch_size*i >= batch_size) {
       m = batch_size;
     }
@@ -232,7 +232,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
     }
     pthread_t threads[m];
     struct ThreadArgs args[m];
-    for (j=0; j<m; j++) {
+    for (j = 0; j < m; j++) {
       args[j].num = j + batch_size*i;
       args[j].dim = dim;
       args[j].GS_norms = &GS_norms;
@@ -257,7 +257,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
       }
     }
     // requires all threads to finish before moving on to the next batch
-    for (j=0; j<m; j++) {
+    for (j = 0; j < m; j++) {
       pthread_join(threads[j], NULL);
     }
     n = (max_num+1)/batch_size;  // update in case max_num has changed
