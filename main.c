@@ -64,10 +64,10 @@ int main(int argc, char **argv) {
         // check the format of 1 dimensional inputs
         if (dim == 1 && strcmp(endptr, "]") != 0) {
           printf("Error: Incorrect input format\nDimension = 1\nExpected format: '[number]'\nInput format: '%s'\n", argv[1]);
-          FreeMatrix(dim, &A);	
+          FreeMatrix(dim, &A);
           exit(1);
         }
-        else if (dim==1) {
+        else if (dim == 1) {
           continue;
         }
       }
@@ -79,12 +79,12 @@ int main(int argc, char **argv) {
         }
         else if (strcmp(endptr, "") == 0) {
           printf("Error: Incorrect input format\nVector %d has too many elements\nExpected: %d elements\n", i+1, dim);
-          FreeMatrix(dim, &A);	
+          FreeMatrix(dim, &A);
           exit(1);
         }
         else {
           printf("Error: Incorrect input format\nExpected format for end of vector: 'number]'\nInput format: '%s'\n", argv[k]);
-          FreeMatrix(dim, &A);		
+          FreeMatrix(dim, &A);
           exit(1);
         }
       }
@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
       }
       else if (strcmp(endptr, "") != 0) {
         printf("Error: Incorrect input format\nExpected format for all but the last entry of each vector: 'number' or '[number'\nInput format: '%s'\n", argv[k]);
-        FreeMatrix(dim, &A);	
+        FreeMatrix(dim, &A);
         exit(1);
       }
     }
@@ -123,7 +123,7 @@ int main(int argc, char **argv) {
   }
 
   // initialise the matrix B, which stores GS orthogonalised values
-  double **B = (double **)malloc(dim * sizeof(double *)); 
+  double **B = (double **)malloc(dim * sizeof(double *));
   if (B == NULL) {
     perror("Failed to allocate memory for the B matrix");
     FreeMatrix(dim, &A);
@@ -160,7 +160,7 @@ int main(int argc, char **argv) {
   FreeMatrix(dim, &A);
   FreeMatrix(dim, &B);
   free(Mu);
-  Mu = NULL;		
+  Mu = NULL;
 
   // save the output to result.txt
   FILE *result = fopen("result.txt", "w");
