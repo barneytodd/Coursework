@@ -95,7 +95,7 @@ void *Enumerate(void *args) {
             }
           } while (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3);
           x[i]++;
-	}
+        }
         else {
           i+=1;
           x[i]++;
@@ -244,7 +244,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
         FreeMatrix(dim, &A);
         FreeMatrix(dim, &B);
         free(Mu);
-        Mu = NULL;		
+        Mu = NULL;
         free(GS_norms);
         GS_norms = NULL;
         exit(1);
