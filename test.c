@@ -36,7 +36,8 @@ double Determinant(int dim, double **A, bool *check) {
             U[i][j] = A[i][j];
         }
     }
-    //calculates the upper triangular matrix U
+    //calculates the upper triangular matrix U, where A = L x U 
+		//(L is a lower triangular matrix with 1's on the leading diagonal, therfore its determinant is 1 and so det(A) = det(U))
     for (i=0;i<dim;i++) {
         for (j=i+1;j<dim;j++) {
             factor = U[j][i]/U[i][i];
