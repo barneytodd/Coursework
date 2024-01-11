@@ -14,8 +14,9 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
   // iterate through the initial vectors
   for (i = start; i < dim; i++) {
     mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
+    // normalising vectors before computing inner proucts helps to reduce floating point inaccuracies
     for (k = 0; k < dim; k++) {
-      B[i][k] /= mag1;  // normalising vectors before computing inner proucts helps to reduce inaccuracies caused by double calculations
+      B[i][k] /= mag1;  
     }
 
     // calculate the Mu values
@@ -48,7 +49,8 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
   }
 }
 
-// when A gets updated, recompute B to be the GramSchmidt orthogonalised version of the updated A, along with the associated Mu values
+// when A gets updated, recompute B to be the GramSchmidt orthogonalised version of the updated A
+// also update the associated Mu values
 void update_matrices(int dim, int start, double **A, double **B, double *Mu) {
   int i, j;
   // set B to equal A for the vectors after the one that has just changed
@@ -78,10 +80,13 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
   }
 
   update_matrices(dim, 0, A, B, Mu);
-
-  k = 1;
-  bool zero_check = false;  // checks if any vectors are reduced to 0, this can happen if the input vectors are linearly dependent and can result in an infinite loop
+  
   int m = 0;
+  k = 1;
+  
+  // checks if any vectors are reduced to 0, 
+  //this can happen if the input vectors are linearly dependent and can result in an infinite loop
+  bool zero_check = false;  
 
   // iterate through the LLL Reduction steps until:
   // (B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k, and
