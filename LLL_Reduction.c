@@ -14,18 +14,18 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
   // iterate through the initial vectors
   for (i = start; i < dim; i++) { 
     mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
-    for (k=0; k<dim; k++) {
+    for ( k = 0; k < dim; k++) {
       B[i][k] /= mag1;  // normalising vectors before computing inner proucts helps to reduce inaccuracies caused by double calculations
     }
     
     // calculate the Mu values
     for (j = 0; j < i; j++) {
       mag2 = sqrt(InnerProduct(dim, B[j], B[j]));
-      for (k=0;k<dim;k++) {
+      for (k = 0;k < dim;k++) {
         B[j][k] /= mag2;  // normalise before inner product
       }
       Mu[(i-1)*i/2+j] = InnerProduct(dim, B[i], B[j])*mag1;
-      for (k=0;k<dim;k++) {
+      for (k = 0;k < dim;k++) {
         B[j][k] *= mag2;  // normalise before inner product
       }
     }
@@ -87,9 +87,9 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
   // iterate through the LLL Reduction steps until:
   // (B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k, and
   // mu_kj<=0.5 for all k, j<k
-  while (k<dim) {
+  while (k < dim) {
     // reduce the kth vector until for all j<k, mu_kj<=0.5
-    for (j=k-1; j>=0; j--) {
+    for (j = k-1; j >= 0; j--) {
       Mu[(k-1)*k/2+j] = InnerProduct(dim, A[k], B[j])/InnerProduct(dim, B[j], B[j]); 
       if (fabs(Mu[(k-1)*k/2+j]) > 0.5) {
         zero_check = true;
@@ -106,7 +106,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
           exit(1);
         }
         update_matrices(dim, k, A, B, Mu);
-        m=0;
+        m = 0;
       }
     }
 		
