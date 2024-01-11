@@ -127,7 +127,7 @@ void *Enumerate(void *args1) {
         else {
           // if l[dim-2] calculated with x[dim-2] < l[dim-2] calculated with x[dim-2]-1, then x[dim-2] is below the new accepted range
           // therefore we haven't yet checked the x[dim2] values in the new accepted range, so we reset i to dim-1 and carry on
-          if (l[args->dim-2] < pow((x[args->dim-2]-1) + (x[args->dim-1]-1) * (*(args->Mu))[(args->dim-2)*(args>dim-1)/2+args->dim-2], 2) * (*(args->GS_norms))[args->dim-2]) {
+          if (l[args->dim-2] < pow((x[args->dim-2]-1) + (x[args->dim-1]-1) * (*(args->Mu))[(args->dim-2)*(args->dim-1)/2+args->dim-2], 2) * (*(args->GS_norms))[args->dim-2]) {
             i = args->dim-1;
             continue;
           }
