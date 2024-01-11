@@ -34,8 +34,8 @@ void *Enumerate(void *args1) {
   // an upper bound of the number of iterations required
   double max_its = pow(2.0, pow(args->dim-1, 2));
 
-  // keep the value of the shortest_vector, 
-  //we may need to adjust if it gets changed by another thread
+  // keep the value of the shortest_vector,
+  // we may need to adjust if it gets changed by another thread
   double short_vec = *(args->shortest_vector);
 
   // max_num may get updated by the other threads
