@@ -12,14 +12,14 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
   double mag2;  // stores the norm of each j vector
   
   // iterate through the initial vectors
-  for (i=start; i<dim; i++) { 
+  for (i = start; i < dim; i++) { 
     mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
     for (k=0; k<dim; k++) {
       B[i][k] /= mag1;  // normalising vectors before computing inner proucts helps to reduce inaccuracies caused by double calculations
     }
     
     // calculate the Mu values
-    for (j=0; j<i; j++) {
+    for (j = 0; j < i; j++) {
       mag2 = sqrt(InnerProduct(dim, B[j], B[j]));
       for (k=0;k<dim;k++) {
         B[j][k] /= mag2;  // normalise before inner product
@@ -31,14 +31,14 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
     }
     
     // reset B[i] to original values
-    for (k=0; k<dim; k++) {
+    for (k = 0; k < dim; k++) {
       B[i][k] *= mag1; 
     }
     
     // iterate through the previous vectors
-    for (j=0; j<i; j++) { 
+    for (j = 0; j < i; j++) { 
       mag2 = sqrt(InnerProduct(dim, B[j], B[j]));
-      for (k=0; k<dim; k++) {
+      for (k = 0; k < dim; k++) {
         B[j][k]/=mag2;  // normalise to avoid multiplication with large numbers
         B[i][k] -= Mu[(i-1)*i/2+j] * B[j][k];
         B[j][k] *= mag2;  // reset B[j] to original values
@@ -93,7 +93,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
       Mu[(k-1)*k/2+j] = InnerProduct(dim, A[k], B[j])/InnerProduct(dim, B[j], B[j]); 
       if (fabs(Mu[(k-1)*k/2+j]) > 0.5) {
         zero_check = true;
-        for (i=0; i<dim; i++) {
+        for (i = 0; i < dim; i++) {
           A[k][i] -= round(Mu[(k-1)*k/2+j]) * A[j][i];
           if (A[k][i] != 0) zero_check = false;
         }
@@ -118,7 +118,7 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
 			
     else {
       // swap A[k] and A[k-1]
-      for (i=0; i<dim; i++) {
+      for (i = 0; i < dim; i++) {
         B[k][i] = A[k-1][i];  // B[k] is about to get updated, so we can use this as a temporary variable
         A[k-1][i] = A[k][i];
         A[k][i] = B[k][i];			
