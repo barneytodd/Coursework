@@ -9,7 +9,7 @@
 
 int main(int argc, char **argv) {
   int dim, i, j, k;
-  
+
   // calculate the input dimnesion by looking for the start of the second vector
   if (argc > 2) {
     for (i = 2; i < argc; i++) {
@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
     printf("Error: no input vectors provided\n");
     exit(1);
   }
-  
+
   // check that there are dim^2 + 1 arguments
   if (dim != (int)pow(argc-1, 0.5)) {
     printf("Error: Incorrect input format\nDimension of first vector: (%d) should equal sqrt(num input arguments): (%d)\n", dim, (int)pow(argc-1, 0.5));
@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
     }
   }
   endptr = NULL;
-  
+
   // if dim = 1, the shortest vector is A[0][0]
   if (dim == 1) {
     FILE *result = fopen("result.txt", "w");
@@ -152,7 +152,7 @@ int main(int argc, char **argv) {
 
   // reduce the lattice basis using Lenstra–Lenstra–Lovász lattice reduction
   LLL(0.75, dim, A, B, Mu);
-  
+
   // compute lattice enumeration to find the shortest vector
   double shortest_length = ShortestVector(dim, A, B, Mu);
   printf("shortest length: %.4f\n", shortest_length);
@@ -161,7 +161,7 @@ int main(int argc, char **argv) {
   FreeMatrix(dim, &B);
   free(Mu);
   Mu = NULL;		
-  
+
   // save the output to result.txt
   FILE *result = fopen("result.txt", "w");
   if (result == NULL) {
@@ -173,6 +173,6 @@ int main(int argc, char **argv) {
     perror("Error closing the result file");
     exit(1);
   }
-  
+
   return 0;
 }
