@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 // runs the lattice enumeration loop for each thread
-void *Enumerate(void *args) {	
+void *Enumerate(void *args) {
   struct ThreadArgs *thread_args = (struct ThreadArgs *)args;  // restructure the arguments into the form of the struct above
   
   int x[thread_args->dim], i, j, k, n;  // x stores the number of each basis vector used to reach each lattice point
@@ -30,7 +30,6 @@ void *Enumerate(void *args) {
   // max_num may get updated by the other threads
   // in the case that max_num falls below num, we can exit this thread
   while (*thread_args->max_num >= thread_args->num) { 
-    
     // calculate the l[j] values from i upwards
     for (j = thread_args->dim-1; j >= i; j--) { 
     sum2 = 0;
@@ -48,7 +47,7 @@ void *Enumerate(void *args) {
 
     if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) {
       // if i=0 and sum3 < (current shortest vector length)^2, we have a new shortest vector
-      if (i==0) {
+      if (i == 0) {
         if (sum3 != 0) {
           pthread_mutex_lock(thread_args->lock);
           if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) {  //check again whilst inside the lock, to make sure shortest_vector hasn't changed
@@ -95,10 +94,8 @@ void *Enumerate(void *args) {
               exit(1);
             }
           } while (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3);
-          
           x[i]++; 
 				}
-
         else {
           i+=1;
           x[i]++;
@@ -141,7 +138,7 @@ void *Enumerate(void *args) {
       // otherwise we proceed as normal
       i++;
       // if we're trying to increment x[dim-1], we've reached the end of this thread
-      if (i==thread_args->dim-1) {
+      if (i == thread_args->dim-1) {
         break;
       }
       x[i]++;
@@ -203,7 +200,7 @@ double ShortestVector(int dim, double **A, double **B, double *Mu) {
   for (i = 0;i < dim;i++) {
     GS_norms[i] = InnerProduct(dim, B[i], B[i]);
   }
-
+  
   int max_num = floor(shortest_vector/pow(GS_norms[dim-1], 0.5));  // maximum possible value for x[dim-1]
   
   // create a lock for when each thread needs to edit shortest_vector
