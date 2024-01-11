@@ -10,14 +10,14 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
   int i, j, k; 
   double mag1;  // stores the norm of each i vector in the following loop
   double mag2;  // stores the norm of each j vector
-  
+
   // iterate through the initial vectors
   for (i = start; i < dim; i++) { 
     mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
     for ( k = 0; k < dim; k++) {
       B[i][k] /= mag1;  // normalising vectors before computing inner proucts helps to reduce inaccuracies caused by double calculations
     }
-    
+
     // calculate the Mu values
     for (j = 0; j < i; j++) {
       mag2 = sqrt(InnerProduct(dim, B[j], B[j]));
@@ -29,12 +29,12 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
         B[j][k] *= mag2;  // normalise before inner product
       }
     }
-    
+
     // reset B[i] to original values
     for (k = 0; k < dim; k++) {
       B[i][k] *= mag1; 
     }
-    
+
     // iterate through the previous vectors
     for (j = 0; j < i; j++) { 
       mag2 = sqrt(InnerProduct(dim, B[j], B[j]));
@@ -47,7 +47,7 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
     }
   }
 }
-  
+
 // when A gets updated, recompute B to be the GramSchmidt orthogonalised version of the updated A, along with the associated Mu values
 void update_matrices(int dim, int start, double **A, double **B, double *Mu) {
   int i, j;
@@ -63,9 +63,8 @@ void update_matrices(int dim, int start, double **A, double **B, double *Mu) {
 
 // Lenstra–Lenstra–Lovász reduce the input matrix A
 void LLL(double delta, int dim, double **A, double **B, double *Mu) {
-
   int i, j, k;  // initialise variables i, j, k
-  
+
   // check the size of A and B
   for (i = 0; i < dim; i++) {
     if (A[i] == NULL || B[i] == NULL) {
@@ -77,13 +76,13 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
       exit(1);
     }
   }
-  
+
   update_matrices(dim, 0, A, B, Mu); 
-    
+
   k = 1;
   bool zero_check = false;  // checks if any vectors are reduced to 0, this can happen if the input vectors are linearly dependent and can result in an infinite loop
   int m = 0;
-	
+
   // iterate through the LLL Reduction steps until:
   // (B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k, and
   // mu_kj<=0.5 for all k, j<k
@@ -109,13 +108,13 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
         m = 0;
       }
     }
-		
+
     // LLL basis reduction requires (B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k
     Mu[(k-1)*k/2+k-1] = InnerProduct(dim, A[k], B[k-1])/InnerProduct(dim, B[k-1], B[k-1]); 
     if (InnerProduct(dim, B[k], B[k]) > ((delta - (Mu[(k-1)*k/2+k-1]*Mu[(k-1)*k/2+k-1])) * InnerProduct(dim, B[k-1], B[k-1]))) {
       k+=1;
     }
-			
+
     else {
       // swap A[k] and A[k-1]
       for (i = 0; i < dim; i++) {
@@ -140,8 +139,3 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
     }
   }
 }
-  
-  
-  
-
-
