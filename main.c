@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
       }
       if (strcmp(endptr, "]") == 0) {
         printf("Error: Incorrect input format\nExpected square matrix\nVector %d is of length %d, should be length %d\n", i+1, j+1, dim);
-        FreeMatrix(dim, &A);	
+        FreeMatrix(dim, &A);
         exit(1);
       }
       else if (strcmp(endptr, "") != 0) {
@@ -117,7 +117,7 @@ int main(int argc, char **argv) {
     if (fclose(result) != 0) {
       perror("Error closing the result file");
       exit(1);
-    }    
+    }
     printf("shortest length: %.4f\n", A[0][0]);
     FreeMatrix(dim, &A);
     return 0;
