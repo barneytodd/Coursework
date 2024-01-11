@@ -16,7 +16,7 @@ void GramSchmidt(int dim, int start, double **B, double *Mu) {
     mag1 = sqrt(InnerProduct(dim, B[i], B[i]));
     // normalising vectors before computing inner proucts helps to reduce floating point inaccuracies
     for (k = 0; k < dim; k++) {
-      B[i][k] /= mag1;  
+      B[i][k] /= mag1;
     }
 
     // calculate the Mu values
@@ -80,13 +80,13 @@ void LLL(double delta, int dim, double **A, double **B, double *Mu) {
   }
 
   update_matrices(dim, 0, A, B, Mu);
-  
+
   int m = 0;
   k = 1;
-  
-  // checks if any vectors are reduced to 0, 
-  //this can happen if the input vectors are linearly dependent and can result in an infinite loop
-  bool zero_check = false;  
+
+  // checks if any vectors are reduced to 0,
+  // this can happen if the input vectors are linearly dependent and can result in an infinite loop
+  bool zero_check = false;
 
   // iterate through the LLL Reduction steps until:
   // (B[k] . B[k]) > (delta - mu_k_k-1) * (B[k-1] . B[k-1]) for every k, and
