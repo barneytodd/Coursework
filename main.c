@@ -29,21 +29,22 @@ int main(int argc, char **argv) {
 
   // check that there are dim^2 + 1 arguments
   if (dim != (int)pow(argc-1, 0.5)) {
-    printf("Error: Incorrect input format\nDimension of first vector: (%d) should equal sqrt(num input arguments): (%d)\n", dim, (int)pow(argc-1, 0.5));
+    printf("Error: Incorrect input format\n");
+    printf("Dimension of first vector: (%d) should equal sqrt(num input arguments): (%d)\n", dim, (int)pow(argc-1, 0.5));
     exit(1);
   }
 
   // initialise the input matrix A
   double **A = (double **)malloc(dim * sizeof(double *));
   if (A == NULL) {
-    perror("Failed to allocate memory for the input matrix");
+    perror("Failed to allocate memory for the input matrix\n");
     exit(1);
   }
   for (i = 0; i < dim; i++) {
     A[i] = (double *)malloc(dim * sizeof(double));
     if (A[i] == NULL) {
       FreeMatrix(i, &A);
-      perror("Failed to allocate memory for the rows of the input matrix");
+      perror("Failed to allocate memory for the rows of the input matrix\n");
       exit(1);
     }
   }
@@ -71,7 +72,8 @@ int main(int argc, char **argv) {
           continue;
         }
       }
-      // check that the each vector has no more than dim elements and that the last element is in the format 'number]'
+      // check that the each vector has no more than dim elements 
+      // and check that the last element is in the format 'number]'
       else if (j == dim-1) {
         A[i][j] = strtod(argv[k], &endptr);
         if (strcmp(endptr, "]") == 0) {
