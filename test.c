@@ -11,7 +11,7 @@
 #include <time.h>
 
 
-// used to determine whether the input matrix is an identity matrix, 
+// used to determine whether the input matrix is an identity matrix,
 // returns the sum of the non-diagonal entries of a row
 double SumArray(int dim, int i, double *arr) {
   int j;
@@ -66,7 +66,7 @@ double Determinant(int dim, double **A, bool *check) {
 }
 
 
-// returns an estimate for an upper bound of the shortest vector length, 
+// returns an estimate for an upper bound of the shortest vector length,
 // using the equation 1.05 * (gamma(n/2+1))^(1/dim)/sqrt(pi) * det(input matrix)^(1/dim)
 double LimitCalc(int dim, double **A) {
   bool det_check = false;   // checks whether determinant has alredy been raised to the power of 1/dim
