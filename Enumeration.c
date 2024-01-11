@@ -6,56 +6,61 @@
 #include <stdlib.h>
 
 // runs the lattice enumeration loop for each thread
-void *Enumerate(void *args) {
-  struct ThreadArgs *thread_args = (struct ThreadArgs *)args;  // restructure the arguments into the form of the struct above
+void *Enumerate(void *args1) {
+  struct ThreadArgs *args = (struct ThreadArgs *)args1;  // restructure the arguments into the form of the struct above
 
-  int x[thread_args->dim], i, j, k, n;  // x stores the number of each basis vector used to reach each lattice point
-  double l[thread_args->dim];  // stores the total contribution squared, of the combination of basis vectors stored in x, in the direction of the ith GS vector
+  // x stores the number of each basis vector used to reach each lattice point
+  int x[args->dim], i, j, k, n;
 
-  for (i = 0; i < thread_args->dim-1; i++) {
+  // stores the total contribution squared, of the combination of basis vectors stored in x, in the direction of the ith GS vector
+  double l[args->dim];
+  
+  for (i = 0; i < args->dim-1; i++) {
     x[i] = 0;
   }
 
   // set x[dim-1] to the thread number, and start with i = dim1
-  x[thread_args->dim-1] = thread_args->num;
-  i = thread_args->dim-1;
+  x[args->dim-1] = args->num;
+  i = args->dim-1;
 
   double sum2;  // stores the sum of x[j] * Mu[j][i] for j>i
   double sum3;  // stores the sum (j>i) of the l[j] values
   double m = 0.0;  // counts the number of iterations of the while loop, needs to be double in case num iterations > max int
-  double max_its = pow(2.0, pow(thread_args->dim-1, 2));  // an upper bound of the number of iterations required
+  double max_its = pow(2.0, pow(args->dim-1, 2));  // an upper bound of the number of iterations required
 
-  double short_vec = *(thread_args->shortest_vector);  // keep the value of the shortest_vector, we may need to adjust if it gets changed by another thread
+  // keep the value of the shortest_vector, we may need to adjust if it gets changed by another thread
+  double short_vec = *(args->shortest_vector);
 
   // max_num may get updated by the other threads
   // in the case that max_num falls below num, we can exit this thread
-  while (*thread_args->max_num >= thread_args->num) {
+  while (*args->max_num >= args->num) {
     // calculate the l[j] values from i upwards
-    for (j = thread_args->dim-1; j >= i; j--) {
+    for (j = args->dim-1; j >= i; j--) {
     sum2 = 0;
-      for (k = j+1; k < thread_args->dim; k++) {
-        sum2 += x[k] * (*(thread_args->Mu))[(k-1)*k/2+j];
+      for (k = j+1; k < args->dim; k++) {
+        sum2 += x[k] * (*(args->Mu))[(k-1)*k/2+j];
       }
-      l[j] = (x[j] + sum2) * (x[j] + sum2) * (*(thread_args->GS_norms))[j];
+      l[j] = (x[j] + sum2) * (x[j] + sum2) * (*(args->GS_norms))[j];
     }
 
     // sum the l[j] values for j>=i
     sum3 = 0;
-    for (j = i; j < thread_args->dim; j++) {
+    for (j = i; j < args->dim; j++) {
       sum3 += l[j];
     }
 
-    if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) {
+    if (sum3 < (*(args->shortest_vector))*(*(args->shortest_vector))) {
       // if i=0 and sum3 < (current shortest vector length)^2, we have a new shortest vector
       if (i == 0) {
         if (sum3 != 0) {
-          pthread_mutex_lock(thread_args->lock);
-          if (sum3 < (*(thread_args->shortest_vector))*(*(thread_args->shortest_vector))) {  // check again whilst inside the lock, to make sure shortest_vector hasn't changed
-            *(thread_args->shortest_vector) = sqrt(sum3);
-            printf("shortest_vector: %.4f\n", *(thread_args->shortest_vector));
-            *(thread_args->max_num) = floor(*(thread_args->shortest_vector)/pow((*(thread_args->GS_norms))[thread_args->dim-1], 0.5));
+          pthread_mutex_lock(args->lock);
+          // check again whilst inside the lock, to make sure shortest_vector hasn't changed
+          if (sum3 < (*(args->shortest_vector))*(*(args->shortest_vector))) {
+            *(args->shortest_vector) = sqrt(sum3);
+            printf("shortest_vector: %.4f\n", *(args->shortest_vector));
+            *(args->max_num) = floor(*(args->shortest_vector)/pow((*(args->GS_norms))[args->dim-1], 0.5));
           }
-          pthread_mutex_unlock(thread_args->lock);
+          pthread_mutex_unlock(args->lock);
         }
         x[0]++;
       }
@@ -65,35 +70,35 @@ void *Enumerate(void *args) {
       else {
         i--;
         sum2 = 0;
-        for (k = i+1; k < thread_args->dim; k++) {
-          sum2 += x[k] * (*(thread_args->Mu))[(k-1)*k/2+i];
+        for (k = i+1; k < args->dim; k++) {
+          sum2 += x[k] * (*(args->Mu))[(k-1)*k/2+i];
         }
         x[i] = round(- sum2);  // the integer which minimises l[i], if this doesn't work then no other integer will
-        l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * (*(thread_args->GS_norms))[i];
+        l[i] = ((double)x[i] + sum2) * ((double)x[i] + sum2) * (*(args->GS_norms))[i];
 
-        if (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3) {
+        if (l[i] < (*(args->shortest_vector)) * (*(args->shortest_vector)) - sum3) {
           // subtract 1 from x[i] until l[i] is no longer < shortest_vector^2 - sum3
           // then add 1 to x[i] to make x[i] the minimum possible integer such that l[i] < shortest_vector^2 - sum3
           n = 0;
           do {
             x[i]--;
             sum2 = 0;
-            for (k = i+1; k < thread_args->dim; k++) {
-              sum2 += x[k] * (*(thread_args->Mu))[(k-1)*k/2+i];
+            for (k = i+1; k < args->dim; k++) {
+              sum2 += x[k] * (*(args->Mu))[(k-1)*k/2+i];
             }
-            l[i] = (x[i] + sum2) * (x[i] + sum2) * (*(thread_args->GS_norms))[i];
+            l[i] = (x[i] + sum2) * (x[i] + sum2) * (*(args->GS_norms))[i];
             n++;
             if (n > 100) {
-              printf("Error: thread %d failed\n", thread_args->num);
-              FreeMatrix(thread_args->dim, thread_args->A);
-              FreeMatrix(thread_args->dim, thread_args->B);
-              free(*(thread_args->Mu));
-              *(thread_args->Mu) = NULL;
-              free(*(thread_args->GS_norms));
-              *(thread_args)-> GS_norms = NULL;
+              printf("Error: thread %d failed\n", args->num);
+              FreeMatrix(args->dim, args->A);
+              FreeMatrix(args->dim, args->B);
+              free(*(args->Mu));
+              *(args->Mu) = NULL;
+              free(*(args->GS_norms));
+              *(args)-> GS_norms = NULL;
               exit(1);
             }
-          } while (l[i] < (*(thread_args->shortest_vector)) * (*(thread_args->shortest_vector)) - sum3);
+          } while (l[i] < (*(args->shortest_vector)) * (*(args->shortest_vector)) - sum3);
           x[i]++;
         }
         else {
@@ -106,14 +111,14 @@ void *Enumerate(void *args) {
     // if sum3 > shortest_vector^2, increase i by 1 and then increase x[i] by 1
     else {
       // if shortest_vector has been changed by another thread, we need to perform some checks
-      if (short_vec != *(thread_args->shortest_vector)) {
-        short_vec = *(thread_args->shortest_vector);
+      if (short_vec != *(args->shortest_vector)) {
+        short_vec = *(args->shortest_vector);
 
-        l[thread_args->dim-2] = pow(x[thread_args->dim-2] + x[thread_args->dim-1] * (*(thread_args->Mu))[(thread_args->dim-2)*(thread_args->dim-1)/2+thread_args->dim-2], 2) * (*(thread_args->GS_norms))[thread_args->dim-2];
+        l[args->dim-2] = pow(x[args->dim-2] + x[args->dim-1] * (*(args->Mu))[(args->dim-2)*(args->dim-1)/2+args->dim-2], 2) * (*(args->GS_norms))[args->dim-2];
 
         // if l[dim-2] + l[dim-1] < shortest_vector^2, then we are fine to carry on from i = dim-2
-        if (l[thread_args->dim-2]+l[thread_args->dim-1] < pow(*(thread_args->shortest_vector), 2)) {
-          i = thread_args->dim-2;
+        if (l[args->dim-2]+l[args->dim-1] < pow(*(args->shortest_vector), 2)) {
+          i = args->dim-2;
           continue;
         }
 
@@ -122,8 +127,8 @@ void *Enumerate(void *args) {
         else {
           // if l[dim-2] calculated with x[dim-2] < l[dim-2] calculated with x[dim-2]-1, then x[dim-2] is below the new accepted range
           // therefore we haven't yet checked the x[dim2] values in the new accepted range, so we reset i to dim-1 and carry on
-          if (l[thread_args->dim-2] < pow((x[thread_args->dim-2]-1) + (x[thread_args->dim-1]-1) * (*(thread_args->Mu))[(k-1)*k/2+j], 2) * (*(thread_args->GS_norms))[thread_args->dim-2]) {
-            i = thread_args->dim-1;
+          if (l[args->dim-2] < pow((x[args->dim-2]-1) + (x[args->dim-1]-1) * (*(args->Mu))[(args->dim-2)*(args>dim-1)/2+args->dim-2], 2) * (*(args->GS_norms))[args->dim-2]) {
+            i = args->dim-1;
             continue;
           }
 
@@ -138,20 +143,20 @@ void *Enumerate(void *args) {
       // otherwise we proceed as normal
       i++;
       // if we're trying to increment x[dim-1], we've reached the end of this thread
-      if (i == thread_args->dim-1) {
+      if (i == args->dim-1) {
         break;
       }
       x[i]++;
     }
     m+=1;
     if (m > max_its) {
-      printf("Error: Enumeration loop for thread %d failed\n", thread_args->num);
-      FreeMatrix(thread_args->dim, thread_args->A);
-      FreeMatrix(thread_args->dim, thread_args->B);
-      free(*(thread_args->Mu));
-      *(thread_args->Mu) = NULL;
-      free(*(thread_args->GS_norms));
-      *(thread_args)-> GS_norms = NULL;
+      printf("Error: Enumeration loop for thread %d failed\n", args->num);
+      FreeMatrix(args->dim, args->A);
+      FreeMatrix(args->dim, args->B);
+      free(*(args->Mu));
+      *(args->Mu) = NULL;
+      free(*(args->GS_norms));
+      *(args)-> GS_norms = NULL;
       exit(1);
     }
   }
