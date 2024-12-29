@@ -1,9 +1,5 @@
 # Shortest Vector Problem
 Programming Paradigms Summative Coursework
 
+##Task Description
 
-To do: 
-error handling,
-see if we can make work for SVP challenge ones,
-see if we can make any more efiicient,
-Report
