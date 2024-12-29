@@ -106,7 +106,7 @@ other unnecessary files will result in your submission being marked down.
 
 #### Submission
 
-Full program source code files for your final solution to the above task as a working C or
+- Full program source code files for your final solution to the above task as a working C or
 C++ program, meeting the above “code and submission specifications” for testing.
 - You must submit the following files:
   - All source and header files that are needed to compile your program.
