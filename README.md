@@ -1,4 +1,4 @@
-# Coursework
+# Shortest Vector Problem
 Programming Paradigms Summative Coursework
 
 
