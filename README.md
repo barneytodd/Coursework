@@ -1,5 +1,6 @@
 # Shortest Vector Problem
 Programming Paradigms Summative Coursework
+See Report.pdf for a description of my solution
 
 ## Task Description
 ### Managing Memory and Time in Future Cryptography: the Shortest Vector Problem
