@@ -1,5 +1,5 @@
 # Shortest Vector Problem
-Programming Paradigms Summative Coursework
+Programming Paradigms Summative Coursework  
 See Report.pdf for a description of my solution
 
 ## Task Description
