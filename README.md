@@ -103,3 +103,21 @@ they are handled by the Gradescope system correctly.
 - Do not submit any extra files. Compressed files, git related files, files produced by the
 Mac operating system if that is what you are using (e.g., DS_Store or other files) or any
 other unnecessary files will result in your submission being marked down.
+
+#### Submission
+
+Full program source code files for your final solution to the above task as a working C or
+C++ program, meeting the above “code and submission specifications” for testing.
+- You must submit the following files:
+  - All source and header files that are needed to compile your program.
+  - A Makefile that has the `all`, `test` and `clean` options and will compile your
+program and generate the `runme` executable.
+  - Report (max. 750 words) detailing your approach to the problem and the success of
+your solution in the task specified. Provide any illustrative figures, diagrams and
+tables (as many as you feel necessary) of the performance of your solution. Any
+diagrams, images, titles, captions, tables, references, and graphs do not count
+towards the total word count of the report. Summarise the success of your system
+in performing the required task, speed during run-time and reducing memory
+requirements. Your report can follow any structure as long as it is clear and easy to
+follow. Submit a PDF (not in any other format). Your submission will be marked
+down if any file format other than a pdf is submitted as the report.
