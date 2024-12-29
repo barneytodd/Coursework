@@ -38,3 +38,68 @@ Given a lattice structure *L* embedded in *n*-dimensional Euclidean space ℝ<su
 Find *v* ∈ *L*, *v* ≠ 0, such that ||*v*||₂ is minimised,
 where ||*v*||₂ is the Euclidean norm of vector *v*, defined as: ||*v*||₂ = (∑<sub>1</sub><sup>n</sup>(*v*ᵢ)²)<sup>1/2</sup>, where *v*ᵢ represents the components of vector *v* in the *n*-dimensional space.
 Your goal is to implement a solution to this problem at an arbitrary number of dimensions *n* with considerations for runtime and memory requirements.
+
+#### Code and Submission Specifications
+
+Your program Your code should run on Linux. A Docker image of Ubuntu 22.04 with
+`apt-get install -y gcc`
+will give you an identical environment to the one used for marking. Alternatively, you can
+use the University Linux system Mira. Failure to do so may result in all marks being lost
+regardless of whether it compiles and runs on your own windows machine. Note the Mira
+might occasionally experience downtime due to maintenance or other potential issues.
+The deadline will not be extended due to issues with Mira or other university provided
+systems. You are able to complete the implementation using the Docker image as
+explained above.
+● You are allowed to use either C or C++ for your implementation.
+● You are not allowed to use any external libraries but you can use all standard headers.
+Only use the headers that are needed. Do include what is not necessary as that will affect
+your marks.
+● You may have as many source files and headers files as you need - considering that your
+code should be organised well and easy to follow - but your program should be run via an
+executable called `runme`, which should be produced by your program. This executable
+should only be called `runme` and should not have any extensions.
+● You will need to include a Makefile and your Makefile should include an `all` option,
+which compiles all the necessary source files and headers that you submit and creates an
+executable `runme`. Our automated marking script will try to compile your program to get
+the executable by running the command `make all`.
+● Your Makefile will be marked for functionality, clarity and correctness. Your Makefile
+should also contain `test` and `clean` options that respectively test the program with a
+known lattice and clean the compile environment.
+● Your executable should be able to receive an arbitrary number of input arguments. These
+input arguments will correspond to the basis vectors that define the lattice. For instance,
+your program will be tested by running the following command:
+`./runme [1.0 0.0 0.0] [0.0 1.0 0.0] [0.0 0.0 1.0]`
+In this example, I have passed three three-dimensional basis vectors as inputs to
+your program. Other more complex vectors will be used to test your submission.
+● The arguments will be passed and should be read in the format of the example you see
+above. There will always be the same number of input vectors as their dimensions. Your
+program should parse the arguments, infer the number of dimensions, and solve the
+shortest vector problem.
+● Your program should be able to handle incorrect argument formats and numbers.
+● The basis vectors passed in as input arguments to define the lattice can have real
+numbers as their components.
+● The output of your program should be the length (� norm) of the shortest vector as a
+2
+scalar. You should not output the vector components but just the length. Your program
+must save the output of your program in a text file called `result.txt`. Your program
+should create this text file and just save one number, the final answer that your program
+generates, in that file.
+● Some of these code specifications will be checked automatically on Gradescope after you
+submit your files. If Gradescope is showing that you have submitted your files in the
+wrong format and they cannot be run, this means that your assignment will not be
+marked, and you will receive a mark of zero. Make sure you submit your files well
+before the deadline to make sure that they are in the right format, and you have time to
+re-adjust so they can be run correctly. Do not ignore the errors and warnings from
+Gradescope.
+● If your program does not compile and generate the correct executable named ./runme
+and is not run via the command (with this of different arguments passed in this format)
+`./runme [1.0 0.0 0.0] [0.0 1.0 0.0] [0.0 0.0 1.0]`
+or does not generate the `result.txt` file with the final solution inside, you will lose
+marks or might get a mark of zero.
+You are responsible for how your submission files are uploaded to Gradescope – e.g., by
+zipping and submitting everything or submitting files individually. No guidance is provided
+on this matter. Make sure you submit your files well before the deadline to make sure that
+they are handled by the Gradescope system correctly.
+● Do not submit any extra files. Compressed files, git related files, files produced by the
+Mac operating system if that is what you are using (e.g., DS_Store or other files) or any
+other unnecessary files will result in your submission being marked down.
